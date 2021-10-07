@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
+    <style>
+        :root{
+            --text-color: rgba(255, 255, 255, 0.904);
+        }
+        main{
+            width: 100%;
+            height: 97vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .mainContainer{
+            padding: 10px;
+            box-shadow: 0px 3px 5px 0px rgba(172, 124, 124, 0.4);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .mainContainer h1{
+            margin-top: 10px;
+            border: none;
+            outline: none;
+            font-size: 2.5rem;
+            font-family: Alef;
+            cursor: default;
+            padding-left: 5px;
+            background-color: transparent;
+        }
+        .mainContainer button{
+            margin-top: 10px;
+            border: none;
+            outline: none;
+            font-size: 1.4rem;
+            padding: 7px;
+            background-color: transparent;
+        }
+        .mainContainer button:hover{
+            background-color: rgba(240, 240, 240, 1);
+            cursor: pointer;
+        }
+
+
+        /*Editor Styles*/
+        .container{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .editorR{
+            width: 800px;
+            height: 400px;
+            background-color: rgb(255, 255, 255);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .toolbar{
+            display: flex;
+            flex-direction: row;
+        }
+        .toolbar .selectComponent{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 110px;
+            height: 23px;
+            padding: 4px;
+            margin-right: 4px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-family: sans-serif;
+            border: 1px solid #333;
+            position: relative;
+        }
+        .toolbar select{
+            width: 110px;
+            height: 33px;
+            padding: 4px;
+            margin-right: 4px;
+            border-radius: 4px;
+            font-family: sans-serif;
+        }
+        .toolbar select::-webkit-scrollbar{
+            width: 8px;
+        }
+        .toolbar select::-webkit-scrollbar-thumb{
+            background-color: rgb(160, 155, 155);
+        }
+        .toolbar .bt{
+            margin-right: 4px;
+            margin-top: 1px;
+            border-radius: 2px;
+            font-size: 1.1rem;
+            background-color: rgba(255, 255, 255, 0);
+            border: none;
+            height:32px;
+        }
+        .paragraphContainer{
+            width: 582px;
+            height: 300px;
+            margin-left: 5px;
+            overflow: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        pre{
+            outline: none;
+        }
+        pre:hover{
+            background-color: rgb(207, 202, 202);
+        }
+        .kpaction{
+            background-color: rgb(207, 202, 202);
+        }
+
+        .bol{font-weight: bold;}
+        .k{font-style: italic;}
+        .au{text-decoration: underline;}
+        .am{text-decoration: line-through;}
+        .aum{text-decoration: underline line-through;}
+
+        .footerButtons{
+            margin-top: 5px;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            width: 100%;
+        }
+        .footerButtons button{
+            border: none;
+            width: 100px;
+            height: 40px;
+            font-family: Alef;
+        }
+        .footerButtons button:hover{
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="mainContainer" id="con">
+            <h1>Kopiarka Plików</h1>
+            <button id="powerFile">Rozpocznij</button>
+        </div>
+    </main>
+    <script src="nic2.js"></script>
+    <script>
+        const pFile = document.querySelector("#powerFile");
+        let filesArray = [];
+        function runningSuperEditor(files, htmElement){
+            htmElement.querySelector("#dialogStart").remove();
+            htmElement.insertAdjacentHTML('beforeend',
+            `<div class="container">
+            <div class="editorR">
+                <div class="toolbar" id="ToolBar">
+                    <input type="color" style="border:none;background-color: transparent;width:60px;height:30px;"/>
+                    <div id="sec" class="selectComponent">
+                        <span>Wybierz Czcionkę</span>
+                    </div>
+                    <select id="cz">
+                        <option value="12">6 pkt</option>
+                        <option value="14">7 pkt</option>
+                        <option value="16">8 pkt</option>
+                        <option value="18">9 pkt</option>
+                        <option value="20">10 pkt</option>
+                        <option value="22">11 pkt</option>
+                        <option value="24">12 pkt</option>
+                        <option value="26">13 pkt</option>
+                        <option value="28">14 pkt</option>
+                        <option value="30">15 pkt</option>
+                        <option value="32">16 pkt</option>
+                        <option value="36">18 pkt</option>
+                        <option value="40">20 pkt</option>
+                        <option value="44">22 pkt</option>
+                        <option value="48">24 pkt</option>
+                        <option value="52">26 pkt</option>
+                        <option value="56">28 pkt</option>
+                        <option value="64">32 pkt</option>
+                        <option value="72">36 pkt</option>
+                        <option value="80">40 pkt</option>
+                        <option value="88">44 pkt</option>
+                        <option value="96">48 pkt</option>
+                        <option value="108">54 pkt</option>
+                        <option value="120">60 pkt</option>
+                        <option value="132">66 pkt</option>
+                        <option value="144">72 pkt</option>
+                        <option value="160">80 pkt</option>
+                        <option value="176">88 pkt</option>
+                        <option value="192">96 pkt</option>
+                    </select>
+                    <button style="font-weight: 800;line-height:90%;" class="bt" id="bol">B</button>
+                    <button style="font-style: italic;" class="bt" id="k">K</button>
+                    <button style="text-decoration: underline;" class="bt" id="au">A</button>
+                    <button style="text-decoration: line-through;" class="bt" id="am">A</button>
+                    <button style="text-decoration: underline line-through;" class="bt" id="aum">A</button>
+                </div>
+                <div id="pCC" class="paragraphContainer"></div>
+            </div>
+            <div class="footerButtons">
+                <button>Anuluj</button>
+                <button>Generuj</button>
+            </div>
+        </div>`);
+            start(files[0], htmElement.querySelector("#z"));
+    }
+        pFile.addEventListener('click', ()=>{
+            document.querySelectorAll("button").forEach(b =>{b.remove()})
+            
+            let dialogStart = document.createElement("div");
+            dialogStart.id = "dialogStart"
+            dialogStart.style.display = "flex";
+            dialogStart.style.flexDirection = "column";
+            dialogStart.style.width = "100%";
+            dialogStart.style.zIndex = "30";
+            dialogStart.style.backgroundColor = "rgb(255, 255, 255)";
+
+            const countFileContainer = document.createElement("div");
+            countFileContainer.style.display = "flex";
+            countFileContainer.style.flexDirection = "row";
+            countFileContainer.style.marginTop = "20px";
+            countFileContainer.insertAdjacentHTML('afterbegin',
+            `<label style="margin-right:10px;margin-top:9px;font-size:20px;
+            text-align:center;font-family:Alef;">Ile plików zrobić?</label>
+            <input type="text" value="0" id="z" style="width:100px;height:40px;border:1px solid rgba(10, 10, 10, 0.3);
+            outline:none;text-align:center;font-size:29px;margin-left:6px;"></input>`);
+
+            dialogStart.appendChild(countFileContainer);
+            const buttonsContainer = document.createElement("div");
+            buttonsContainer.style.width = "100%";
+            buttonsContainer.style.display = "flex";
+            buttonsContainer.style.flexDirection = "row";
+            buttonsContainer.style.justifyContent = "flex-end";
+            buttonsContainer.style.marginTop = "10px";
+            const nextButton = document.createElement("button");
+            nextButton.textContent = "Dalej";
+            nextButton.style.fontFamily = "Alef";
+            nextButton.style.width = "90px";
+            nextButton.style.height = "45px";
+            nextButton.setAttribute("disabled", "");
+
+            if (window.File && window.FileReader && window.FileList && window.Blob) {
+
+                const dragAndDropContainer = document.createElement("div");
+                dragAndDropContainer.style.width = "100%";
+                dragAndDropContainer.style.marginTop = "10px";
+                const dragAndDrop = document.createElement("div");
+                dragAndDrop.style.width = "100%";
+                dragAndDrop.style.height = "200px";
+                dragAndDrop.style.border = "2px dashed rgba(10, 10, 10, 0.3)";
+                dragAndDrop.textContent = "Przeciągnij i upuść tutaj plik(.docx).";
+                dragAndDrop.style.textAlign = "center";
+                dragAndDrop.style.display = "flex";
+                dragAndDrop.style.justifyContent = "center";
+                dragAndDrop.style.alignItems = "center";
+                dragAndDrop.style.fontSize = "1.3rem";
+                dragAndDrop.style.fontFamily = "Alef";
+                dragAndDrop.style.color = "rgba(2, 2, 2, .6)";
+                dragAndDrop.style.cursor = "default";
+                dragAndDrop.addEventListener("dragenter", (e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
+                });
+                dragAndDrop.addEventListener("dragleave", (e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+                });
+                dragAndDrop.addEventListener("dragover", (e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                });
+                dragAndDrop.addEventListener("drop",(e)=>{
+                    e.preventDefault();
+                    e.stopPropagation();
+                    e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+                    if(e.dataTransfer.files.length > 0){
+                        nextButton.removeAttribute("disabled");
+                        filesArray = e.dataTransfer.files;
+                        dragAndDrop.textContent = filesArray[0].name;
+                    }
+                    
+                });
+                dragAndDropContainer.appendChild(dragAndDrop);
+                dialogStart.appendChild(dragAndDropContainer);
+                nextButton.addEventListener("click", ()=>{
+                    runningSuperEditor(filesArray, document.querySelector("#con"));
+                })
+            }
+            buttonsContainer.appendChild(nextButton);
+            dialogStart.appendChild(buttonsContainer);
+            document.querySelector("#con").appendChild(dialogStart);
+        })
+    </script>
+</body>
+</html>

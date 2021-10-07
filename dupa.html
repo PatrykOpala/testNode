@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style type="text/css" media="screen, print">
+        @font-face{font-family: Rockwell Extra Bold; src: local("Rockwell Extra Bold");}
+        @font-face{font-family: 18thCentury; src: local("18thCentury");}
+        @font-face{font-family: AcmeFont; src: local("AcmeFont");}@font-face{font-family: Agency FB; src: local("Agency FB");}@font-face{font-family: Aharoni; src: local("Aharoni");}@font-face{font-family: Aldhabi; src: local("Aldhabi");}@font-face{font-family: Alef; src: local("Alef");}@font-face{font-family: Alfredo; src: local("Alfredo");}@font-face{font-family: Algerian; src: local("Algerian");}@font-face{font-family: Alien Encounters; src: local("Alien Encounters");}@font-face{font-family: Almonte Snows; src: local("Almonte Snows");}@font-face{font-family: Amethyst; src: local("Amethyst");}@font-face{font-family: Amiri; src: local("Amiri");}@font-face{font-family: Amiri Quran; src: local("Amiri Quran");}@font-face{font-family: Andalus; src: local("Andalus");}@font-face{font-family: Angsana New; src: local("Angsana New");}@font-face{font-family: AngsanaUPC; src: local("AngsanaUPC");} @font-face{font-family: Aparajita; src: local("Aparajita");}@font-face{font-family: Arabic Typesetting; src: local("Arabic Typesetting");}@font-face{font-family: Arial; src: local("Arial");}@font-face{font-family: Arial Black; src: local("Arial Black");}@font-face{font-family: Arial Narrow; src: local("Arial Narrow");}@font-face{font-family: Arial Rounded MT Bold; src: local("Arial Rounded MT Bold");}@font-face{font-family: Arial Unicode MS; src: local("Arial Unicode MS");}@font-face{font-family: Asimov; src: local("Asimov");}@font-face{font-family: Autumn; src: local("Autumn");}
+        @font-face{font-family: Baby Kruffy; src: local("Baby Kruffy");}@font-face{font-family: Balthazar; src: local("Balthazar");}@font-face{font-family: Baskerville Old Face; src: local("Baskerville Old Face");}@font-face{font-family: Bastion; src: local("Bastion");}@font-face{font-family: Batang; src: local("Batang");}@font-face{font-family: BatangChe; src: local("BatangChe");}@font-face{font-family: Bauhaus 93; src: local("Bauhaus 93");}@font-face{font-family: Bell MT;src: local("Bell MT");}@font-face{font-family: Berlin Sans FB;src: local("Berlin Sans FB");}@font-face{font-family: Berlin Sans FB Demi;src: local("Berlin Sans FB Demi");}@font-face{font-family: Bernard MT Condensed;src: local("Bernard MT Condensed");}@font-face{font-family: Blackadder ITC;src: local("Blackadder ITC");}@font-face{font-family: BN Jinx;src: local("BN Jinx")}@font-face{font-family: BN Machine;src: local("BN Machine");}@font-face{font-family: Bobcat;src: local("Bobcat");}@font-face{font-family: Bodoni MT;src: local("Bodoni MT");}@font-face{font-family: Bodoni MT Black;src: local("Bodoni MT Black");}@font-face{font-family: Bodoni MT Condensed;src: local("Bodoni MT Condensed");}@font-face{font-family: Bodoni MT Poster Compressed;src: local("Bodoni MT Poster Compressed");}@font-face{font-family: BolsterBold; src: local("BolsterBold");}@font-face{font-family: Book Antiqua;src: local("Book Antiqua"); }@font-face{font-family: Bookman Old Style;src: local("Bookman Old Style");}@font-face{font-family: Bookshelf Symbol 7;src: local("Bookshelf Symbol 7");}@font-face{font-family: Borealis;src: local("Borealis");}@font-face{font-family: BOUTON International Symbols;src: local("BOUTON International Symbols");}@font-face{font-family: Bradley Hand ITC;src: local("Bradley Hand ITC");}@font-face{font-family: Brandish; src: local("Brandish");}@font-face{font-family: Britannic Bold; src: local("Britannic Bold");}@font-face{font-family: Broadway; src: local("Broadway");}@font-face{font-family: Browallia New; src: local("Browallia New");}@font-face{font-family: BrowalliaUPC; src: local("BrowalliaUPC");}@font-face{font-family: Brush Script MT; src: local("Brush Script MT");}@font-face{font-family: Brussels; src: local("Brussels");}
+        @font-face{font-family: Caladea; src: local("Caladea");}@font-face{font-family: Calibri; src: local("Calibri");}@font-face{font-family: Calibri Light; src: local("Calibri Light");}@font-face{font-family: Californian FB; src: local("Californian FB");}@font-face{font-family: Calisto MT; src: local("Calisto MT");}@font-face{font-family: Calligraphic; src: local("Calligraphic");}@font-face{font-family: Calvin; src: local("Calvin");}@font-face{font-family: Cambria; src: local("Cambria");}@font-face{font-family: Cambria Math; src: local("Cambria Math");}@font-face{font-family: Candara; src: local("Candara");}@font-face{font-family: Candles; src: local("Candles");}@font-face{font-family: Carlito; src: local("Carlito");}@font-face{font-family: Castellar; src: local("Castellar");}@font-face{font-family: Centaur; src: local("Centaur");}@font-face{font-family: Century; src: local("Century");}@font-face{font-family: Century Gothic; src: local("Century Gothic");}@font-face{font-family: Century Schoolbook; src: local("Century Schoolbook");}@font-face{font-family: Chiller; src: local("Chiller");}@font-face{font-family: Chinyen; src: local("Chinyen");}@font-face{font-family: Clarendon; src: local("Clarendon");}@font-face{font-family: Colbert; src: local("Colbert");}@font-face{font-family: Colonna MT; src: local("Colonna MT");}@font-face{font-family: Comic Sans MS; src: local("Comic Sans MS");}@font-face{font-family: Commons; src: local("Commons");}@font-face{font-family: Consolas; src: local("Consolas");}@font-face{font-family: Constantia; src: local("Constantia");}@font-face{font-family: Coolsville; src: local("Coolsville");}@font-face{font-family: Cooper Black; src: local("Cooper Black");}@font-face{font-family: Copperplate Gothic Bold; src: local("Copperplate Gothic Bold");}@font-face{font-family: Copperplate Gothic Light;src: local("Copperplate Gothic Light");}@font-face{font-family: Corbel;src: local("Corbel");}@font-face{font-family: Cordia New;src: local("Cordia New");}@font-face{font-family: CordiaUPC;src: local("CordiaUPC");}@font-face{font-family: Corporate;src: local("Corporate");}@font-face{font-family: Courier New;src: local("Courier New");}@font-face{font-family: Cracked Johnnie;src: local("Cracked Johnnie");}@font-face{font-family: Creepygirl;src: local("Creepygirl");}@font-face{font-family: Curlz MT;src: local("Curlz MT");}
+        @font-face{font-family: DaunPenh;src: local("DaunPenh");}@font-face{font-family: David;src: local("David");}@font-face{font-family: David CLM;src: local("David CLM");}@font-face{font-family: David Libre;src: local("David Libre");}@font-face{font-family: Dayton;src: local("Dayton");}@font-face{font-family: DejaVu Math TeX Gyre;src: local("DejaVu Math TeX Gyre");}@font-face{font-family: DejaVu Sans;src: local("DejaVu Sans");}@font-face{font-family: DejaVu Sans Condensed;src: local("DejaVu Sans Condensed");}@font-face{font-family: DejaVu Sans Light;src: local("DejaVu Sans Light");}@font-face{font-family: DejaVu Sans Monot;src: local("DejaVu Sans Mono");}@font-face{font-family: DejaVu Serif;src: local("DejaVu Serif");}@font-face{font-family: DejaVu Serif Condensed;src: local("DejaVu Serif Condensed");}@font-face{font-family: Deneane;src: local("Deneane");}@font-face{font-family: Detente;src: local("Detente");}@font-face{font-family: DFKai-SB;src: local("DFKai-SB");}@font-face{font-family: Digifit;src: local("Digifit");}@font-face{font-family: DilleniaUPC;src: local("DilleniaUPC");}@font-face{font-family: Distant Galaxy;src: local("Distant Galaxy");}@font-face{font-family: DokChampa;src: local("DokChampa");}@font-face{font-family: Dominican;src: local("Dominican");}@font-face{font-family: Dotum;src: local("Dotum");}@font-face{font-family: DotumChe;src: local("DotumChe");}@font-face{font-family: Dubai;src: local("Dubai");}@font-face{font-family: Dubai Light;src: local("Dubai Light");}@font-face{font-family: Dubai Medium;src: local("Dubai Medium");}
+        @font-face{font-family: Ebrima;src: local("Ebrima");}@font-face{font-family: Edwardian Script ITC;src: local("Edwardian Script ITC");}@font-face{font-family: Elephant;src: local("Elephant");}@font-face{font-family: Emmett;src: local("Emmett");}@font-face{font-family: EmojiOne Color;src: local("EmojiOne Color");}@font-face{font-family: Engravers MT;src: local("Engravers MT");}@font-face{font-family: Enliven;src: local("Enliven");}@font-face{font-family: Eras Bold ITC;src: local("Eras Bold ITC");}@font-face{font-family: Eras Demi ITC;src: local("Eras Demi ITC");}@font-face{font-family: Eras Light ITC;src: local("Eras Light ITC");}@font-face{font-family: Eras Medium ITC;src: local("Eras Medium ITC");}@font-face{font-family: Estrangelo Edessa;src: local("Estrangelo Edessa");}@font-face{font-family: Ethnocentric;src: local("Ethnocentric");}@font-face{font-family: EucrosiaUPC;src: local("EucrosiaUPC");}@font-face{font-family: Euphemia;src: local("Euphemia");}
+        @font-face{font-family: FangSong;src: local("FangSong");}@font-face{font-family: Felix Titling;src: local("Felix Titling");}@font-face{font-family: Fingerpop;src: local("Fingerpop");}@font-face{font-family: Flubber;src: local("Flubber");}@font-face{font-family: Footlight MT Light;src: local("Footlight MT Light");}@font-face{font-family: Forte;src: local("Forte");}@font-face{font-family: Frank Ruehl CLM;src: local("Frank Ruehl CLM");}@font-face{font-family: Frank Ruhl Hofshi;src: local("Frank Ruhl Hofshi");}@font-face{font-family: Frankfurter Venetian TT;src: local("Frankfurter Venetian TT");}@font-face{font-family: Franklin Gothic Book;src: local("Franklin Gothic Book");}@font-face{font-family: Franklin Gothic Demi;src: local("Franklin Gothic Demi");}@font-face{font-family: Franklin Gothic Demi Cond;src: local("Franklin Gothic Demi Cond");}@font-face{font-family: Franklin Gothic Heavy;src: local("Franklin Gothic Heavy");}@font-face{font-family: Franklin Gothic Medium;src: local("Franklin Gothic Medium");}@font-face{font-family: Franklin Gothic Medium Cond;src: local("Franklin Gothic Medium Cond");}@font-face{font-family: FrankRuehl;src: local("FrankRuehl");}@font-face{font-family: FreesiaUPC;src: local("FreesiaUPC");}@font-face{font-family: Freestyle Script;src: local("Freestyle Script");}@font-face{font-family: French Script MT;src: local("French Script MT");}
+        @font-face{font-family: Gabriola;src: local("Gabriola");}@font-face{font-family: Garamond;src: local("Garamond");}@font-face{font-family: Gadugi;src: local("Gadugi");}@font-face{font-family: Gautami;src: local("Gautami");}@font-face{font-family: Gazzarelli;src: local("Gazzarelli");}@font-face{font-family: Gentium Basic;src: local("Gentium Basic");}@font-face{font-family: Gentium Book Basic;src: local("Gentium Book Basic");}@font-face{font-family: Georgia;src: local("Georgia");}@font-face{font-family: Geotype TT;src: local("Geotype TT");}@font-face{font-family: Gigi;src: local("Gigi");}@font-face{font-family: Gill Sans MT;src: local("Gill Sans MT");}@font-face{font-family: Gill Sans MT Condensed;src: local("Gill Sans MT Condensed");}@font-face{font-family: Gill Sans MT Ext Condensed Bold;src: local("Gill Sans MT Ext Condensed Bold");}@font-face{font-family: Gill Sans Ultra Bold;src: local("Gill Sans Ultra Bold");}@font-face{font-family: Gill Sans Ultra Bold Condensed;src: local("Gill Sans Ultra Bold Condensed");}@font-face{font-family: Gisha;src: local("Gisha");}@font-face{font-family: Glockenspiel;src: local("Glockenspiel");}@font-face{font-family: Gloucester MT Extra Condensed;src: local("Gloucester MT Extra Condensed");}@font-face{font-family: Good Times;src: local("Good Times");}@font-face{font-family: Goudy Old Style;src: local("Goudy Old Style");}@font-face{font-family: Goudy Stout;src: local("Goudy Stout");}@font-face{font-family: Greek Diner Inline TT;src: local("Greek Diner Inline TT");}@font-face{font-family: Gulim;src: local("Gulim");}@font-face{font-family: GulimChe;src: local("GulimChe");}@font-face{font-family: Gungsuh;src: local("Gungsuh");}@font-face{font-family: GungsuhChe;src: local("GungsuhChe");}
+        @font-face{font-family: Haettenschweiler;src: local("Haettenschweiler");}@font-face{font-family: Hand Me Down S (BRK);src: local("Hand Me Down S (BRK)");}@font-face{font-family: Hansen;src: local("Hansen");}@font-face{font-family: Harlow Solid Italic;src: local("Harlow Solid Italic");}@font-face{font-family: Harrington;src: local("Harrington");}@font-face{font-family: Harvest;src: local("Harvest");}@font-face{font-family: HarvestItal;src: local("HarvestItal");}@font-face{font-family: Haxton Logos TT;src: local("Haxton Logos TT");}@font-face{font-family: Heavy Heap;src: local("Heavy Heap");}@font-face{font-family: High Tower Text;src: local("High Tower Text");}@font-face{font-family: Hollywood Hills;src: local("Hollywood Hills");}@font-face{font-family: Hombre;src: local("Hombre");}@font-face{font-family: HP Simplified;src: local("HP Simplified");}@font-face{font-family: HP Simplified Light;src: local("HP Simplified Light");}@font-face{font-family: Huxley Titling;src: local("Huxley Titling");}
+        @font-face{font-family: Impact;src: local("Impact");}
+        @font-face{font-family: Imprint MT Shadow;src: local("Imprint MT Shadow");}
+        @font-face{font-family: Induction;src: local("Induction");}
+        @font-face{font-family: Informal Roman;src: local("Informal Roman");}
+        @font-face{font-family: IrisUPC;src: local("IrisUPC");}
+        @font-face{font-family: Iskoola Pota;src: local("Iskoola Pota");}
+        @font-face{font-family: Italianate;src: local("Italianate");}
+        @font-face{font-family: JasmineUPC;src: local("JasmineUPC");}
+        @font-face{font-family: Javanese Text;src: local("Javanese Text");}
+        @font-face{font-family: Jokerman;src: local("Jokerman");}
+        @font-face{font-family: Juice ITC;src: local("Juice ITC");}
+        @font-face{font-family: KacstBook;src: local("KacstBook");}
+        @font-face{font-family: KacstOffice;src: local("KacstOffice");}
+        @font-face{font-family: KaiTi;src: local("KaiTi");}
+        @font-face{font-family: Kalinga;src: local("Kalinga");}
+        @font-face{font-family: Kartika;src: local("Kartika");}
+        @font-face{font-family: Khmer UI;src: local("Khmer UI");}
+        @font-face{font-family: KodchiangUPC;src: local("KodchiangUPC");}
+        @font-face{font-family: Kokila;src: local("Kokila");}
+        @font-face{font-family: Kristen ITC;src: local("Kristen ITC");}
+        @font-face{font-family: Kunstler Script;src: local("Kunstler Script");}
+        @font-face{font-family: Lao UI;src: local("Lao UI");}
+        @font-face{font-family: Latha;src: local("Latha");}
+        @font-face{font-family: Leelawadee;src: local("Leelawadee");}
+        @font-face{font-family: Leelawadee UI;src: local("Leelawadee UI");}
+        @font-face{font-family: Leelawadee UI Semilight;src: local("Leelawadee UI Semilight");}
+        @font-face{font-family: LetterOMatic!;src: local("LetterOMatic!");}
+        @font-face{font-family: Levenim MT;src: local("Levenim MT");}
+        @font-face{font-family: Liberation Mono;src: local("Liberation Mono");}
+        @font-face{font-family: Liberation Sans;src: local("Liberation Sans");}
+        @font-face{font-family: Liberation Sans Narrow;src: local("Liberation Sans Narrow");}
+        @font-face{font-family: Liberation Serif;src: local("Liberation Serif");}
+        @font-face{font-family: LilyUPC;src: local("LilyUPC");}
+        @font-face{font-family: Limousine;src: local("Limousine");}
+        @font-face{font-family: Linux Biolinum G;src: local("Linux Biolinum G");}
+        @font-face{font-family: Linux Libertine Display G;src: local("Linux Libertine Display G");}
+        @font-face{font-family: Linux Libertine G;src: local("Linux Libertine G");}
+        @font-face{font-family: LittleLordFontleroy;src: local("LittleLordFontleroy");}
+        @font-face{font-family: Lucida Bright;src: local("Lucida Bright");}@font-face{font-family: Lucida Calligraphy;src: local("Lucida Calligraphy");}@font-face{font-family: Lucida Console;src: local("Lucida Console");}@font-face{font-family: Lucida Fax;src: local("Lucida Fax");}@font-face{font-family: Lucida Handwriting;src: local("Lucida Handwriting");}@font-face{font-family: Lucida Sans;src: local("Lucida Sans");}@font-face{font-family: Lucida Sans Typewriter;src: local("Lucida Sans Typewriter");}@font-face{font-family: Lucida Sans Unicode;src: local("Lucida Sans Unicode");}
+        @font-face{font-family: Mael;src: local("Mael");}
+        @font-face{font-family: Magneto;src: local("Magneto");}
+        @font-face{font-family: Maiandra GD;src: local("Maiandra GD");}
+        @font-face{font-family: Malgun Gothic;src: local("Malgun Gothic");}
+        @font-face{font-family: Mangal;src: local("Mangal");}@font-face{font-family: Manorly;src: local("Manorly");}@font-face{font-family: Marlett;src: local("Marlett");}@font-face{font-family: Martina;src: local("Martina");}@font-face{font-family: Matura MT Script Capitals;src: local("Matura MT Script Capitals");}
+        @font-face{font-family: Meiryo;src: local("Meiryo");}@font-face{font-family: Meiryo UI;src: local("Meiryo UI");}@font-face{font-family: MelodBold;src: local("MelodBold");}
+        @font-face{font-family: Microsoft Himalaya;src: local("Microsoft Himalaya");}@font-face{font-family: Microsoft JhengHei;src: local("Microsoft JhengHei");}@font-face{font-family: Microsoft JhengHei Light;src: local("Microsoft JhengHei Light");}@font-face{font-family: Microsoft JhengHei UI;src: local("Microsoft JhengHei UI");}@font-face{font-family: Microsoft JhengHei UI Light;src: local("Microsoft JhengHei UI Light");}@font-face{font-family: Microsoft New Tai Lue;src: local("Microsoft New Tai Lue");}@font-face{font-family: Microsoft PhagsPa;src: local("Microsoft PhagsPa");}@font-face{font-family: Microsoft Sans Serif;src: local("Microsoft Sans Serif");}@font-face{font-family: Microsoft Tai Le;src: local("Microsoft Tai Le");}@font-face{font-family: Microsoft Uighur;src: local("Microsoft Uighur");}@font-face{font-family: Microsoft YaHei;src: local("Microsoft YaHei");}@font-face{font-family: Microsoft YaHei Light;src: local("Microsoft YaHei Light");}@font-face{font-family: Microsoft YaHei UI;src: local("Microsoft YaHei UI");}@font-face{font-family: Microsoft YaHei UI Light;src: local("Microsoft YaHei UI Light");}@font-face{font-family: Microsoft Yi Baiti;src: local("Microsoft Yi Baiti");}
+        @font-face{font-family: Minerva;src: local("Minerva");}
+        @font-face{font-family: MingLiU;src: local("MingLiU");}@font-face{font-family: MingLiU-ExtB;src: local("MingLiU-ExtB");}@font-face{font-family: MingLiU_HKSCS;src: local("MingLiU_HKSCS");}@font-face{font-family: MingLiU_HKSCS-ExtB;src: local("MingLiU_HKSCS-ExtB");}
+        @font-face{font-family: Miriam;src: local("Miriam");}@font-face{font-family: Miriam CLM;src: local("Miriam CLM");}@font-face{font-family: Miriam Fixed;src: local("Miriam Fixed");}@font-face{font-family: Miriam Libre;src: local("Miriam Libre");}@font-face{font-family: Miriam Mono CLM;src: local("Miriam Mono CLM");}
+        @font-face{font-family: Mistral;src: local("Mistral");}
+        @font-face{font-family: Modern No;src: local("Modern No. 20");}
+        @font-face{font-family: Mongolian Baiti;src: local("Mongolian Baiti");}
+        @font-face{font-family: Monotype Corsiva;src: local("Monotype Corsiva");}
+        @font-face{font-family: MoolBoran;src: local("MoolBoran");}
+        @font-face{font-family: Moonbeam;src: local("Moonbeam");}
+        @font-face{font-family: MS Gothic;src: local("MS Gothic");}@font-face{font-family: MS Mincho;src: local("MS Mincho");}@font-face{font-family: MS Outlook;src: local("MS Outlook");}@font-face{font-family: MS PGothic;src: local("MS PGothic");}@font-face{font-family: MS PMincho;src: local("MS PMincho");}@font-face{font-family: MS Reference Sans Serif;src: local("MS Reference Sans Serif");}@font-face{font-family: MS Reference Specialty;src: local("MS Reference Specialty");}@font-face{font-family: MS UI Gothic;src: local("MS UI Gothic");}
+        @font-face{font-family: MT Extra;src: local("MT Extra");}
+        @font-face{font-family: MV Boli;src: local("MV Boli");}
+        @font-face{font-family: Myanmar Text;src: local("Myanmar Text");}
+        @font-face{font-family: Mycalc;src: local("Mycalc");}
+        @font-face{font-family: Nachlieli CLM;src: local("Nachlieli CLM");}@font-face{font-family: Narkisim;src: local("Narkisim");}@font-face{font-family: Nasalization;src: local("Nasalization");}
+        @font-face{font-family: Neon Lights;src: local("Neon Lights");}
+        @font-face{font-family: Niagara Engraved;src: local("Niagara Engraved");}@font-face{font-family: Niagara Solid;src: local("Niagara Solid");}@font-face{font-family: Nirmala UI;src: local("Nirmala UI");}@font-face{font-family: Nirmala UI Semilight;src: local("Nirmala UI Semilight");}
+        @font-face{font-family: Noto Kufi Arabic;src: local("Noto Kufi Arabic");}@font-face{font-family: Noto Mono;src: local("Noto Mono");}@font-face{font-family: Noto Naskh Arabic;src: local("Noto Naskh Arabic");}@font-face{font-family: Noto Naskh Arabic UI;src: local("Noto Naskh Arabic UI");}@font-face{font-family: Noto Sans;src: local("Noto Sans");}@font-face{font-family: Noto Sans Arabic;src: local("Noto Sans Arabic");}@font-face{font-family: Noto Sans Arabic UI;src: local("Noto Sans Arabic UI");}@font-face{font-family: Noto Sans Armenian;src: local("Noto Sans Armenian");}@font-face{font-family: Noto Sans Cond;src: local("Noto Sans Cond");}@font-face{font-family: Noto Sans Georgian;src: local("Noto Sans Georgian");}@font-face{font-family: Noto Sans Hebrew;src: local("Noto Sans Hebrew");}@font-face{font-family: Noto Sans Lao;src: local("Noto Sans Lao");}@font-face{font-family: Noto Sans Light;src: local("Noto Sans Light");}@font-face{font-family: Noto Sans Lisu;src: local("Noto Sans Lisu");}@font-face{font-family: Noto Serif;src: local("Noto Serif");}@font-face{font-family: Noto Serif Armenian;src: local("Noto Serif Armenian");}@font-face{font-family: Noto Serif Cond;src: local("Noto Serif Cond");}@font-face{font-family: Noto Serif Georgian;src: local("Noto Serif Georgian");}@font-face{font-family: Noto Serif Hebrew;src: local("Noto Serif Hebrew");}@font-face{font-family: Noto Serif Lao;src: local("Noto Serif Lao");}@font-face{font-family: Noto Serif Light;src: local("Noto Serif Light");}
+        @font-face{font-family: Notram;src: local("Notram");} @font-face{font-family: November;src: local("November");}@font-face{font-family: NSimSun;src: local("NSimSun");}@font-face{font-family: Nyala;src: local("Nyala");}
+        @font-face{font-family: OCR A Extended;src: local("OCR A Extended");}@font-face{font-family: Old English Text MT;src: local("Old English Text MT");}@font-face{font-family: Onyx;src: local("Onyx");}@font-face{font-family: OpenSymbol;src: local("OpenSymbol");}@font-face{font-family: OpineHeavy;src: local("OpineHeavy");}
+        @font-face{font-family: Palace Script MT;src: local("Palace Script MT");} @font-face{font-family: Palatino Linotype;src: local("Palatino Linotype");}@font-face{font-family: Papyrus;src: local("Papyrus");}@font-face{font-family: Parchment;src: local("Parchment");}@font-face{font-family: Parry Hotter;src: local("Parry Hotter");}
+        @font-face{font-family: PenultimateLight;src: local("PenultimateLight");} @font-face{font-family: PenultimateLightItal;src: local("PenultimateLightItal");}@font-face{font-family: Perpetua;src: local("Perpetua");}@font-face{font-family: Perpetua Titling MT;src: local("Perpetua Titling MT");}
+        @font-face{font-family: PhrasticMedium;src: local("PhrasticMedium");}
+        @font-face{font-family: Pirate;src: local("Pirate");}
+        @font-face{font-family: Plantagenet Cherokee;src: local("Plantagenet Cherokee");}
+        @font-face{font-family: Playbill;src: local("Playbill");}
+        @font-face{font-family: PMingLiU;src: local("PMingLiU");}
+        @font-face{font-family: PMingLiU-ExtB;src: local("PMingLiU-ExtB");}
+        @font-face{font-family: Poor Richard;src: local("Poor Richard");}
+        @font-face{font-family: PR Celtic Narrow;src: local("PR Celtic Narrow");}
+        @font-face{font-family: Pristina;src: local("Pristina");}
+        @font-face{font-family: QuiverItal;src: local("QuiverItal");}
+        @font-face{font-family: Raavi;src: local("Raavi");}
+        @font-face{font-family: Rage Italic;src: local("Rage Italic");}
+        @font-face{font-family: Ravie;src: local("Ravie");}
+        @font-face{font-family: Reem Kufi;src: local("Reem Kufi");}
+        @font-face{font-family: Rockwelli;src: local("Rockwell");}@font-face{font-family: Rockwell Condensed;src: local("Rockwell Condensed");}
+        @font-face{font-family: Rod;src: local("Rod");}@font-face{font-family: Roland;src: local("Roland");}@font-face{font-family: Rondalo;src: local("Rondalo");}@font-face{font-family: RowdyHeavy;src: local("RowdyHeavy");}
+        @font-face{font-family: Rubik;src: local("Rubik");}@font-face{font-family: Russel Write TT;src: local("Russel Write TT");}
+        @font-face{font-family: Sakkal Majalla;src: local("Sakkal Majalla");}@font-face{font-family: Salina;src: local("Salina");}
+        @font-face{font-family: Scheherazade;src: local("Scheherazade");}
+        @font-face{font-family: Script MT Bold;src: local("Script MT Bold");}
+        @font-face{font-family: Segoe Print;src: local("Segoe Print");}@font-face{font-family: Segoe Script;src: local("Segoe Script");}@font-face{font-family: Segoe UI;src: local("Segoe UI");}@font-face{font-family: Segoe UI Black;src: local("Segoe UI Black");}@font-face{font-family: Segoe UI Emoji;src: local("Segoe UI Emoji");}@font-face{font-family: Segoe UI Light;src: local("Segoe UI Light");}@font-face{font-family: Segoe UI Semibold;src: local("Segoe UI Semibold");}@font-face{font-family: Segoe UI Semilight;src: local("Segoe UI Semilight");}@font-face{font-family: Segoe UI Symbol;src: local("Segoe UI Symbol");}
+        @font-face{font-family: SF Movie Poster;src: local("SF Movie Poster");}
+        @font-face{font-family: Shonar Bangla;src: local("Shonar Bangla");}@font-face{font-family: Showcard Gothic;src: local("Showcard Gothic");}@font-face{font-family: Shruti;src: local("Shruti");}
+        @font-face{font-family: SimHei;src: local("SimHei");}@font-face{font-family: Simplified Arabic;src: local("Simplified Arabic");}@font-face{font-family: Simplified Arabic Fixed;src: local("Simplified Arabic Fixed");}@font-face{font-family: SimSun;src: local("SimSun");}@font-face{font-family: SimSun-ExtB;src: local("SimSun-ExtB");}@font-face{font-family: Sitka Banner;src: local("Sitka Banner");}@font-face{font-family: Sitka Display;src: local("Sitka Display");} @font-face{font-family: Sitka Heading;src: local("Sitka Heading");}@font-face{font-family: Sitka Small;src: local("Sitka Small");}@font-face{font-family: Sitka Subheading;src: local("Sitka Subheading");}@font-face{font-family: Sitka Text;src: local("Sitka Text");}@font-face{font-family: Skinny;src: local("Skinny");}
+        @font-face{font-family: Snap ITC;src: local("Snap ITC");}
+        @font-face{font-family: Snowdrift;src: local("Snowdrift");}
+        @font-face{font-family: Source Code Pro;src: local("Source Code Pro");}@font-face{font-family: Source Code Pro Black;src: local("Source Code Pro Black");}@font-face{font-family: Source Code Pro ExtraLight;src: local("Source Code Pro ExtraLight");}@font-face{font-family: Source Code Pro Light;src: local("Source Code Pro Light");}@font-face{font-family: Source Code Pro Medium;src: local("Source Code Pro Medium");} @font-face{font-family: Source Code Pro Semibold;src: local("Source Code Pro Semibold");}@font-face{font-family: Source Sans Pro;src: local("Source Sans Pro");}@font-face{font-family: Source Sans Pro Black;src: local("Source Sans Pro Black");}@font-face{font-family: Source Sans Pro ExtraLight;src: local("Source Sans Pro ExtraLight");}@font-face{font-family: Source Sans Pro Light;src: local("Source Sans Pro Light");}@font-face{font-family: Source Sans Pro Semibold;src: local("Source Sans Pro Semibold");}@font-face{font-family: Source Serif Pro Black;src: local("Source Serif Pro Black");}@font-face{font-family: Source Serif Pro ExtraLight;src: local("Source Serif Pro ExtraLight");}@font-face{font-family: Source Serif Pro Light;src: local("Source Serif Pro Light");}@font-face{font-family: Source Serif Pro Semibold;src: local("Source Serif Pro Semibold");}
+        @font-face{font-family: Splash;src: local("Splash");}
+        @font-face{font-family: Stencil;src: local("Stencil");}@font-face{font-family: Stephen;src: local("Stephen");}@font-face{font-family: Steppes TT;src: local("Steppes TT");}
+        @font-face{font-family: Sylfaen;src: local("Sylfaen");}@font-face{font-family: Symbol;src: local("Symbol");}
+        @font-face{font-family: Tahoma;src: local("Tahoma");}@font-face{font-family: Tarzan;src: local("Tarzan");}
+        @font-face{font-family: Tempus Sans ITC;src: local("Tempus Sans ITC");} @font-face{font-family: Terminator Two;src: local("Terminator Two");}
+        @font-face{font-family: Times New Roman;src: local("Times New Roman");}
+        @font-face{font-family: Toledo;src: local("Toledo");}
+        @font-face{font-family: Traditional Arabic;src: local("Traditional Arabic");}@font-face{font-family: Trebuchet MS;src: local("Trebuchet MS");}
+        @font-face{font-family: Tunga;src: local("Tunga");}
+        @font-face{font-family: Tw Cen MT;src: local("Tw Cen MT");}@font-face{font-family: Tw Cen MT Condensed;src: local("Tw Cen MT Condensed");} @font-face{font-family: Tw Cen MT Condensed Extra Bold;src: local("Tw Cen MT Condensed Extra Bold");}
+        @font-face{font-family: Urdu Typesetting;src: local("Urdu Typesetting");}
+        @font-face{font-family: Utsaah;src: local("Utsaah");}
+        @font-face{font-family: Valken;src: local("Valken");}@font-face{font-family: Vani;src: local("Vani");}@font-face{font-family: Verdana;src: local("Verdana");}@font-face{font-family: Vijaya;src: local("Vijaya");}@font-face{font-family: Viner Hand ITC;src: local("Viner Hand ITC");}@font-face{font-family: Vivaldi;src: local("Vivaldi");}@font-face{font-family: Vivian;src: local("Vivian");}@font-face{font-family: Vladimir Script;src: local("Vladimir Script");}@font-face{font-family: Vrinda;src: local("Vrinda");}
+        @font-face{font-family: Waverly;src: local("Waverly");}
+        @font-face{font-family: Webdings;src: local("Webdings");}
+        @font-face{font-family: Whimsy TT;src: local("Whimsy TT");}
+        @font-face{font-family: Wide Latin;src: local("Wide Latin");}
+        @font-face{font-family: Wingdings;src: local("Wingdings");}@font-face{font-family: Wingdings 2;src: local("Wingdings 2");}@font-face{font-family: Wingdings 3;src: local("Wingdings 3");}
+        @font-face{font-family: Woodcut;src: local("Woodcut");}
+        @font-face{font-family: X-Files;src: local("X-Files");}
+        @font-face{font-family: Year supply of fairy cakes;src: local("Year supply of fairy cakes");}
+        @font-face{font-family: Yu Gothic;src: local("Yu Gothic");}@font-face{font-family: Yu Gothic Light;src: local("Yu Gothic Light");}@font-face{font-family: Yu Mincho;src: local("Yu Mincho");}@font-face{font-family: Yu Mincho Demibold;src: local("Yu Mincho Demibold");}@font-face{font-family: Yu Mincho Light;src: local("Yu Mincho Light");}
+    </style>
+    <link rel="stylesheet" href="dupa.css">
+</head>
+<body>
+    <main>
+        <div class="container">
+            <div class="editorR">
+                <header>
+                    <h2>Przerabianie pliku:</h2>
+                </header>
+                <div class="toolbar">
+                    <input type="color" style="border:none;background-color: transparent;width:60px;height:30px;"/>
+                    <select id="sec">
+                        <option>Wybierz czcionkę</option>
+                    </select>
+                    <select id="cz">
+                        <option value="12">6 pkt</option>
+                        <option value="14">7 pkt</option>
+                        <option value="16">8 pkt</option>
+                        <option value="18">9 pkt</option>
+                        <option value="20">10 pkt</option>
+                        <option value="22">11 pkt</option>
+                        <option value="24">12 pkt</option>
+                        <option value="26">13 pkt</option>
+                        <option value="28">14 pkt</option>
+                        <option value="30">15 pkt</option>
+                        <option value="32">16 pkt</option>
+                        <option value="36">18 pkt</option>
+                        <option value="40">20 pkt</option>
+                        <option value="44">22 pkt</option>
+                        <option value="48">24 pkt</option>
+                        <option value="52">26 pkt</option>
+                        <option value="56">28 pkt</option>
+                        <option value="64">32 pkt</option>
+                        <option value="72">36 pkt</option>
+                        <option value="80">40 pkt</option>
+                        <option value="88">44 pkt</option>
+                        <option value="96">48 pkt</option>
+                        <option value="108">54 pkt</option>
+                        <option value="120">60 pkt</option>
+                        <option value="132">66 pkt</option>
+                        <option value="144">72 pkt</option>
+                        <option value="160">80 pkt</option>
+                        <option value="176">88 pkt</option>
+                        <option value="192">96 pkt</option>
+                    </select>
+                    <select id="at">
+                        <option>Wybierz Akapit</option>
+                    </select>
+                    <button style="font-weight: 800;" class="bt" id="bol">B</button>
+                    <button style="font-style: italic;" class="bt" id="k">K</button>
+                    <button style="text-decoration: underline;" class="bt" id="au">A</button>
+                    <button style="text-decoration: line-through;" class="bt" id="am">A</button>
+                    <button style="text-decoration: underline line-through;" class="bt" id="aum">A</button>
+                    <div class="bt" style="display: flex;flex-direction:column;justify-content: center;align-items: center;" id="table">
+                        <div style="display: flex; flex-direction:row;">
+                            <div style="border:1px solid #000;width:10px;height:5px;"></div>
+                            <div style="border:1px solid #000;width:10px;height:5px;"></div>
+                        </div>
+                        <div style="border:1px solid #000;width:10px;height:5px;"></div>
+                    </div>
+                </div>
+                <div id="pCC" class="paragraphContainer"></div>
+                <div class="footerButtons">
+                    <button class="btCancel">Anuluj</button>
+                    <button class="btAccept">Generuj</button>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script src="nic2.js"></script>
+</body>
+</html>

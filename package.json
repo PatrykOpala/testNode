@@ -1,0 +1,16 @@
+{
+  "name": "testnode",
+  "version": "0.0.1",
+  "private": true,
+  "main": "index.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "decompress": "^4.2.1",
+    "docx": "^6.0.3",
+    "electron": "^13.2.1",
+    "font-list": "^1.2.14",
+    "g": "^2.0.1"
+  }
+}

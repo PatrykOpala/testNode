@@ -1,0 +1,653 @@
+// const fjiv = []
+                        // let dddd = ""
+                        // const color = []
+                        // for(b = 0; b < c.length; b++){
+                        //     dddd += c.charAt(b)
+                        //     if(dddd === "<w:p>") {
+                        //         fjiv.push(dddd)
+                        //         z = c.split(dddd).pop()
+                        //         dddd = ""
+                        //         for(b = 0; b < z.length; b++){
+                        //             dddd += z.charAt(b)
+                        //             if(dddd === "<w:r>"){
+                        //                 fjiv.push(dddd)
+                        //                 z = c.split(dddd).pop()
+                        //                 dddd = ""
+                        //                 for(b = 0; b < z.length; b++){
+                        //                     dddd += z.charAt(b)
+                        //                     if(dddd === "<w:rPr>"){
+                        //                         fjiv.push(dddd)
+                        //                         z = c.split(dddd).pop()
+                        //                         dddd = ""
+                        //                         console.log(z);
+                        //                     }
+                        //                 }
+                        //             }
+                        //         }
+                        //         // console.log(z);
+                        //     }
+                        // }
+                        // console.log(c)
+                    // console.log(fjiv)
+
+
+                    // const mExpress = require('express')
+// const path = require('path')
+// const bodyParser = require('body-parser')
+// const mApp = mExpress()
+// const port = 3300
+
+// mApp.set('views', path.join(__dirname, "views"))
+// mApp.set('view engine', 'pug')
+// mApp.set(mExpress.static(path.join(__dirname), 'public'))
+
+// mApp.get('/', (req, res)=>{
+//     res.send("Witaj Świecie")
+// })
+
+// mApp.listen(port, ()=>{
+//     console.log(`Nasluhuje na porcie: ${port}`)
+// })
+
+
+
+
+
+
+
+
+
+
+
+6 pkt - 12
+7 pkt - 14
+8 pkt - 16
+9 pkt - 18
+
+10 pkt - 20
+11 pkt - 22
+12 pkt - 24
+13 pkt - 26
+
+14 pkt - 28
+15 pkt - 30
+16 pkt - 32
+18 pkt - 36
+
+20 pkt - 40
+22 pkt - 44
+24 pkt - 48
+26 pkt - 52
+
+28 pkt - 56
+32 pkt - 64
+36 pkt - 72
+40 pkt - 80
+
+44 pkt - 88
+48 pkt - 96
+54 pkt - 108
+60 pkt - 120
+
+66 pkt - 132
+72 pkt - 144
+80 pkt - 160
+88 pkt - 176
+96 pkt - 192
+
+
+
+
+18thCentury
+AcmeFont
+Agency FB
+Aharoni
+Aldhabi
+Alef
+Alfredo
+Algerian
+Alien Encounters
+Almonte Snow
+Amethyst
+Amiri
+Amiri Quran
+Andalus
+Angsana New
+AngsanaUPC
+Aparajita
+Arabic Typesetting
+Arial
+Arial Black
+Arial Narrow
+Arial Rounded MT Bold
+Arial Unicode MS
+Asimov
+Autumn
+Baby Kruffy
+Balthazar
+Baskerville Old Face
+Bastion
+Batang
+BatangChe
+Bauhaus 93
+Bell MT
+Berlin Sans FB
+Berlin Sans FB Demi
+Bernard MT Condensed
+Blackadder ITC
+BN Jinx
+BN Machine
+Bobcat
+Bodoni MT
+Bodoni MT Black
+Bodoni MT Condensed
+Bodoni MT Poster Compressed
+BolsterBold
+Book Antiqua
+Bookman Old Style
+Bookshelf Symbol 7
+Borealis
+BOUTON International Symbols
+Bradley Hand ITC
+Brandish
+Britannic Bold
+Broadway
+Browallia New
+BrowalliaUPC
+Brush Script MT
+Brussels
+Caladea
+Calibri
+Calibri Light
+Californian FB
+Calisto MT
+Calligraphic
+Calvin
+Cambria
+Cambria Math
+Candara
+Candles
+Carlito
+Castellar
+Centaur
+Century
+Century Gothic
+Century Schoolbook
+Chiller
+Chinyen
+Clarendon
+Colbert
+Colonna MT
+Comic Sans MS
+Commons
+Consolas
+Constantia
+Coolsville
+Cooper Black
+Copperplate Gothic Bold
+Copperplate Gothic Light
+Corbel
+Cordia New
+CordiaUPC
+Corporate
+Courier New
+Cracked Johnnie
+Creepygirl
+Curlz MT
+DaunPenh
+David
+David CLM
+David Libre
+Dayton
+DejaVu Math TeX Gyre
+DejaVu Sans
+DejaVu Sans Condensed
+DejaVu Sans Light
+DejaVu Sans Mono
+DejaVu Serif
+DejaVu Serif Condensed
+Deneane
+Detente
+DFKai-SB
+Digifit
+DilleniaUPC
+Distant Galaxy
+DokChampa
+Dominican
+Dotum
+DotumChe
+Dubai
+Dubai Light
+Dubai Medium
+Ebrima
+Edwardian Script ITC
+Elephant
+Emmett
+EmojiOne Color
+Engravers MT
+Enliven
+Eras Bold ITC
+Eras Demi ITC
+Eras Light ITC
+Eras Medium ITC
+Estrangelo Edessa
+Ethnocentric
+EucrosiaUPC
+Euphemia
+FangSong
+Felix Titling
+Fingerpop
+Flubber
+Footlight MT Light
+Forte
+Frank Ruehl CLM
+Frank Ruhl Hofshi
+Frankfurter Venetian TT
+Franklin Gothic Book
+Franklin Gothic Demi
+Franklin Gothic Demi Cond
+Franklin Gothic Heavy
+Franklin Gothic Medium
+Franklin Gothic Medium Cond
+FrankRuehl
+FreesiaUPC
+Freestyle Script
+French Script MT
+Gabriola
+Gadugi
+Garamond
+Gautami
+Gazzarelli
+Gentium Basic
+Gentium Book Basic
+Georgia
+Geotype TT
+Gigi
+Gill Sans MT
+Gill Sans MT Condensed
+Gill Sans MT Ext Condensed Bold
+Gill Sans Ultra Bold
+Gill Sans Ultra Bold Condensed
+Gisha
+Glockenspiel
+Gloucester MT Extra Condensed
+Good Times
+Goudy Old Style
+Goudy Stout
+Greek Diner Inline TT
+Gulim
+GulimChe
+Gungsuh
+GungsuhChe
+Haettenschweiler
+Hand Me Down S (BRK)
+Hansen
+Harlow Solid Italic
+Harrington
+Harvest
+HarvestItal
+Haxton Logos TT
+Heavy Heap
+High Tower Text
+Hollywood Hills
+Hombre
+HP Simplified
+HP Simplified Light
+Huxley Titling
+Impact
+Imprint MT Shadow
+Induction
+Informal Roman
+IrisUPC
+Iskoola Pota
+Italianate
+JasmineUPC
+Javanese Text
+Jokerman
+Juice ITC
+KacstBook
+KacstOffice
+KaiTi
+Kalinga
+Kartika
+Khmer UI
+KodchiangUPC
+Kokila
+Kristen ITC
+Kunstler Script
+Lao UI
+Latha
+Leelawadee
+Leelawadee UI
+Leelawadee UI Semilight
+LetterOMatic!
+Levenim MT
+Liberation Mono
+Liberation Sans
+Liberation Sans Narrow
+Liberation Serif
+LilyUPC
+Limousine
+Linux Biolinum G
+Linux Libertine Display G
+Linux Libertine G
+LittleLordFontleroy
+Lucida Bright
+Lucida Calligraphy
+Lucida Console
+Lucida Fax
+Lucida Handwriting
+Lucida Sans
+Lucida Sans Typewriter
+Lucida Sans Unicode
+Mael
+Magneto
+Maiandra GD
+Malgun Gothic
+Mangal
+Manorly
+Marlett
+Martina
+Matura MT Script Capitals
+Meiryo
+Meiryo UI
+MelodBold
+Microsoft Himalaya
+Microsoft JhengHei
+Microsoft JhengHei Light
+Microsoft JhengHei UI
+Microsoft JhengHei UI Light
+Microsoft New Tai Lue
+Microsoft PhagsPa
+Microsoft Sans Serif
+Microsoft Tai Le
+Microsoft Uighur
+Microsoft YaHei
+Microsoft YaHei Light
+Microsoft YaHei UI
+Microsoft YaHei UI Light
+Microsoft Yi Baiti
+Minerva
+MingLiU
+MingLiU-ExtB
+MingLiU_HKSCS
+MingLiU_HKSCS-ExtB
+Miriam
+Miriam CLM
+Miriam Fixed
+Miriam Libre
+Miriam Mono CLM
+Mistral
+Modern No. 20
+Mongolian Baiti
+Monotype Corsiva
+MoolBoran
+Moonbeam
+MS Gothic
+MS Mincho
+MS Outlook
+MS PGothic
+MS PMincho
+MS Reference Sans Serif
+MS Reference Specialty
+MS UI Gothic
+MT Extra
+MV Boli
+Myanmar Text
+Mycalc
+Nachlieli CLM
+Narkisim
+Nasalization
+Neon Lights
+Niagara Engraved
+Niagara Solid
+Nirmala UI
+Nirmala UI Semilight
+Noto Kufi Arabic
+Noto Mono
+Noto Naskh Arabic
+Noto Naskh Arabic UI
+Noto Sans
+Noto Sans Arabic
+Noto Sans Arabic UI
+Noto Sans Armenian
+Noto Sans Cond
+Noto Sans Georgian
+Noto Sans Hebrew
+Noto Sans Lao
+Noto Sans Light
+Noto Sans Lisu
+Noto Serif
+Noto Serif Armenian
+Noto Serif Cond
+Noto Serif Georgian
+Noto Serif Hebrew
+Noto Serif Lao
+Noto Serif Light
+Notram
+November
+NSimSun
+Nyala
+OCR A Extended
+Old English Text MT
+Onyx
+OpenSymbol
+OpineHeavy
+Palace Script MT
+Palatino Linotype
+Papyrus
+Parchment
+Parry Hotter
+PenultimateLight
+PenultimateLightItal
+Perpetua
+Perpetua Titling MT
+PhrasticMedium
+Pirate
+Plantagenet Cherokee
+Playbill
+PMingLiU
+PMingLiU-ExtB
+Poor Richard
+PR Celtic Narrow
+Pristina
+QuiverItal
+Raavi
+Rage Italic
+Ravie
+Reem Kufi
+Rockwell
+Rockwell Condensed
+Rockwell Extra Bold
+Rod
+Roland
+Rondalo
+RowdyHeavy
+Rubik
+Russel Write TT
+Sakkal Majalla
+Salina
+Scheherazade
+Script MT Bold
+Segoe Print
+Segoe Script
+Segoe UI
+Segoe UI Black
+Segoe UI Emoji
+Segoe UI Light
+Segoe UI Semibold
+Segoe UI Semilight
+Segoe UI Symbol
+SF Movie Poster
+Shonar Bangla
+Showcard Gothic
+Shruti
+SimHei
+Simplified Arabic
+Simplified Arabic Fixed
+SimSun
+SimSun-ExtB
+Sitka Banner
+Sitka Display
+Sitka Heading
+Sitka Small
+Sitka Subheading
+Sitka Text
+Skinny
+Snap ITC
+Snowdrift
+Source Code Pro
+Source Code Pro Black
+Source Code Pro ExtraLight
+Source Code Pro Light
+Source Code Pro Medium
+Source Code Pro Semibold
+Source Sans Pro
+Source Sans Pro Black
+Source Sans Pro ExtraLight
+Source Sans Pro Light
+Source Sans Pro Semibold
+Source Serif Pro
+Source Serif Pro Black
+Source Serif Pro ExtraLight
+Source Serif Pro Light
+Source Serif Pro Semibold
+Splash
+Stencil
+Stephen
+Steppes TT
+Sylfaen
+Symbol
+Tahoma
+Tarzan
+Tempus Sans ITC
+Terminator Two
+Times New Roman
+Toledo
+Traditional Arabic
+Trebuchet MS
+Tunga
+Tw Cen MT
+Tw Cen MT Condensed
+Tw Cen MT Condensed Extra Bold
+Urdu Typesetting
+Utsaah
+Valken
+Vani
+Verdana
+Vijaya
+Viner Hand ITC
+Vivaldi
+Vivian
+Vladimir Script
+Vrinda
+Waverly
+Webdings
+Whimsy TT
+Wide Latin
+Wingdings
+Wingdings 2
+Wingdings 3
+Woodcut
+X-Files
+Year supply of fairy cakes
+Yu Gothic
+Yu Gothic Light
+Yu Mincho
+Yu Mincho Demibold
+Yu Mincho Light
+
+
+
+
+
+<style type="text/css" media="screen, print">
+        @font-face{font-family: Alef; src: local("Alef");font-display: swap;}
+        @font-face{font-family: Amiri; src: local("Amiri");font-display: swap;}
+        @font-face{font-family: Amiri Quran; src: local("Amiri Quran");font-display: swap;}
+        @font-face{font-family: Aparajita; src: local("Aparajita");font-display: swap;}
+        @font-face{font-family: Arabic Typesetting; src: local("Arabic Typesetting");font-display: swap;}
+        @font-face{font-family: "Arial"; src: local("Arial");font-display: swap;}
+        @font-face{font-family: "Arial Black"; src: local("Arial Black");font-display: swap;}
+        @font-face{font-family: "Arial Narrow"; src: local("Arial Narrow");font-display: swap;}
+        @font-face{font-family: "Arial Unicode MS"; src: local("Arial Unicode MS");font-display: swap;}
+        @font-face{font-family: Batang; src: local("Batang");font-display: swap;}
+        @font-face{font-family: Book Antiqua;src: local("Book Antiqua");font-display: swap;}
+        @font-face{font-family: Bookman Old Style;src: local("Bookman Old Style");font-display: swap;}
+        @font-face{font-family: Bookshelf Symbol 7;src: local("Bookshelf Symbol 7");font-display: swap;}
+        @font-face{font-family: BOUTON International Symbols;src: local("BOUTON International Symbols");font-display: swap;}
+        @font-face{font-family: Caladea; src: local("Caladea");font-display: swap;}
+        @font-face{font-family: Calibri; src: local("Calibri");font-display: swap;}
+        @font-face{font-family: Calibri Light; src: local("Calibri Light");font-display: swap;}
+        @font-face{font-family: Californian FB; src: local("Californian FB");font-display: swap;}
+        @font-face{font-family: Calisto MT; src: local("Calisto MT");font-display: swap;}
+        @font-face{font-family: Cambria; src: local("Cambria");font-display: swap;}
+        @font-face{font-family: Cambria Math; src: local("Cambria Math");font-display: swap;}
+        @font-face{font-family: Candara; src: local("Candara");font-display: swap;}
+        @font-face{font-family: Carlito; src: local("Carlito");font-display: swap;}
+        @font-face{font-family: "Century"; src: local("Century");font-display: swap;}
+        @font-face{font-family: "Century Gothic"; src: local("Century Gothic");font-display: swap;}
+        @font-face{font-family: "Century Schoolbook"; src: local("Century Schoolbook");font-display: swap;}
+        @font-face{font-family: "Comic Sans MS"; src: local("Comic Sans MS");font-display: swap;}
+        @font-face{font-family: Commons; src: local("Commons");font-display: swap;}
+        @font-face{font-family: Consolas; src: local("Consolas");font-display: swap;}
+        @font-face{font-family: Constantia; src: local("Constantia");font-display: swap;}
+        @font-face{font-family: Corbel;src: local("Corbel");font-display: swap;}
+        @font-face{font-family: "Courier New";src: local("Courier New");font-display: swap;}
+        @font-face{font-family: David CLM;src: local("David CLM");font-display: swap;}
+        @font-face{font-family: David Libre;src: local("David Libre");font-display: swap;}
+        @font-face{font-family: DejaVu Math TeX Gyre;src: local("DejaVu Math TeX Gyre");font-display: swap;}
+        @font-face{font-family: DejaVu Sans;src: local("DejaVu Sans");font-display: swap;}
+        @font-face{font-family: "DejaVu Sans Condensed";src: local("DejaVu Sans Condensed");font-display: swap;}
+        @font-face{font-family: DejaVu Sans Light;src: local("DejaVu Sans Light");font-display: swap;}
+        @font-face{font-family: DejaVu Sans Monot;src: local("DejaVu Sans Mono");font-display: swap;}
+        @font-face{font-family: "DejaVu Serif";src: local("DejaVu Serif");font-display: swap;}
+        @font-face{font-family: "DejaVu Serif Condensed";src: local("DejaVu Serif Condensed");font-display: swap;}
+        @font-face{font-family: DokChampa;src: local("DokChampa");font-display: swap;}
+        @font-face{font-family: Dotum;src: local("Dotum");font-display: swap;}
+        @font-face{font-family: Dubai;src: local("Dubai");font-display: swap;}
+        @font-face{font-family: Dubai Light;src: local("Dubai Light");font-display: swap;}
+        @font-face{font-family: "Dubai Medium";src: local("Dubai Medium");font-display: swap;}
+        @font-face{font-family: Ebrima;src: local("Ebrima");font-display: swap;}
+        @font-face{font-family: "EmojiOne Color";src: local("EmojiOne Color");font-display: swap;}
+        @font-face{font-family: "Eras Medium ITC";src: local("Eras Medium ITC");font-display: swap;}
+        @font-face{font-family: Frank Ruehl CLM;src: local("Frank Ruehl CLM");font-display: swap;}
+        @font-face{font-family: Frank Ruhl Hofshi;src: local("Frank Ruhl Hofshi");font-display: swap;}
+        @font-face{font-family: Franklin Gothic Book;src: local("Franklin Gothic Book");font-display: swap;}
+        @font-face{font-family: Franklin Gothic Demi;src: local("Franklin Gothic Demi");font-display: swap;}
+        @font-face{font-family: Franklin Gothic Demi Cond;src: local("Franklin Gothic Demi Cond");font-display: swap;}
+        @font-face{font-family: Franklin Gothic Heavy;src: local("Franklin Gothic Heavy");font-display: swap;}
+        @font-face{font-family: "Franklin Gothic Medium";src: local("Franklin Gothic Medium");font-display: swap;}
+        @font-face{font-family: "Franklin Gothic Medium Cond";src: local("Franklin Gothic Medium Cond");font-display: swap;}
+        @font-face{font-family: Gabriola;src: local("Gabriola");font-display: swap;}
+        @font-face{font-family: Gadugi;src: local("Gadugi");font-display: swap;}
+        @font-face{font-family: Gautami;src: local("Gautami");font-display: swap;}
+        @font-face{font-family: "Georgia";src: local("Georgia");font-display: swap;}
+        @font-face{font-family: Geotype TT;src: local("Geotype TT");font-display: swap;}
+        @font-face{font-family: Gill Sans MT;src: local("Gill Sans MT");font-display: swap;}
+        @font-face{font-family: "Gill Sans MT Condensed";src: local("Gill Sans MT Condensed");font-display: swap;}
+        @font-face{font-family: "Gill Sans MT Ext Condensed Bold";src: local("Gill Sans MT Ext Condensed Bold");font-display: swap;}
+        @font-face{font-family: "Gill Sans Ultra Bold";src: local("Gill Sans Ultra Bold");font-display: swap;}
+        @font-face{font-family: "Gill Sans Ultra Bold Condensed";src: local("Gill Sans Ultra Bold Condensed");font-display: swap;}
+        @font-face{font-family: Gisha;src: local("Gisha");font-display: swap;}
+        @font-face{font-family: Gulim;src: local("Gulim");font-display: swap;}
+        @font-face{font-family: Gungsuh;src: local("Gungsuh");font-display: swap;}
+        @font-face{font-family: Haettenschweiler;src: local("Haettenschweiler");font-display: swap;}
+        @font-face{font-family: Haxton Logos TT;src: local("Haxton Logos TT");font-display: swap;}
+        @font-face{font-family: "HP Simplified";src: local("HP Simplified");font-display: swap;}
+        @font-face{font-family: "HP Simplified Light";src: local("HP Simplified Light");font-display: swap;}
+        @font-face{font-family: "Impact";src: local("Impact");font-display: swap;}
+        @font-face{font-family: Liberation Mono;src: local("Liberation Mono");font-display: swap;}
+        @font-face{font-family: Liberation Sans;src: local("Liberation Sans");font-display: swap;}
+        @font-face{font-family: Liberation Sans Narrow;src: local("Liberation Sans Narrow");font-display: swap;}
+        @font-face{font-family: "Liberation Serif";src: local("Liberation Serif");font-display: swap;}
+        @font-face{font-family: Linux Biolinum G;src: local("Linux Biolinum G");font-display: swap;}
+        @font-face{font-family: Linux Libertine Display G;src: local("Linux Libertine Display G");font-display: swap;}
+        @font-face{font-family: Linux Libertine G;src: local("Linux Libertine G");font-display: swap;}
+        @font-face{font-family: "Lucida Bright";src: local("Lucida Bright");font-display: swap;}
+        @font-face{font-family: "Lucida Console";src: local("Lucida Console");font-display: swap;}
+        @font-face{font-family: "Lucida Sans Unicode";src: local("Lucida Sans Unicode");font-display: swap;}
+        @font-face{font-family: Rockwell;src: local("Rockwell");font-display: swap;}
+        @font-face{font-family: Rockwell Extra Bold; src: local("Rockwell Extra Bold");font-display: swap;}
+        @font-face{font-family: "Verdana";src: local("Verdana");font-display: swap;}
+    </style>

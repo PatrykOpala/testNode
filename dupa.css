@@ -1,0 +1,328 @@
+:root{
+    --text-color: rgba(255, 255, 255, 0.904);
+}
+body{
+    background-color: #D7DAE5;
+}
+.container{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.editorR{
+    width: 600px;
+    height: 400px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+header{
+    display:flex;
+    flex-direction:row;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    font-family: sans-serif;
+}
+
+header h3{
+    position: relative;
+    left: 20%;
+}
+.toolbar{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.toolbar select{
+    width: 110px;
+    padding: 4px;
+    margin-right: 4px;
+    border-radius: 4px;
+    font-family: sans-serif;
+}
+.bt{
+    padding: 4px;
+    margin-right: 4px;
+    border-radius: 4px;
+}
+.toolbar select::-webkit-scrollbar{
+    width: 8px;
+}
+.toolbar select::-webkit-scrollbar-thumb{
+    background-color: rgb(160, 155, 155);
+}
+.toolbar .bt{
+    font-size: 1.1rem;
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+}
+.toolbar .bt:hover{
+    cursor: pointer;
+    background-color:rgba(112, 109, 109, 0.842);
+    color:rgba(255, 255, 255, 0.856);
+}
+.paragraphContainer{
+    width: 97%;
+    height: 300px;
+    /* border:2px solid #000; */
+    margin-left: 5px;
+    overflow: hidden;
+    position: relative;
+}
+
+pre:hover{
+    cursor: pointer;
+    background-color: rgb(207, 202, 202);
+}
+.kpaction{
+    background-color: rgb(207, 202, 202);
+}
+
+.bol{font-weight: bold;}
+.k{font-style: italic;}
+.au{text-decoration: underline;}
+.am{text-decoration: line-through;}
+.aum{text-decoration: underline line-through;}
+
+.footerButtons{
+    margin-top: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.footerButtons button{
+    border: none;
+    width: 160px;
+    height: 40px;
+    font-family: sans-serif;
+    margin-left: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: transparent;
+}
+.footerButtons button:hover{
+    cursor: pointer;
+}
+
+.footerButtons .btCancel{
+    border-bottom: 2px solid rgb(199, 9, 9);
+}
+.footerButtons .btCancel:hover{
+    background-color: rgb(199, 9, 9);
+    color:rgb(250, 250, 250);
+    border-bottom: 3px solid rgb(248, 6, 6);
+}
+.footerButtons .btAccept{
+    background-color:rgb(63, 199, 9);
+    color:rgb(255, 255, 255);
+}
+.footerButtons .btAccept:hover{
+    background-color:rgb(50, 160, 7);
+    color:rgb(255, 255, 255);
+}
+
+
+
+
+/* .countFile{
+    display: none;
+    position: absolute;
+    width: 30%;
+    height: 100%;
+    background-color: #D7DAE5;
+    flex-direction: column;
+    left: 70%;
+    z-index: 10;
+}
+.cVisibility{
+    display: flex;
+}
+.countFile p{
+    margin-top: 30%;
+    margin-left: 10%;
+    max-width: 180px;
+    text-align: center;
+    font-size: 1.6rem;
+    font-family: sans-serif;
+}
+.countFile .inputCount{
+    max-width: 80px;
+    padding-left: 10px;
+    padding-top: 7px;
+    padding-bottom: 5px;
+    text-align: center;
+    border: none;
+    outline: none;
+    margin-left: 25%;
+    font-size: 1.6rem;
+    font-family: sans-serif;
+}
+.countFile .buttonFile{
+    margin-top: 30%;
+    margin-left: 10%;
+}
+
+.buttonss{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    margin-left: 50%;
+}
+
+.buttonss button{
+    background-color: #D4AE7E;
+    color: rgb(255, 255, 255);
+    font: 1.4rem sans-serif;
+    border: none;
+    outline: none;
+    max-width: 100%;
+    height: 47px;
+    margin-top: 60%;
+    border-radius: 4px;
+}
+.buttonss button:not(:first-child){
+    margin-top: 12%;
+}
+.buttonss button:hover{
+    background-color: #d4a66d;
+    cursor: pointer;
+}
+
+.editorC{
+    width: 100%;
+    height: 83vh;
+    overflow-y: scroll;
+}
+
+.editorC::-webkit-scrollbar{
+    width: 10px;
+}
+
+.editorC::-webkit-scrollbar-thumb{
+    background-color: #a9adb9;
+}
+
+.editorC .paper{
+    background-color: #ffffff;
+    width: 83%;
+    margin-left: 10%;
+    margin-top: 2%;
+    height: 1400px;
+    display: flex;
+    flex-direction: column;
+}
+
+.containerTextEdit{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 122px;
+    background-color: #6CAAA6;
+    z-index:30;
+}
+.ds{
+    height: 30px; 
+    width: 90%; 
+    border: none; 
+    outline: none;
+    background-color: transparent;
+}
+.ds:hover{
+    cursor: pointer;
+}
+.bttn{
+    font-size: 1.3rem;
+    font-family: sans-serif;
+    color: var(--text-color);
+    padding: 5px;
+    text-align: center;
+    cursor: pointer;
+    margin-left: 4px;
+    height: 19px;
+    display:flex;
+    align-items:center;
+}
+.bttn:hover{
+    background-color:#588a86;
+    
+}
+.btnFContainer{
+    width: 134px;
+    height: 93px;
+    margin-left:10px;
+    margin-top: 2%;
+}
+.btnFContainer:hover{
+    cursor: pointer;
+}
+.contextFonts{
+    color:var(--text-color);
+    font-family:sans-serif;
+    font-size:0.7rem;
+    text-align:center;
+    padding:7px;
+    display:flex;
+    flex-direction:column;
+}
+.fScroll{
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+.fScroll::-webkit-scrollbar{
+   width:6px;
+}
+.fScroll::-webkit-scrollbar-thumb{
+    background-color: #80cec7;
+}
+.fH:hover{
+    background-color: #5d9691;
+}
+.sizeFont{
+    width: 134px;
+    height: 82px;
+    position: relative;
+    top: 15px;
+    margin-left: 6px;
+    overflow-y: scroll;
+    /* background-color: #588a86; 
+    z-index: 40;
+}
+.sizeFont::-webkit-scrollbar{
+    width: 5px;
+}
+.sizeFont::-webkit-scrollbar-thumb{
+    background-color: #80cec7;
+}
+.sizeFontItem, .fontsItem{
+    display: flex;
+    flex-direction: row;
+}
+.fontsItem{
+    justify-content:center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+.sizeFontItemSingle, .fontsItemSingle{
+    display:flex;
+    flex-direction:row;
+    width:33px;
+    align-items: center;
+    justify-content: center;
+    padding:5px;
+}
+.sizeFontItemSingle:hover{
+    background-color: #80cec7;
+    cursor:pointer;
+} */
