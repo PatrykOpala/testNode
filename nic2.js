@@ -97,7 +97,7 @@ function start(fPath, copyCount) {
     function paraf(err, data) {
         let pars = new DOMParser(),
         mlDom = pars.parseFromString(data, 'application/xml');
-        console.log(mlDom)
+        // console.log(mlDom)
         de = mlDom.querySelector("body");
         console.log(de)
         let documentt = {
@@ -179,12 +179,12 @@ function start(fPath, copyCount) {
                 let tablee = {
                     tblPr: {
                         tblW: {
-                            size: el.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
+                            width: el.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
                             type: el.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                         },
                         jc: el.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
                         tblInd: {
-                            size: el.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
+                            width: el.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
                             type: el.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                         },
                         tblLayout: {
@@ -192,34 +192,36 @@ function start(fPath, copyCount) {
                         },
                         tblCellMar: {
                             top: {
-                                size: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('top').getAttribute('w:w'),
-                                type: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('top').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                             },
                             left: {
-                                size: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('left').getAttribute('w:w'),
-                                type: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('left').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                             },
                             bottom: {
-                                size: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('bottom').getAttribute('w:w'),
-                                type: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('bottom').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                             },
                             right: {
-                                size: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('right').getAttribute('w:w'),
-                                type: el.querySelector('tblPr').querySelector('tbCellMar').querySelector('right').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                             }
-                        },
-                        // tblGrid: {
-                        //     gridCols: [
-                        //         {
-                        //             gridCol: {
-                        //                 size: el.querySelector('tblPr').querySelector('tblGrid').querySelector('gridCol').getAttribute('w:w')
-                        //             }
-                        //         }
-                        //     ]
-                        // }
+                        }
+                    },
+                    tblGrid: {
+                      gridCols: []
                     },
                     tbr: []
                 };
+                gridK = [];
+                el?.querySelector('tblGrid').childNodes.forEach(gC => {
+                    let gridCol = {
+                        width: gC.getAttribute('w:w')
+                    };
+                    gridK.push(gridCol);
+                })
+                tablee.tblGrid.gridCols = gridK;
                 const table = document.createElement("table");
                 const tableBody = document.createElement("tbody");
                 el?.childNodes.forEach(tr => {
@@ -296,7 +298,7 @@ function start(fPath, copyCount) {
             }
         })
         console.log(documentt);
-        if (err) console.log(err)
+        if (err) console.log(err);
     }
     TableFonts()
     decompress(`${fPath.path}`, `docxs/${fPath.name}`).then(fl => {
