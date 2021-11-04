@@ -94,6 +94,47 @@ function start(fPath, copyCount) {
         }
     });
 
+    class Paragraph{
+        #type = "Paragraph";
+        #pPr = {
+            pStyle: null,
+            rPr: {
+                sz: null,
+                szCs: null
+            }
+        };
+        #runs = [];
+        constructor(paragraph) {
+            this.#pPr.pStyle = paragraph.querySelector('pPr').querySelector('pStyle').getAttribute("w:val")
+            this.#pPr.rPr.sz = Number.parseInt(paragraph.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null
+            this.#pPr.rPr.szCs = Number.parseInt(paragraph.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
+        }
+
+        addRun(r) {
+            this.#runs.push(r);
+        }
+    }
+
+    class Run{
+        type = "run";
+        rPr = {
+            fontSize: null,
+            bold: null,
+            italic: null,
+            strike: null,
+            underline: null
+        };
+        text = "";
+        constructor(run) {
+            this.rPr.fontSize = Number.parseInt(run?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(run?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))
+            this.rPr.bold = run?.querySelector("rPr")?.querySelector("b") || run?.querySelector("rPr")?.querySelector("bCs") ? true : false
+            this.rPr.italic = run?.querySelector("rPr")?.querySelector("i") || run?.querySelector("rPr")?.querySelector("iCs") ? true : false
+            this.rPr.strike = run?.querySelector("rPr")?.querySelector("strike") || run?.querySelector("rPr")?.querySelector("dstrike") ? true : false
+            this.rPr.underline = run?.querySelector("rPr")?.querySelector("u") ? true : false
+            this.text = run?.querySelector("t")?.textContent
+        }
+    }
+
     function paraf(err, data) {
         let pars = new DOMParser(),
         mlDom = pars.parseFromString(data, 'application/xml');
@@ -106,10 +147,8 @@ function start(fPath, copyCount) {
         };
         de?.childNodes.forEach(el => {
             if (el.localName === 'p') {
+                let parag = new Paragraph(el)
                 // console.log(el);
-                let parag = {
-                    runs: []
-                };
                 const paragraph = document.createElement("div");
                 paragraph.style.display = "flex";
                 paragraph.style.flexDirection = "row";
@@ -118,15 +157,8 @@ function start(fPath, copyCount) {
 
                 el.childNodes.forEach(l => {
                     if (l.localName === 'r') {
-                        let runn = {
-                            fontSize: l?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") || l?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val") || 0,
-                            bold: l?.querySelector("rPr")?.querySelector("b") || l?.querySelector("rPr")?.querySelector("bCs") ? true : false,
-                            italic: l?.querySelector("rPr")?.querySelector("i") || l?.querySelector("rPr")?.querySelector("iCs") ? true : false,
-                            strike: l?.querySelector("rPr")?.querySelector("strike") || l?.querySelector("rPr")?.querySelector("dstrike") ? true : false,
-                            underline: l?.querySelector("rPr")?.querySelector("u") ? true : false,
-                            text: l?.querySelector("t")?.textContent
-                        };
-                        parag.runs.push(runn);
+                        let runn = new Run(l);
+                        parag.addRun(runn);
                         const run = document.createElement("pre");
                         run.contentEditable = true;
                         run.style.display = "inline";
