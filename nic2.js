@@ -95,7 +95,6 @@ function start(fPath, copyCount) {
     });
 
     class Paragraph{
-        #type = "Paragraph";
         #pPr = {
             pStyle: null,
             rPr: {
@@ -116,7 +115,6 @@ function start(fPath, copyCount) {
     }
 
     class Run{
-        #type = "run";
         #rPr = {
             fontSize: null,
             bold: null,
@@ -124,20 +122,23 @@ function start(fPath, copyCount) {
             strike: null,
             underline: null
         };
-        #text = "";
+        #oldValues = [];
+        #newValues = [];
         constructor(run) {
             this.#rPr.fontSize = Number.parseInt(run?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(run?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))
             this.#rPr.bold = run?.querySelector("rPr")?.querySelector("b") || run?.querySelector("rPr")?.querySelector("bCs") ? true : false
             this.#rPr.italic = run?.querySelector("rPr")?.querySelector("i") || run?.querySelector("rPr")?.querySelector("iCs") ? true : false
             this.#rPr.strike = run?.querySelector("rPr")?.querySelector("strike") || run?.querySelector("rPr")?.querySelector("dstrike") ? true : false
             this.#rPr.underline = run?.querySelector("rPr")?.querySelector("u") ? true : false
-            this.#text = run?.querySelector("t")?.textContent
+            
+            run?.querySelectorAll("t")?.forEach(t => {
+                this.#oldValues.push(t.textContent)
+            });
         }
     }
 
     class Table{
-        type = "table";
-        tblPr = {
+        #tblPr = {
             tblW: {
                 width: null,
                 type: null
@@ -169,34 +170,34 @@ function start(fPath, copyCount) {
                 }
             }
         };
-        tblGrid = {
+        #tblGrid = {
             gridCols: []
         };
-        tbr = [];
+        #tbr = [];
 
         constructor(table) {
 
-            this.tblPr.tblW.width = table.querySelector('tblPr').querySelector('tblW').getAttribute('w:w');
-            this.tblPr.tblW.type = table.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblW.width = table.querySelector('tblPr').querySelector('tblW').getAttribute('w:w');
+            this.#tblPr.tblW.type = table.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa' ? "DXA" : "null";
         
-            this.tblPr.jc = table.querySelector('tblPr').querySelector('jc').getAttribute('w:val');
+            this.#tblPr.jc = table.querySelector('tblPr').querySelector('jc').getAttribute('w:val');
 
-            this.tblPr.tblInd.width = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w');
-            this.tblPr.tblInd.type = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblInd.width = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w');
+            this.#tblPr.tblInd.type = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null";
 
-            this.tblPr.tblLayout.type = table.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null";
+            this.#tblPr.tblLayout.type = table.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null";
         
-            this.tblPr.tblCellMar.top.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w');
-            this.tblPr.tblCellMar.top.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblCellMar.top.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w');
+            this.#tblPr.tblCellMar.top.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
 
-            this.tblPr.tblCellMar.left.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w');
-            this.tblPr.tblCellMar.left.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblCellMar.left.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w');
+            this.#tblPr.tblCellMar.left.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
         
-            this.tblPr.tblCellMar.bottom.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w');
-            this.tblPr.tblCellMar.bottom.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblCellMar.bottom.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w');
+            this.#tblPr.tblCellMar.bottom.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
             
-            this.tblPr.tblCellMar.right.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w');
-            this.tblPr.tblCellMar.right.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
+            this.#tblPr.tblCellMar.right.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w');
+            this.#tblPr.tblCellMar.right.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
             
             this.addGrid(table);
         }
@@ -206,7 +207,7 @@ function start(fPath, copyCount) {
                 let gridCol = {
                     width: Number.parseInt(tblC.getAttribute('w:w'))
                 };
-                this.tblGrid.gridCols.push(gridCol);
+                this.#tblGrid.gridCols.push(gridCol);
             })
             const tableRowCount = tblInss?.querySelectorAll('tr').length;
             if (tableRowCount > 0) {
@@ -218,16 +219,16 @@ function start(fPath, copyCount) {
 
         addTableRow(tr) {
             let tableRow = new TableRow(tr);
-            this.tbr.push(tableRow);
+            this.#tbr.push(tableRow);
         }
     }
 
     class TableRow{
-        trPr = null;
-        tcols = [];
+        #trPr = null;
+        #tcols = [];
 
         constructor(tbr) {
-            this.trPr = tbr?.querySelector('trPr') || null;
+            this.#trPr = tbr?.querySelector('trPr') || null;
             this.addTableColumn(tbr?.querySelector('tc'))
         }
 
@@ -268,7 +269,7 @@ function start(fPath, copyCount) {
                     tc.p.push(TableColumnParagraph);
                 });
 
-                this.tcols.push(tc);
+                this.#tcols.push(tc);
             }
             
         }
