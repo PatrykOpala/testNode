@@ -94,6 +94,19 @@ function start(fPath, copyCount) {
         }
     });
 
+    class Document{
+        #background = null;
+        body = [];
+
+        constructor(documentDOM) {
+            this.#background = documentDOM?.querySelector("background").getAttribute("w:color");
+        }
+
+        addElement(elem) {
+            this.body.push(elem);
+        }
+    }
+
     class Paragraph{
         #pPr = {
             pStyle: null,
@@ -122,7 +135,7 @@ function start(fPath, copyCount) {
             strike: null,
             underline: null
         };
-        #oldValues = [];
+        #oldValues = null;
         #newValues = [];
         constructor(run) {
             this.#rPr.fontSize = Number.parseInt(run?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(run?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))
@@ -131,9 +144,18 @@ function start(fPath, copyCount) {
             this.#rPr.strike = run?.querySelector("rPr")?.querySelector("strike") || run?.querySelector("rPr")?.querySelector("dstrike") ? true : false
             this.#rPr.underline = run?.querySelector("rPr")?.querySelector("u") ? true : false
             
-            run?.querySelectorAll("t")?.forEach(t => {
-                this.#oldValues.push(t.textContent)
-            });
+            if (run?.querySelectorAll("t").length > 1) {
+                let tt = []
+                run?.querySelectorAll("t")?.forEach(t => {
+                
+                    tt.push(t.textContent)
+
+                });
+                this.#oldValues = tt;
+            } else {
+                this.#oldValues = run?.querySelector('t')?.textContent;
+            }
+            
         }
     }
 
@@ -275,20 +297,21 @@ function start(fPath, copyCount) {
         }
     }
 
+    
+
     function paraf(err, data) {
         let pars = new DOMParser(),
         mlDom = pars.parseFromString(data, 'application/xml');
         // console.log(mlDom)
         de = mlDom.querySelector("body");
-        console.log(de)
-        let documentt = {
-            background: mlDom?.querySelector("background").getAttribute("w:color"),
-            body: []
-        };
+        // let documentt = {
+        //     background: mlDom?.querySelector("background").getAttribute("w:color"),
+        //     body: []
+        // };
+        let documentt = new Document(mlDom);
         de?.childNodes.forEach(el => {
             if (el.localName === 'p') {
                 let parag = new Paragraph(el)
-                // console.log(el);
                 const paragraph = document.createElement("div");
                 paragraph.style.display = "flex";
                 paragraph.style.flexDirection = "row";
@@ -331,7 +354,7 @@ function start(fPath, copyCount) {
                         run.textContent = l?.querySelector("t")?.textContent;
                         run.addEventListener("click", (e) => {
                             e.target.classList.toggle("kpaction");
-                            // document.querySelector("#ToolBar").querySelector("#sec") = e.target.fontFamily;s
+                            // document.querySelector("#ToolBar").querySelector("#sec") = e.target.fontFamily;
                         })
                         run.addEventListener("focusout", (e) => {
                             if (e.target.classList.value == "kpaction") {
@@ -344,17 +367,10 @@ function start(fPath, copyCount) {
                         paragraph.appendChild(run);
                     }
                 })
-                documentt.body.push(parag);
+                documentt.addElement(parag);
                 pCC.appendChild(paragraph);
             } else if (el.localName === 'tbl') {
-                console.log(el);
                 let tablee = new Table(el);
-                console.log(tablee);
-                // let tablee = {
-                
-                //     tbr: []
-                // };
-
                 // const table = document.createElement("table");
                 // const tableBody = document.createElement("tbody");
                 // el?.childNodes.forEach(tr => {
@@ -428,9 +444,11 @@ function start(fPath, copyCount) {
                 // })
                 // table.appendChild(tableBody);
                 // pCC.appendChild(table);
+                documentt.addElement(tablee);
             }
         })
         console.log(documentt);
+        console.log(JSON.stringify(documentt));
         if (err) console.log(err);
     }
     TableFonts()
