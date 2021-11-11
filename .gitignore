@@ -1,6 +1,6 @@
 node_modules
 thumbs.db
-*.png
+/img
 pwtest.png
 /docxs/*
 *.docx

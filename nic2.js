@@ -302,12 +302,7 @@ function start(fPath, copyCount) {
     function paraf(err, data) {
         let pars = new DOMParser(),
         mlDom = pars.parseFromString(data, 'application/xml');
-        // console.log(mlDom)
         de = mlDom.querySelector("body");
-        // let documentt = {
-        //     background: mlDom?.querySelector("background").getAttribute("w:color"),
-        //     body: []
-        // };
         let documentt = new Document(mlDom);
         de?.childNodes.forEach(el => {
             if (el.localName === 'p') {
@@ -325,6 +320,13 @@ function start(fPath, copyCount) {
                         const run = document.createElement("pre");
                         run.contentEditable = true;
                         run.style.display = "inline";
+                        el?.querySelectorAll('t').forEach(e => {
+                           if (e.textContent.endsWith(" ")) {
+                               run.classList.add(e?.textContent.replace(' ', '%32'));
+                           }
+                        }
+                        );
+
                         if (l?.querySelector("rPr")?.querySelector("rFonts")) {
                             run.style.fontFamily = l?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:ascii") || 
                             l?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:hAnsi");
@@ -447,8 +449,6 @@ function start(fPath, copyCount) {
                 documentt.addElement(tablee);
             }
         })
-        console.log(documentt);
-        console.log(JSON.stringify(documentt));
         if (err) console.log(err);
     }
     TableFonts()
