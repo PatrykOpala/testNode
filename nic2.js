@@ -6,7 +6,6 @@ function start(fPath, copyCount) {
     };
     const sec = document?.querySelector("#sec"), pCC = document?.querySelector("#pCC");
     const fontCon = document.createElement("div");
-    let T = [];
     sec?.addEventListener("change", (e) => { console.log(e.target.value); });
     function TableFonts() {
         // const fontsLe = ['Alef', 'Amiri', 'Amiri Quran', 'Arabic Typesetting', 'Arial', 'Arial Black', 'Arial Narrow',
@@ -122,8 +121,12 @@ function start(fPath, copyCount) {
             this.#pPr.rPr.szCs = Number.parseInt(paragraph.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
         }
 
-        addRun(r) {
-            this.#runs.push(r);
+        addRun(r) {this.#runs.push(r);}
+
+        addValue(key, value) {
+            let keyy = this.#runs.filter(k => k.getOldValue() === key);
+            keyy[0].addValues(value);
+            console.log(keyy[0].getNewValues());
         }
     }
 
@@ -157,6 +160,12 @@ function start(fPath, copyCount) {
             }
             
         }
+
+        getNewValues() { return this.#newValues;}
+
+        getOldValue() {return this.#oldValues;}
+
+        addValues(val) {this.#newValues.push(val) }
     }
 
     class Table{
@@ -320,12 +329,6 @@ function start(fPath, copyCount) {
                         const run = document.createElement("pre");
                         run.contentEditable = true;
                         run.style.display = "inline";
-                        // el?.querySelectorAll('t').forEach(e => {
-                        //    if (e.textContent.endsWith(" ")) {
-                        //        run.classList.add(e?.textContent.replace(' ', '%32'));
-                        //    }
-                        // }
-                        // );
 
                         if (l?.querySelector("rPr")?.querySelector("rFonts")) {
                             run.style.fontFamily = l?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:ascii") || 
@@ -356,12 +359,13 @@ function start(fPath, copyCount) {
                         run.textContent = l?.querySelector("t")?.textContent;
 
                         if (l?.querySelector("t")?.textContent.endsWith(" ")) {
-                            run.classList.add(l?.querySelector("t")?.textContent.replace(' ', '%32'));
+                            run.setAttribute('edit-id', l?.querySelector("t")?.textContent.replace(' ', '%32'));
                         }
-                        run.classList.add(l?.querySelector("t")?.textContent.replace(' ', '%32'));
+                        run.setAttribute('edit-id', l?.querySelector("t")?.textContent);
 
                         run.addEventListener("click", (e) => {
                             e.target.classList.toggle("kpaction");
+                            
                             // document.querySelector("#ToolBar").querySelector("#sec") = e.target.fontFamily;
                         })
                         run.addEventListener("focusout", (e) => {
@@ -371,6 +375,7 @@ function start(fPath, copyCount) {
                         })
                         run.addEventListener("input", (e) => {
                             e.target.style.border = "1px solid #333333";
+                            parag.addValue(e.target.getAttribute("edit-id"), e.target.textContent);
                         })
                         paragraph.appendChild(run);
                     }
