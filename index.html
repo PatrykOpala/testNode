@@ -8,6 +8,7 @@
         :root{
             --text-color: rgba(255, 255, 255, 0.904);
         }
+        body{font-family: Alef;}
         main{
             width: 100%;
             height: 97vh;
@@ -99,7 +100,6 @@
             margin-right: 4px;
             margin-top: 1px;
             font-size: 1.1rem;
-            background-color: rgba(255, 255, 255, 0);
             border: none;
             height:32px;
         }
@@ -121,7 +121,7 @@
             background-color: rgb(207, 202, 202);
         }
 
-        .bol{font-weight: bold;}
+        .bol{font-weight: 800;line-height:90%;}
         .k{font-style: italic;}
         .au{text-decoration: underline;}
         .am{text-decoration: line-through;}
@@ -143,6 +143,33 @@
         .footerButtons button:hover{
             cursor: pointer;
         }
+
+        .dialogStart{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            z-index: 30;
+            background-color: rgb(255, 255, 255);
+        }
+
+        .countFileContainer{
+            display:flex;
+            flex-direction:row;
+            margin-top:20px;
+        }
+
+        .buttonsContainer{
+            width:100%;
+            display:flex;
+            flex-direction:row;
+            justify-content:flex-end;
+            margin-top:10px;
+        }
+
+        .nextbutton{
+            width:90px;
+            height:45px;
+        }
     </style>
 </head>
 <body>
@@ -162,7 +189,7 @@
             `<div class="container">
             <div class="editorR">
                 <div class="toolbar" id="ToolBar">
-                    <input type="color" style="border:none;background-color: transparent;width:60px;height:30px;"/>
+                    <input type="color" style="border:none;background-color:transparent;width:60px;height:30px;"/>
                     <div id="sec" class="selectComponent">
                         <span>Wybierz Czcionkę</span>
                     </div>
@@ -197,11 +224,11 @@
                         <option value="176">88 pkt</option>
                         <option value="192">96 pkt</option>
                     </select>
-                    <button style="font-weight: 800;line-height:90%;" class="bt" id="bol">B</button>
-                    <button style="font-style: italic;" class="bt" id="k">K</button>
-                    <button style="text-decoration: underline;" class="bt" id="au">A</button>
-                    <button style="text-decoration: line-through;" class="bt" id="am">A</button>
-                    <button style="text-decoration: underline line-through;" class="bt" id="aum">A</button>
+                    <button class="bt bol" id="bol">B</button>
+                    <button class="bt k" id="k">K</button>
+                    <button class="bt au" id="au">A</button>
+                    <button class="bt am" id="am">A</button>
+                    <button class="bt aum" id="aum">A</button>
                 </div>
                 <div id="pCC" class="paragraphContainer"></div>
             </div>
@@ -217,16 +244,10 @@
             
             let dialogStart = document.createElement("div");
             dialogStart.id = "dialogStart"
-            dialogStart.style.display = "flex";
-            dialogStart.style.flexDirection = "column";
-            dialogStart.style.width = "100%";
-            dialogStart.style.zIndex = "30";
-            dialogStart.style.backgroundColor = "rgb(255, 255, 255)";
+            dialogStart.classList.add("dialogStart");
 
             const countFileContainer = document.createElement("div");
-            countFileContainer.style.display = "flex";
-            countFileContainer.style.flexDirection = "row";
-            countFileContainer.style.marginTop = "20px";
+            countFileContainer.classList.add("countFileContainer");
             countFileContainer.insertAdjacentHTML('afterbegin',
             `<label style="margin-right:10px;margin-top:9px;font-size:20px;
             text-align:center;font-family:Alef;">Ile plików zrobić?</label>
@@ -235,16 +256,10 @@
 
             dialogStart.appendChild(countFileContainer);
             const buttonsContainer = document.createElement("div");
-            buttonsContainer.style.width = "100%";
-            buttonsContainer.style.display = "flex";
-            buttonsContainer.style.flexDirection = "row";
-            buttonsContainer.style.justifyContent = "flex-end";
-            buttonsContainer.style.marginTop = "10px";
+            buttonsContainer.classList.add("buttonsContainer");
             const nextButton = document.createElement("button");
             nextButton.textContent = "Dalej";
-            nextButton.style.fontFamily = "Alef";
-            nextButton.style.width = "90px";
-            nextButton.style.height = "45px";
+            nextButton.classList.add("nextButton");
             nextButton.setAttribute("disabled", "");
 
             if (window.File && window.FileReader && window.FileList && window.Blob) {
