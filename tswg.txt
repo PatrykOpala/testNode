@@ -651,3 +651,25 @@ Yu Mincho Light
         @font-face{font-family: Rockwell Extra Bold; src: local("Rockwell Extra Bold");font-display: swap;}
         @font-face{font-family: "Verdana";src: local("Verdana");font-display: swap;}
     </style>
+
+
+
+
+
+
+    /*
+                            
+    if (run?.querySelectorAll("t").length > 1) {
+        let tt = []
+        run?.querySelectorAll("t")?.forEach(t => {
+        
+            tt.push(t.textContent)
+
+        });
+        this.#oldValues = tt;
+    } else {
+        this.#oldValues = run?.querySelector('t')?.textContent;
+    }
+                            
+                            
+    */
