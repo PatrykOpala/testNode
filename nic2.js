@@ -1,4 +1,4 @@
-let decompress = require("decompress"), PER_PT = 12700, file_system = require("fs"), font_list = require("font-list");
+let PER_PT = 12700, font_list = require("font-list");
 function start(fPath, copyCount) {
     let CopyObj = {
         copyCount: copyCount,
@@ -431,7 +431,6 @@ function start(fPath, copyCount) {
         let documentt = new Document(mlDom);
         de?.childNodes.forEach(el => {
             if (el.localName === 'p') {
-                // let parag = new Paragraph(el)
 
                 let parag = {
                     type: "Paragraph",
@@ -455,7 +454,6 @@ function start(fPath, copyCount) {
 
                 el.childNodes.forEach(l => {
                     if (l.localName === 'r') {
-                        // let runn = new Run(l);
                         let runn = {
                             rPr: {
                                 fontSize: Number.parseInt(l?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(l?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val")),
@@ -466,7 +464,6 @@ function start(fPath, copyCount) {
                             },
                         }
                         addRun(runn);
-                        // paragraph.appendChild(createRow(l));
                     }
                 })
                 documentt.addElement(parag);
@@ -553,12 +550,6 @@ function start(fPath, copyCount) {
         console.log((documentt.getElement()));
     }
     TableFonts()
-    decompress(`${fPath.path}`, `docxs/${fPath.name}`).then(fl => {
-        fl.forEach(l => {
-            if (l.path == "word/document.xml") {
-                file_system.readFile(`docxs/${fPath.name}/${l.path}`, paraf);
-            }
-        })
-    })
+    
 }
 

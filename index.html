@@ -181,64 +181,164 @@
     </main>
     <script src="nic2.js"></script>
     <script>
-        const pFile = document.querySelector("#powerFile");
+        let decompress = require('decompress');
+        let file_system, {promises: Fs} = require('fs');
+        const pFile = document.querySelector('#powerFile');
         let filesArray = [];
+        async function existsFileOrPath(path){
+            try{
+                await Fs.access(path)
+                return true
+            }catch(e){
+                console.error(e)
+                return false
+            }
+        }
         function runningSuperEditor(files, htmElement){
-            htmElement.querySelector("#dialogStart").remove();
-            htmElement.insertAdjacentHTML('beforeend',
-            `<div class="container">
-            <div class="editorR">
-                <div class="toolbar" id="ToolBar">
-                    <input type="color" style="border:none;background-color:transparent;width:60px;height:30px;"/>
-                    <div id="sec" class="selectComponent">
-                        <span>Wybierz Czcionkę</span>
+            try{
+                console.log(files);
+                if(files.length >= 1){
+                    if(existsFileOrPath(`docxs/${files[0].name}`)){
+                        htmElement.querySelector("#dialogStart").remove();
+                        htmElement.insertAdjacentHTML('beforeend',
+                        `<div class="container">
+                <div class="editorR">
+                    <div class="toolbar" id="ToolBar">
+                        <input type="color" style="border:none;background-color:transparent;width:60px;height:30px;"/>
+                        <div id="sec" class="selectComponent">
+                            <span>Wybierz Czcionkę</span>
+                        </div>
+                        <select id="cz">
+                            <option value="12">6 pkt</option>
+                            <option value="14">7 pkt</option>
+                            <option value="16">8 pkt</option>
+                            <option value="18">9 pkt</option>
+                            <option value="20">10 pkt</option>
+                            <option value="22">11 pkt</option>
+                            <option value="24">12 pkt</option>
+                            <option value="26">13 pkt</option>
+                            <option value="28">14 pkt</option>
+                            <option value="30">15 pkt</option>
+                            <option value="32">16 pkt</option>
+                            <option value="36">18 pkt</option>
+                            <option value="40">20 pkt</option>
+                            <option value="44">22 pkt</option>
+                            <option value="48">24 pkt</option>
+                            <option value="52">26 pkt</option>
+                            <option value="56">28 pkt</option>
+                            <option value="64">32 pkt</option>
+                            <option value="72">36 pkt</option>
+                            <option value="80">40 pkt</option>
+                            <option value="88">44 pkt</option>
+                            <option value="96">48 pkt</option>
+                            <option value="108">54 pkt</option>
+                            <option value="120">60 pkt</option>
+                            <option value="132">66 pkt</option>
+                            <option value="144">72 pkt</option>
+                            <option value="160">80 pkt</option>
+                            <option value="176">88 pkt</option>
+                            <option value="192">96 pkt</option>
+                        </select>
+                        <button class="bt bol" id="bol">B</button>
+                        <button class="bt k" id="k">K</button>
+                        <button class="bt au" id="au">A</button>
+                        <button class="bt am" id="am">A</button>
+                        <button class="bt aum" id="aum">A</button>
                     </div>
-                    <select id="cz">
-                        <option value="12">6 pkt</option>
-                        <option value="14">7 pkt</option>
-                        <option value="16">8 pkt</option>
-                        <option value="18">9 pkt</option>
-                        <option value="20">10 pkt</option>
-                        <option value="22">11 pkt</option>
-                        <option value="24">12 pkt</option>
-                        <option value="26">13 pkt</option>
-                        <option value="28">14 pkt</option>
-                        <option value="30">15 pkt</option>
-                        <option value="32">16 pkt</option>
-                        <option value="36">18 pkt</option>
-                        <option value="40">20 pkt</option>
-                        <option value="44">22 pkt</option>
-                        <option value="48">24 pkt</option>
-                        <option value="52">26 pkt</option>
-                        <option value="56">28 pkt</option>
-                        <option value="64">32 pkt</option>
-                        <option value="72">36 pkt</option>
-                        <option value="80">40 pkt</option>
-                        <option value="88">44 pkt</option>
-                        <option value="96">48 pkt</option>
-                        <option value="108">54 pkt</option>
-                        <option value="120">60 pkt</option>
-                        <option value="132">66 pkt</option>
-                        <option value="144">72 pkt</option>
-                        <option value="160">80 pkt</option>
-                        <option value="176">88 pkt</option>
-                        <option value="192">96 pkt</option>
-                    </select>
-                    <button class="bt bol" id="bol">B</button>
-                    <button class="bt k" id="k">K</button>
-                    <button class="bt au" id="au">A</button>
-                    <button class="bt am" id="am">A</button>
-                    <button class="bt aum" id="aum">A</button>
+                    <div id="pCC" class="paragraphContainer"></div>
                 </div>
-                <div id="pCC" class="paragraphContainer"></div>
-            </div>
-            <div class="footerButtons">
-                <button>Anuluj</button>
-                <button>Generuj</button>
-            </div>
-        </div>`);
-            start(files[0], htmElement.querySelector("#z"));
-    }
+                <div class="footerButtons">
+                    <button>Anuluj</button>
+                    <button>Generuj</button>
+                </div>
+            </div>`);
+                        
+                    // start(`docxs/${f.path}`, htmElement.querySelector("#z"));
+                    }else{
+                        decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
+                            fl.forEach(l => {
+                                if (l.path == "word/document.xml") {
+                                    file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
+                                    // start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
+                                }
+                            })
+                        })
+                    }
+                }else{
+                    files.forEach(f =>{
+                        if(existsFileOrPath(`docxs/${f.path}`)){
+                            htmElement.querySelector("#dialogStart").remove();
+                            htmElement.insertAdjacentHTML('beforeend',
+                            `<div class="container">
+                    <div class="editorR">
+                        <div class="toolbar" id="ToolBar">
+                            <input type="color" style="border:none;background-color:transparent;width:60px;height:30px;"/>
+                            <div id="sec" class="selectComponent">
+                                <span>Wybierz Czcionkę</span>
+                            </div>
+                            <select id="cz">
+                                <option value="12">6 pkt</option>
+                                <option value="14">7 pkt</option>
+                                <option value="16">8 pkt</option>
+                                <option value="18">9 pkt</option>
+                                <option value="20">10 pkt</option>
+                                <option value="22">11 pkt</option>
+                                <option value="24">12 pkt</option>
+                                <option value="26">13 pkt</option>
+                                <option value="28">14 pkt</option>
+                                <option value="30">15 pkt</option>
+                                <option value="32">16 pkt</option>
+                                <option value="36">18 pkt</option>
+                                <option value="40">20 pkt</option>
+                                <option value="44">22 pkt</option>
+                                <option value="48">24 pkt</option>
+                                <option value="52">26 pkt</option>
+                                <option value="56">28 pkt</option>
+                                <option value="64">32 pkt</option>
+                                <option value="72">36 pkt</option>
+                                <option value="80">40 pkt</option>
+                                <option value="88">44 pkt</option>
+                                <option value="96">48 pkt</option>
+                                <option value="108">54 pkt</option>
+                                <option value="120">60 pkt</option>
+                                <option value="132">66 pkt</option>
+                                <option value="144">72 pkt</option>
+                                <option value="160">80 pkt</option>
+                                <option value="176">88 pkt</option>
+                                <option value="192">96 pkt</option>
+                            </select>
+                            <button class="bt bol" id="bol">B</button>
+                            <button class="bt k" id="k">K</button>
+                            <button class="bt au" id="au">A</button>
+                            <button class="bt am" id="am">A</button>
+                            <button class="bt aum" id="aum">A</button>
+                        </div>
+                        <div id="pCC" class="paragraphContainer"></div>
+                    </div>
+                    <div class="footerButtons">
+                        <button>Anuluj</button>
+                        <button>Generuj</button>
+                    </div>
+                </div>`);
+                            // start(`docxs/${f.path}`, htmElement.querySelector("#z"));
+                        }else{
+                            decompress(`${f.path}`, `docxs/${f.name}`).then(fl => {
+                                fl.forEach(l => {
+                                    if (l.path == "word/document.xml") {
+                                        file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
+                                        // start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
+                                    }
+                                })
+                            })
+                        }
+                    })
+                }
+            }catch(r){
+                console.error(r)
+            }
+            
+        }
+
         pFile.addEventListener('click', ()=>{
             document.querySelectorAll("button").forEach(b =>{b.remove()})
             
@@ -301,7 +401,7 @@
                     if(e.dataTransfer.files.length > 0){
                         nextButton.removeAttribute("disabled");
                         filesArray = e.dataTransfer.files;
-                        dragAndDrop.textContent = filesArray[0].name;
+                        dragAndDrop.textContent = filesArray;
                     }
                     
                 });
