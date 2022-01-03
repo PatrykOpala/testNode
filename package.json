@@ -1,6 +1,6 @@
 {
   "name": "testnode",
-  "version": "0.0.14",
+  "version": "0.0.15",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -12,6 +12,6 @@
     "font-list": "^1.4.2"
   },
   "devDependencies": {
-    "electron": "^16.0.0"
+    "electron": "^16.0.2"
   }
 }
