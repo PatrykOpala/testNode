@@ -87,10 +87,13 @@ class Table {
 
         this.#tblPr.jc = table.querySelector('tblPr').querySelector('jc').getAttribute('w:val');
 
+
         this.#tblPr.tblInd.width = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w');
         this.#tblPr.tblInd.type = table.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null";
 
+
         this.#tblPr.tblLayout.type = table.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null";
+
 
         this.#tblPr.tblCellMar.top.width = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w');
         this.#tblPr.tblCellMar.top.type = table?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null";
@@ -210,6 +213,9 @@ function start(fPath, copyCount, fileName) {
 
     function paraf(data) {
         let mlDom = pars.parseFromString(data, 'application/xml');
+        // let documentt = {
+        //     background: mlDom?.querySelector("background")?.getAttribute("w:color"),
+        // }
         mlDom.querySelector("body")?.childNodes.forEach(el => {
             if (el.localName === 'p') {
                 const paragraph = document.createElement("div");
@@ -217,8 +223,6 @@ function start(fPath, copyCount, fileName) {
                 paragraph.style.flexDirection = "row";
                 paragraph.style.maxWidth = `${pCC.offsetWidth}px`;
                 paragraph.style.alignItems = "center";
-
-
 
                 let parag = {
                     pPr: {
@@ -264,11 +268,148 @@ function start(fPath, copyCount, fileName) {
 
                     }
                 });
+                body.push(parag);
                 cC.append(paragraph);
             } else if (el.localName === 'tbl') {
                 // let tablee = new Table(el);
+                let tablee = {
+                    tblPr: {
+                        tblW: {
+                            width: el?.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
+                            type: el?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        },
+                        jc: el?.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
+                        tblInd: {
+                            width: el?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
+                            type: el?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        },
+                        tblLayout: {
+                            type: el?.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null"
+                        },
+                        tblCellMar: {
+                            top: {
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                            },
+                            left: {
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                            },
+                            bottom: {
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                            },
+                            right: {
+                                width: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w'),
+                                type: el?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                            }
+                        }
+                    },
+                    tblGrid: {
+                        gridCols: []
+                    },
+                    tbr: [],
+                }
+                el?.querySelector('tblGrid').childNodes.forEach(tblC => {
+                    let gridCol = {
+                        width: Number.parseInt(tblC.getAttribute('w:w'))
+                    };
+                    tablee.tblGrid.gridCols.push(gridCol);
+                })
 
-                // body.push(tablee);
+                if (el?.querySelectorAll('tr').length > 0) {
+                    el?.querySelectorAll('tr').forEach(trr => {
+                        // this.addTableRow(trr);
+                        let tableRow = {
+                            trPr: trr?.querySelector('trPr') || null,
+                            tcols: [],
+                        }
+                        if (trr.querySelector('tc') !== null) {
+                            let tc = {
+                                tcPr: {
+                                    tcW: {
+                                        width: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:w')),
+                                        type: trr?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:type')
+                                    },
+                                    tcBorders: {
+                                        top: {
+                                            val: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:val'),
+                                            sz: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:sz')),
+                                            space: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:space')),
+                                            color: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:color')
+                                        },
+                                        left: {
+                                            val: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:val'),
+                                            sz: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:sz')),
+                                            space: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:space')),
+                                            color: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:color')
+                                        },
+                                        bottom: {
+                                            val: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:val'),
+                                            sz: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:sz')),
+                                            space: Number.parseInt(trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:space')),
+                                            color: trr?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:color')
+                                        },
+                                    }
+                                },
+                                p: []
+                            }
+                            trr?.querySelectorAll('p').forEach(p => {
+                                // let TableColumnParagraph = new Paragraph(p)
+                                let TableColumnParagraph = {
+                                    pPr: {
+                                        pStyle: p.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val"),
+                                        rPr: {
+                                            sz: Number.parseInt(p.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null,
+                                            szCs: Number.parseInt(p.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
+                                        }
+                                    },
+                                    runs: []
+                                }
+                                p.childNodes.forEach(r => {
+                                    if (r.localName === 'r') {
+                                        const runn = {
+                                            rPr: {
+                                                fontSize: Number.parseInt(r?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(r?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val")),
+                                                bold: r?.querySelector("rPr")?.querySelector("b") || r?.querySelector("rPr")?.querySelector("bCs") ? true : false,
+                                                italic: r?.querySelector("rPr")?.querySelector("i") || r?.querySelector("rPr")?.querySelector("iCs") ? true : false,
+                                                strike: r?.querySelector("rPr")?.querySelector("strike") || r?.querySelector("rPr")?.querySelector("dstrike") ? true : false,
+                                                underline: r?.querySelector("rPr")?.querySelector("u") ? true : false
+                                            },
+                                            oldValues: [],
+                                        }
+
+                                        let fontSize = Number.parseInt(r?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(r?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"));
+                                        let bold = r?.querySelector("rPr")?.querySelector("b") || r?.querySelector("rPr")?.querySelector("bCs") ? true : false;
+                                        let italic = r?.querySelector("rPr")?.querySelector("i") || r?.querySelector("rPr")?.querySelector("iCs") ? true : false;
+                                        let strike = r?.querySelector("rPr")?.querySelector("strike") || r?.querySelector("rPr")?.querySelector("dstrike") ? true : false;
+                                        let underline = r?.querySelector("rPr")?.querySelector("u") ? true : false;
+
+                                        let oldValues = [];
+                                        if (r?.querySelectorAll("t").length > 1) {
+                                            r?.querySelectorAll("t")?.forEach(t => {
+                                                oldValues.push(t.textContent)
+
+                                            });
+                                            runn.oldValues = oldValues;
+                                        } else {
+                                            oldValues = l?.querySelector('t')?.textContent;
+                                            runn.oldValues = oldValues;
+                                        }
+                                        TableColumnParagraph.runs.push(runn);
+
+                                    }
+                                });
+                                tc.p.push(TableColumnParagraph);
+                            });
+
+                            tableRow.tcols.push(tc);
+                        }
+
+                    })
+                }
+                tablee.tbr.push(tableRow);
+                body.push(tablee);
             }
 
         });
