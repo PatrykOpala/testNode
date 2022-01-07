@@ -1,16 +1,16 @@
 const { app, BrowserWindow, } = require('electron')
 // import {app, BrowserWindow} from 'electron'
 
-function createWindow () {
-    const win = new BrowserWindow({
+function createWindow() {
+  const win = new BrowserWindow({
     autoHideMenuBar: true,
     title: "Kopiarka Plików",
     width: 850,
     height: 630,
     webPreferences: {
-        nodeIntegration: true,
-        contextIsolation: false,
-        enableRemoteModule: true,
+      nodeIntegration: true,
+      contextIsolation: false,
+      enableRemoteModule: true,
     }
   })
   win.loadFile('index.html')

@@ -736,33 +736,28 @@
     <script src="nic2.js"></script>
     <script>
         let decompress = require('decompress');
-        let {promises: Fs} = require('fs');
+        let fs = require('fs');
         const pFile = document.querySelector('#powerFile');
-        async function existsFileOrPath(path){
-            try{
-                await Fs.access(path)
-                return true
-            }catch(e){
-                console.error(e)
-                return false
-            }
-        }
         
         function runningSuperEditor(files, htmElement){
             let editorTemp = document.querySelector('#editorTemp').content.cloneNode(true);
             try{
                 if(files.length >= 1){
-                    if(existsFileOrPath(`docxs/${files[0].name}`)){
+                    if(fs.existsSync(`docxs/${files[0].name}`)){
                         htmElement.querySelector("#dialogStart").remove();
                         htmElement.appendChild(editorTemp);
-                        
-                        start(`docxs/${files.path}`, htmElement?.querySelector("#pCC"), `docxs/${files[0].name}`);
+
+                        fs.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
+                            if (err) {
+                                return console.log(err);
+                            }
+                            start(buff);
+                        });
                     }else{
                         decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
                             fl.forEach(l => {
                                 if (l.path == "word/document.xml") {
                                     file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
-                                    // start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
                                 }
                             })
                         })
