@@ -746,12 +746,12 @@
                     if(fs.existsSync(`docxs/${files[0].name}`)){
                         htmElement.querySelector("#dialogStart").remove();
                         htmElement.appendChild(editorTemp);
-
                         fs.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
                             }
-                            start(buff);
+                            console.log(start(files[0], buff));
+                            
                         });
                     }else{
                         decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
