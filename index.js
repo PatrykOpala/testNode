@@ -4,7 +4,7 @@ const { app, BrowserWindow, } = require('electron')
 function createWindow() {
   const win = new BrowserWindow({
     autoHideMenuBar: true,
-    title: "Kopiarka Plików",
+    title: "Document Office",
     width: 850,
     height: 630,
     webPreferences: {

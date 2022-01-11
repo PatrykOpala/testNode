@@ -193,18 +193,61 @@
             margin-left:6px;
         }
 
+        .menuBar{
+            position: fixed;
+            display: flex;
+            flex-direction: row;
+            width: 98%;
+            height: 49px;
+            padding: 10px;
+            top: 0;
+            background-color:rgba( 30, 180, 30, 0.9);;
+        }
+
+        .whiteSquareRounded{
+            width: 45px;
+            height: 45px;
+            border-radius: 6px;
+            background-color: rgba(250, 250, 250, .9);
+            margin-right: 10px;
+            margin-top: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Logo{
+            font-size: 1.7rem;
+            font-family: sans-serif;
+            margin-top: 10px;
+            color:rgba(250, 250, 250, .9);
+        }
+
+        .Logo > span{
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        .dragAndDropContainer{
+            width:99.4%;position:absolute;top:0;left:0;
+        }
+
         .dragAndDrop{
+            position: relative;
+            top:0;
+            left:0;
             width:100%;
-            height:200px;
-            border:2px dashed rgba(10, 10, 10, 0.3);
+            height:100%;
             text-align:center;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            font-size:1.3rem;
-            font-family:Alef;
+            font-size:1.3rem;font-family:Alef;
             color:rgba(2, 2, 2, .6);
+            /* border: 1px solid rgba(2, 2, 2, .6); */
             cursor:default;
+        }
+
+        .dragAndDrop > p{
+            margin-top: 35%;margin-left: 8%;
         }
 
         .errorDialog{
@@ -258,10 +301,23 @@
                 </div>
             </div>
         </template>
-        <div class="mainContainer" id="con">
+        <div id="dragAndDropContainer" class="dragAndDropContainer">
+            <div class="menuBar">
+                <div class="whiteSquareRounded">
+                    <div style="width:26px;height:5px;background-color:rgba( 30, 180, 30, 0.9);margin:3px;"></div>
+                    <div style="width:26px;height:5px;background-color:rgba( 30, 180, 30, 0.9);margin:3px;"></div>
+                    <div style="width:26px;height:5px;background-color:rgba( 30, 180, 30, 0.9);margin:3px;"></div>
+                </div>
+                <div class="Logo">Document <span>Office</span></div>
+            </div>
+            <div id="dragAndDrop" class="dragAndDrop">
+                <p>Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
+            </div>
+        </div>
+        <!-- <div class="mainContainer" id="con">
             <h1>Kopiarka Plików</h1>
             <button id="powerFile" class="pwFile">Rozpocznij</button>
-        </div>
+        </div> -->
     </main>
     <template id="editorTemp">
     <div class="container">
@@ -737,7 +793,7 @@
     <script>
         let decompress = require('decompress');
         let fs = require('fs');
-        const pFile = document.querySelector('#powerFile');
+        // const pFile = document.querySelector('#powerFile');
         
         function runningSuperEditor(files, htmElement){
             let editorTemp = document.querySelector('#editorTemp').content.cloneNode(true);
@@ -790,9 +846,9 @@
             
         }
 
-        pFile.addEventListener('click', ()=>{
+        /* pFile.addEventListener('click', ()=>{
             document.querySelectorAll("button").forEach(b =>{b.remove()})
-            
+         
             let dialogStart = document.querySelector('#dialogStartTemp').content.cloneNode(true);
 
             const buttonsContainer = document.createElement("div");
@@ -823,12 +879,13 @@
                     let files = e.dataTransfer.files;
                     nextButton.addEventListener("click", ()=>{
                         runningSuperEditor(files, document.querySelector("#con"));
-                    })
-                }
-            });
+                        runningSuperEditor(files, document.querySelector("#con"));
+                     })
+                 }
+             });
             
-            document.querySelector("#con").appendChild(dialogStart);
-        })
+             document.querySelector("#con").appendChild(dialogStart);
+         })*/
     </script>
 </body>
 </html>
