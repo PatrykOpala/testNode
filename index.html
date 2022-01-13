@@ -100,6 +100,11 @@
             flex-direction: column;
             z-index: 30;
             background-color: rgb(255, 255, 255);
+            border-radius: 4px;
+            border: 1px solid #333;
+            padding: 10px;
+            position: absolute;
+            top: 40vh;
         }
 
         .countFileContainer{
@@ -230,6 +235,29 @@
             color:rgb(230, 20, 20);
             cursor: pointer;
         }
+
+        .dialogHeader{
+            width: 500px;
+            height: 27px;
+            display: flex;
+            flex-direction: row;
+        }
+
+        .closeDlg{
+            width: 20px;
+            height: 20px;
+            margin-left: 96%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 3px;
+            border-radius: 4px;
+        }
+
+        .closeDlg:hover{
+            background-color: rgba(10, 10, 10, 0.3);
+        }
+
     </style>
 </head>
 <body>
@@ -711,32 +739,36 @@
 
     <template id="dialogStartTemp">
         <div id="dialogStart" class="dialogStart">
-            <div id="dialogStartCountFileContainer" class="countFileContainer">
+            <div class="dialogHeader">
+                <div class="closeDlg"><img src="./img/close.svg" alt="close"></div>
+            </div>
+            
+            <!-- <div id="dialogStartCountFileContainer" class="countFileContainer">
                 <label class="countFileContainerElementsLabel">Ile plików zrobić?</label>
                 <input type="text" value="0" id="z" class="countFileContainerElementsInput"></input>
             </div>
             <div id="buttonsContainer" class="buttonsContainer">
                 <button id="nextButton" class="nextButton" disabled>Dalej</button>
-            </div>
+            </div> -->
         </div>
     </template>
     <script src="nic2.js"></script>
     <script>
         let decompress = require('decompress');
         let fs = require('fs');
-        
+        let ff = null;
+
         function runningSuperEditor(files, htmElement){
-            let editorTemp = document.querySelector('#editorTemp').content.cloneNode(true);
+            let editorTemp = document.querySelector('#dialogStartTemp').content.cloneNode(true);
             try{
                 if(files.length >= 1){
                     if(fs.existsSync(`docxs/${files[0].name}`)){
-                        htmElement.querySelector("#dialogStart").remove();
                         htmElement.appendChild(editorTemp);
                         fs.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
                             }
-                            console.log(start(files[0], buff));
+                            ff = start(files[0], buff);
                             
                         });
                     }else{
@@ -798,7 +830,7 @@
             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
             if(e.dataTransfer.files.length > 0){
                 let files = e.dataTransfer.files;
-                console.log(files);
+                runningSuperEditor(files, document.querySelector("main"));
             }
         });
 
