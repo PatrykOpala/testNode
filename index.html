@@ -9,6 +9,7 @@
             --text-color: rgba(255, 255, 255, 0.904);
             --primary-colour: rgb( 30, 180, 30);
         }
+        
         body{font-family: Alef;}
         main{
             width: 100%;
@@ -96,15 +97,15 @@
         }
 
         .dialogStart{
-            display: flex;
+            display: none;
             flex-direction: column;
-            /* z-index: 90; */
             background-color: rgb(255, 255, 255);
             border-radius: 4px;
             border: 1px solid #333;
             padding: 10px;
             position: absolute;
-            top: 40vh;
+            top: 20vh;
+            left: 20vw;
         }
 
         .countFileContainer{
@@ -265,6 +266,11 @@
             flex-direction: row;
         }
 
+        [activee]{
+            color: var(--primary-colour);
+            font-weight: 600;
+        }
+
         .dialogSelectHeaderItem{
             font-size: 16px;
             text-align: center;
@@ -276,9 +282,15 @@
 
         .dialogSelectHeaderItem:hover{
             cursor: pointer;
-            /* background-color: rgba(10, 10, 10, 0.3); */
             color: var(--primary-colour);
             border-bottom: 2px solid var(--primary-colour);
+        }
+
+        .dialogBody{
+            width: 500px;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
         }
 
     </style>
@@ -760,25 +772,24 @@
     </div>
     </template>
 
-    <template id="dialogStartTemp">
-        <div id="dialogStart" class="dialogStart">
-            <div class="dialogHeader">
-                <div class="closeDlg"><img src="./img/close.svg" alt="close"></div>
-            </div>
-            <div class="dialogSelectHeader">
-                <div class="dialogSelectHeaderItem" id="settings">Ustawienia</div>
-                <div class="dialogSelectHeaderItem" id="countFile">Ile plików</div>
-            </div>
-            
-            <!-- <div id="dialogStartCountFileContainer" class="countFileContainer">
-                <label class="countFileContainerElementsLabel">Ile plików zrobić?</label>
-                <input type="text" value="0" id="z" class="countFileContainerElementsInput"></input>
-            </div>
-            <div id="buttonsContainer" class="buttonsContainer">
-                <button id="nextButton" class="nextButton" disabled>Dalej</button>
-            </div> -->
-        </div>
+    <template id="dialogBodyControl">
+        <input type="text" id="nameFile">
+        <input type="text" id="count">
+        <button id="nextButtonn" class="nextButton">Dalej</button>
     </template>
+
+    <div id="dialogStart" class="dialogStart">
+        <div class="dialogHeader">
+            <div class="closeDlg"><img src="./img/close.svg" alt="close"></div>
+        </div>
+        <div class="dialogSelectHeader">
+            <div class="dialogSelectHeaderItem" id="settings">Ustawienia</div>
+            <div class="dialogSelectHeaderItem" id="countFile">Ile plików</div>
+        </div>
+        <div class="dialogBody" id="dBody">
+
+        </div>
+    </div>
     <script src="nic2.js"></script>
     <script>
         let decompress = require('decompress');
@@ -786,17 +797,19 @@
         let ff = null;
 
         function runningSuperEditor(files, htmElement){
-            let editorTemp = document.querySelector('#dialogStartTemp').content.cloneNode(true);
+            let editorTempp = document.querySelector('#dialogStart');
+            let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
             try{
                 if(files.length >= 1){
                     if(fs.existsSync(`docxs/${files[0].name}`)){
-                        htmElement.appendChild(editorTemp);
+                        editorTempp.querySelector('#countFile').setAttribute("activee", "");
+                        editorTempp.querySelector('#dBody').append(dbControl);
+                        editorTempp.style.display = "flex";
                         fs.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
                             }
                             ff = start(files[0], buff);
-                            
                         });
                     }else{
                         decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
@@ -810,7 +823,6 @@
                 }else{
                     files.forEach(f =>{
                         if(existsFileOrPath(`docxs/${f.path}`)){
-                            htmElement.querySelector("#dialogStart").remove();
                             htmElement.appendChild(editorTemp);
                             start(`docxs/${f.path}`, htmElement.querySelector("#z"));
                         }else{
