@@ -96,18 +96,6 @@
             cursor: pointer;
         }
 
-        .dialogStart{
-            display: none;
-            flex-direction: column;
-            background-color: rgb(255, 255, 255);
-            border-radius: 4px;
-            border: 1px solid #333;
-            padding: 10px;
-            position: absolute;
-            top: 20vh;
-            left: 20vw;
-        }
-
         .countFileContainer{
             display:flex;
             flex-direction:row;
@@ -120,11 +108,6 @@
             flex-direction:row;
             justify-content:flex-end;
             margin-top:10px;
-        }
-
-        .nextbutton{
-            width:90px;
-            height:45px;
         }
 
         .countFileContainerElementsLabel{
@@ -237,6 +220,18 @@
             cursor: pointer;
         }
 
+        .dialogStart{
+            display: none;
+            flex-direction: column;
+            background-color: rgb(255, 255, 255);
+            border-radius: 4px;
+            border: 1px solid #333;
+            padding: 10px;
+            position: absolute;
+            top: 20vh;
+            left: 20vw;
+        }
+
         .dialogHeader{
             width: 500px;
             height: 27px;
@@ -291,7 +286,76 @@
             height: 300px;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
+
+        input, .nextButton{
+            border:none;
+            outline:none;
+        }
+
+        .bv{
+            width: 160px;
+            height: 50px;
+            position: relative;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .bv > span{
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            z-index: 70;
+            background-color: #fff;
+            font-size: 0.9em;
+        }
+
+        .filePath{
+            width:150px;
+            height:40px;
+            margin-top: 0px;
+            border-radius: 4px;
+            border:2px solid rgba(10, 10, 10, 0.3);
+            font-size: 1em;
+        }
+
+        .bc{
+            width: 110px;
+            height: 50px;
+            position: relative;
+            margin-top: 10px;
+        }
+
+        .bc > span{
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            z-index: 70;
+            background-color: #fff;
+            font-size: 0.9em;
+        }
+
+        .countC{
+            width: 100px;
+            height:40px;
+            margin-top: 0px;
+            border-radius: 4px;
+            border:2px solid rgba(10, 10, 10, 0.3);
+            font-size: 1em;
+            text-align: center;
+        }
+
+        .nextButton{
+            width:90px;
+            height:35px;
+            background-color: var(--primary-colour);
+            margin-top: 30px;
+            color: #fff;
+            border-radius: 4px;
+        }
+
+        
 
     </style>
 </head>
@@ -773,8 +837,14 @@
     </template>
 
     <template id="dialogBodyControl">
-        <input type="text" id="nameFile">
-        <input type="text" id="count">
+        <div class="bv">
+            <span>Nazwa Pliku</span>
+            <input type="text" id="nameFile" class="filePath">
+        </div>
+        <div class="bc">
+            <span>Ilość Plików</span>
+            <input type="text" id="count" value="0" class="countC">
+        </div>
         <button id="nextButtonn" class="nextButton">Dalej</button>
     </template>
 
@@ -792,8 +862,6 @@
     </div>
     <script src="nic2.js"></script>
     <script>
-        let decompress = require('decompress');
-        let fs = require('fs');
         let ff = null;
 
         function runningSuperEditor(files, htmElement){
@@ -801,41 +869,42 @@
             let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
             try{
                 if(files.length >= 1){
-                    if(fs.existsSync(`docxs/${files[0].name}`)){
+                    if(mFile.fileSystem.existsSync(`docxs/${files[0].name}`)){
                         editorTempp.querySelector('#countFile').setAttribute("activee", "");
                         editorTempp.querySelector('#dBody').append(dbControl);
+                        editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
                         editorTempp.style.display = "flex";
-                        fs.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
+                        mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
                             }
                             ff = start(files[0], buff);
                         });
                     }else{
-                        decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
-                            fl.forEach(l => {
-                                if (l.path == "word/document.xml") {
-                                    file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
-                                }
-                            })
-                        })
+                        // decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
+                        //     fl.forEach(l => {
+                        //         if (l.path == "word/document.xml") {
+                        //             file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
+                        //         }
+                        //     })
+                        // })
                     }
                 }else{
-                    files.forEach(f =>{
-                        if(existsFileOrPath(`docxs/${f.path}`)){
-                            htmElement.appendChild(editorTemp);
-                            start(`docxs/${f.path}`, htmElement.querySelector("#z"));
-                        }else{
-                            decompress(`${f.path}`, `docxs/${f.name}`).then(fl => {
-                                fl.forEach(l => {
-                                    if (l.path == "word/document.xml") {
-                                        file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
-                                        start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
-                                    }
-                                })
-                            })
-                        }
-                    })
+                    // files.forEach(f =>{
+                    //     if(existsFileOrPath(`docxs/${f.path}`)){
+                    //         htmElement.appendChild(editorTemp);
+                    //         start(`docxs/${f.path}`, htmElement.querySelector("#z"));
+                    //     }else{
+                    //         decompress(`${f.path}`, `docxs/${f.name}`).then(fl => {
+                    //             fl.forEach(l => {
+                    //                 if (l.path == "word/document.xml") {
+                    //                     file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
+                    //                     start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
+                    //                 }
+                    //             })
+                    //         })
+                    //     }
+                    // })
                 }
             }catch(r){
                 // let errorDialogTemp = document.querySelector('#errorDialogTemp').content.cloneNode(true);
@@ -847,23 +916,21 @@
             
         }
 
-        const dragAndDrop = document.querySelector('#dragAndDrop');
-
-        dragAndDrop.addEventListener("dragenter", (e)=>{
+        document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
             e.preventDefault();
             e.stopPropagation();
             e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
         });
-        dragAndDrop.addEventListener("dragleave", (e)=>{
+        document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
             e.preventDefault();
             e.stopPropagation();
             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
         });
-        dragAndDrop.addEventListener("dragover", (e)=>{
+        document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
             e.preventDefault();
             e.stopPropagation();
         });
-        dragAndDrop.addEventListener("drop",(e)=>{
+        document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
             e.preventDefault();
             e.stopPropagation();
             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";

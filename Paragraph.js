@@ -1,4 +1,4 @@
-class Paragraph{
+class Paragraph {
     #pPr = {
         pStyle: null,
         rPr: {
@@ -6,7 +6,7 @@ class Paragraph{
             szCs: null
         }
     };
-    #runs = [];
+    runs = [];
     constructor(paragraph) {
         this.#pPr.pStyle = paragraph.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val")
         this.#pPr.rPr.sz = Number.parseInt(paragraph.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null
@@ -14,13 +14,13 @@ class Paragraph{
     }
 
     getRuns() {
-        return this.#runs;
+        return this.runs;
     }
 
-    addRun(r) {this.#runs.push(r);}
+    addRun(r) { this.runs.push(r); }
 
     addValue(key, value) {
-        let keyy = this.#runs.filter(k => k.getOldValue() === key);
+        let keyy = this.runs.filter(k => k.getOldValue() === key);
         keyy[0].addValues(value);
         console.log(keyy[0].getNewValues());
     }

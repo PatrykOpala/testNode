@@ -1,4 +1,5 @@
-const { app, BrowserWindow, } = require('electron')
+const { app, BrowserWindow } = require('electron')
+const path = require('path')
 // import {app, BrowserWindow} from 'electron'
 
 function createWindow() {
@@ -8,9 +9,10 @@ function createWindow() {
     width: 850,
     height: 630,
     webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: false,
-      enableRemoteModule: true,
+      // nodeIntegration: true,
+      // contextIsolation: false,
+      // enableRemoteModule: true,
+      preload: path.join(__dirname, 'DocumentOfficePreload.js')
     }
   })
   win.loadFile('index.html')

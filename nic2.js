@@ -1,14 +1,11 @@
 let pars = new DOMParser();
 // let body = [];
-
 /*
-
 const paragraph = document.createElement("div");
 paragraph.style.display = "flex";
 paragraph.style.flexDirection = "row";
 paragraph.style.maxWidth = `${pCC.offsetWidth}px`;
 paragraph.style.alignItems = "center";
-
 */
 
 function start(path, data) {
@@ -203,7 +200,7 @@ function start(path, data) {
 
     let documenttJSON = JSON.stringify(Documentt);
 
-    fs.writeFile(`${path.name}.json`, documenttJSON, (err) => {
+    mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
         if (err) console.error(err);
 
     });
