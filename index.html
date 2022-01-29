@@ -870,7 +870,7 @@
             let editorTempp = document.querySelector('#dialogStartTemplate').content.cloneNode(true);
             let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
             try{
-                if(files.length >= 1){
+                if(files.length == 1){
                     if(mFile.fileSystem.existsSync(`docxs/${files[0].name}`)){
                         editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
                             e.path[3].remove();
@@ -880,7 +880,7 @@
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
                         document.querySelector('main').append(editorTempp);
-                        
+
                         mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
