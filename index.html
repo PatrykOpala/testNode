@@ -880,6 +880,7 @@
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
                         document.querySelector('main').append(editorTempp);
+                        
                         mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
@@ -945,47 +946,6 @@
                 runningSuperEditor(files, document.querySelector("main"));
             }
         });
-
-
-        /* pFile.addEventListener('click', ()=>{
-            document.querySelectorAll("button").forEach(b =>{b.remove()})
-         
-            let dialogStart = document.querySelector('#dialogStartTemp').content.cloneNode(true);
-
-            const buttonsContainer = document.createElement("div");
-            buttonsContainer.classList.add("buttonsContainer");
-
-            const dragAndDrop = dialogStart.querySelector('#dragAndDrop');
-            const nextButton = dialogStart.querySelector('#nextButton');
-            dragAndDrop.addEventListener("dragenter", (e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
-            });
-            dragAndDrop.addEventListener("dragleave", (e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            });
-            dragAndDrop.addEventListener("dragover", (e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-            });
-            dragAndDrop.addEventListener("drop",(e)=>{
-                e.preventDefault();
-                e.stopPropagation();
-                e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-                if(e.dataTransfer.files.length > 0){
-                    nextButton.removeAttribute("disabled");
-                    let files = e.dataTransfer.files;
-                    nextButton.addEventListener("click", ()=>{
-                        runningSuperEditor(files, document.querySelector("#con"));
-                    })
-                 }
-             });
-            
-             document.querySelector("#con").appendChild(dialogStart);
-         })*/
     </script>
 </body>
 </html>
