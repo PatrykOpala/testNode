@@ -221,7 +221,7 @@
         }
 
         .dialogStart{
-            display: none;
+            display: flex;
             flex-direction: column;
             background-color: rgb(255, 255, 255);
             border-radius: 4px;
@@ -848,32 +848,38 @@
         <button id="nextButtonn" class="nextButton">Dalej</button>
     </template>
 
-    <div id="dialogStart" class="dialogStart">
-        <div class="dialogHeader">
-            <div class="closeDlg"><img src="./img/close.svg" alt="close"></div>
-        </div>
-        <div class="dialogSelectHeader">
-            <div class="dialogSelectHeaderItem" id="settings">Ustawienia</div>
-            <div class="dialogSelectHeaderItem" id="countFile">Ile plików</div>
-        </div>
-        <div class="dialogBody" id="dBody">
+    <template id="dialogStartTemplate">
+        <div id="dialogStart" class="dialogStart">
+            <div class="dialogHeader">
+                <div class="closeDlg" id="bClose"><img src="./img/close.svg" alt="close"></div>
+            </div>
+            <div class="dialogSelectHeader">
+                <div class="dialogSelectHeaderItem" id="settings">Ustawienia</div>
+                <div class="dialogSelectHeaderItem" id="countFile">Ile plików</div>
+            </div>
+            <div class="dialogBody" id="dBody">
 
+            </div>
         </div>
-    </div>
+    </template>
     <script src="nic2.js"></script>
     <script>
         let ff = null;
 
         function runningSuperEditor(files, htmElement){
-            let editorTempp = document.querySelector('#dialogStart');
+            let editorTempp = document.querySelector('#dialogStartTemplate').content.cloneNode(true);
             let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
             try{
                 if(files.length >= 1){
                     if(mFile.fileSystem.existsSync(`docxs/${files[0].name}`)){
+                        editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
+                            e.path[3].remove();
+                            // console.log(e);
+                        })
                         editorTempp.querySelector('#countFile').setAttribute("activee", "");
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
-                        editorTempp.style.display = "flex";
+                        document.querySelector('main').append(editorTempp);
                         mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                             if (err) {
                                 return console.log(err);
