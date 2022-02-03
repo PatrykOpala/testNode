@@ -8,6 +8,7 @@ function createWindow() {
     title: "Document Office",
     width: 850,
     height: 630,
+    icon: './img/logo.ico',
     webPreferences: {
       // nodeIntegration: true,
       // contextIsolation: false,
