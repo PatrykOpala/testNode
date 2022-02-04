@@ -375,3 +375,14 @@ font-size-buttons{
     display: flex;
     flex-direction: row;
 }
+
+.boldBTN{
+    width: 29px;
+    height: 29px;
+    margin-top: 4px;
+    background-color: transparent;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
