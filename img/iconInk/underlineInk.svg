@@ -2,13 +2,13 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="16"
-   height="16"
-   viewBox="0 0 16 16"
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
    version="1.1"
    id="svg5"
    inkscape:version="1.1.1 (3bf5ae0d25, 2021-09-20)"
-   sodipodi:docname="italicInk.svg"
+   sodipodi:docname="underlineInk.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -23,17 +23,24 @@
      inkscape:pagecheckerboard="0"
      inkscape:document-units="px"
      showgrid="false"
-     inkscape:zoom="15.25"
-     inkscape:cx="7.3442623"
-     inkscape:cy="7.5737705"
+     inkscape:zoom="7.625"
+     inkscape:cx="13.442623"
+     inkscape:cy="10.557377"
      inkscape:window-width="1024"
      inkscape:window-height="715"
      inkscape:window-x="-8"
      inkscape:window-y="-8"
      inkscape:window-maximized="1"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1"
+     width="32px" />
   <defs
      id="defs2">
+    <rect
+       x="1.5081967"
+       y="2.7540984"
+       width="10.098361"
+       height="9.1803284"
+       id="rect19907" />
     <rect
        x="1.1147541"
        y="1.7704918"
@@ -41,7 +48,7 @@
        height="13.442623"
        id="rect14151" />
     <rect
-       x="1.9672131"
+       x="1.9672132"
        y="3.4098361"
        width="12.393443"
        height="11.344262"
@@ -53,11 +60,18 @@
      id="layer1">
     <text
        xml:space="preserve"
-       id="text14149"
-       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:1.25;font-family:Caladea;-inkscape-font-specification:'Caladea, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect14151)"
-       transform="matrix(2.0715953,0,0,2.0715953,1.6807281,-7.5071537)"><tspan
-         x="1.1152344"
-         y="10.799531"
-         id="tspan18085">I</tspan></text>
+       id="text19905"
+       style="font-size:8px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect19907);fill:#000000;fill-opacity:1"
+       transform="matrix(2.4943286,0,0,2.4943286,4.931115,-3.1576425)"><tspan
+         x="1.5078125"
+         y="9.8320312"
+         id="tspan885">U</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:1.40134"
+       id="rect29545"
+       width="19.60063"
+       height="2.2193065"
+       x="6.3606558"
+       y="22.500175" />
   </g>
 </svg>

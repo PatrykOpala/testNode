@@ -28,7 +28,7 @@
         </div>
         <div class="work_nav">
             <div class="Font">Czcionka</div>
-            <div class="FontSizeButtons">
+            <!-- <div class="FontSizeButtons">
                 <button>
                     <img src="./img/minus.svg" alt="minus">
                 </button>
@@ -36,15 +36,19 @@
                 <button>
                     <img src="./img/plus.svg" alt="minus">
                 </button>
-            </div>
+            </div> -->
+            <font-size-buttons></font-size-buttons>
             <button class="boldBTN">
-                <img src="./img/bold.svg" alt="bold">
+                <img src="./img/bold32x32.svg" alt="bold">
             </button>
             <button class="boldBTN">
-                <img src="./img/italic.png" alt="bold">
+                <img src="./img/italic.svg" alt="italic">
+            </button>
+            <button class="boldBTN">
+                <img src="./img/underline.svg" alt="underline">
             </button>
 
-            <!-- <font-size-buttons></font-size-buttons> -->
+            <!--  -->
         </div>
         <div id="dragAndDrop" class="dragAndDrop">
             <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
@@ -83,7 +87,7 @@
             </div>
         </div>
     </template>
-    <script src="Screen/FontSizeButtons.js"></script>
+    <script src="Screen/FontSizeButtons.js" async></script>
     <script src="nic2.js"></script>
     <script>
         let ff = null;

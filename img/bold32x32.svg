@@ -2,31 +2,32 @@
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
 
 <svg
-   width="16"
-   height="16"
-   viewBox="0 0 16 16"
+   width="32"
+   height="32"
+   viewBox="0 0 8.4666659 8.4666659"
    version="1.1"
-   id="svg5"
+   id="svg827"
    xmlns="http://www.w3.org/2000/svg"
    xmlns:svg="http://www.w3.org/2000/svg">
   <defs
-     id="defs2">
+     id="defs824">
     <rect
-       x="1.9672131"
+       x="1.9672132"
        y="3.4098361"
        width="12.393443"
        height="11.344262"
        id="rect3040" />
   </defs>
   <g
-     id="layer1">
+     id="layer1"
+     transform="translate(-0.03469945,0.03469945)">
     <text
        xml:space="preserve"
        id="text3038"
        style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:10px;line-height:1.25;font-family:sans-serif;-inkscape-font-specification:'sans-serif, Bold';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect3040);fill:#000000;fill-opacity:1"
-       transform="matrix(1.7195986,0,0,1.7195986,-2.0102994,-6.328901)"><tspan
+       transform="matrix(0.61000065,0,0,0.61000065,0.76643035,-1.0900006)"><tspan
          x="1.9667969"
          y="12.257812"
-         id="tspan912">B</tspan></text>
+         id="tspan840">B</tspan></text>
   </g>
 </svg>

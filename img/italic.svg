@@ -1,5 +1,38 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
- <text transform="matrix(2.0716 0 0 2.0716 1.6807 -7.5072)" font-family="Caladea" font-size="10px" font-style="italic" style="font-variant-caps:normal;font-variant-east-asian:normal;font-variant-ligatures:normal;font-variant-numeric:normal;line-height:1.25;shape-inside:url(#rect14151);white-space:pre" xml:space="preserve"/>
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="1.1147541"
+       y="1.7704918"
+       width="14.42623"
+       height="13.442623"
+       id="rect14151" />
+    <rect
+       x="1.9672132"
+       y="3.4098361"
+       width="12.393443"
+       height="11.344262"
+       id="rect3040" />
+  </defs>
+  <g
+     id="layer1">
+    <text
+       xml:space="preserve"
+       id="text14149"
+       style="font-style:italic;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:10px;line-height:1.25;font-family:Caladea;-inkscape-font-specification:'Caladea, Italic';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;white-space:pre;shape-inside:url(#rect14151)"
+       transform="matrix(2.6620182,0,0,2.6620182,8.4563484,-3.7813882)"><tspan
+         x="1.1152344"
+         y="10.799531"
+         id="tspan853">I</tspan></text>
+  </g>
 </svg>

@@ -1,8 +1,51 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg width="16" height="16" version="1.1" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
- <g>
-  <text transform="matrix(1.7941 0 0 1.7941 -.044635 -5.865)" fill="#000000" font-family="sans-serif" font-size="8px" style="line-height:1.25;shape-inside:url(#rect19907);white-space:pre" xml:space="preserve"/>
-  <rect x=".98361" y="12.59" width="14.098" height="2.0328" stroke-width="1.1374"/>
- </g>
+
+<svg
+   width="32"
+   height="32"
+   viewBox="0 0 32 32"
+   version="1.1"
+   id="svg5"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs2">
+    <rect
+       x="1.5081967"
+       y="2.7540984"
+       width="10.098361"
+       height="9.1803284"
+       id="rect19907" />
+    <rect
+       x="1.1147541"
+       y="1.7704918"
+       width="14.42623"
+       height="13.442623"
+       id="rect14151" />
+    <rect
+       x="1.9672132"
+       y="3.4098361"
+       width="12.393443"
+       height="11.344262"
+       id="rect3040" />
+  </defs>
+  <g
+     id="layer1">
+    <text
+       xml:space="preserve"
+       id="text19905"
+       style="font-size:8px;line-height:1.25;font-family:sans-serif;white-space:pre;shape-inside:url(#rect19907);fill:#000000;fill-opacity:1"
+       transform="matrix(2.4943286,0,0,2.4943286,4.931115,-3.1576425)"><tspan
+         x="1.5078125"
+         y="9.8320312"
+         id="tspan873">U</tspan></text>
+    <rect
+       style="fill:#000000;fill-opacity:1;stroke-width:1.40134"
+       id="rect29545"
+       width="19.60063"
+       height="2.2193065"
+       x="6.3606558"
+       y="22.500175" />
+  </g>
 </svg>
