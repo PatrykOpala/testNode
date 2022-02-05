@@ -12,8 +12,6 @@ main{
     height: 97vh;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
 }
 .paragraphContainer{
     width: 582px;
@@ -62,15 +60,12 @@ pre:hover{
 }
 
 .menuBar{
-    position: fixed;
     display: flex;
     flex-direction: row;
     width: 98%;
     height: 49px;
     padding: 10px;
-    top: 0;
     background-color: rgba(250, 250, 250, .9);
-    z-index: 99;
     border-bottom:1px solid var(--primary-colour);
 }
 
@@ -78,14 +73,9 @@ pre:hover{
     width:100%;
     height:38px;
     background-color: rgba(250, 250, 250, .9);
-    position: absolute;
-    top: 11.9%;
-    z-index: 100;
     display: flex;
     flex-direction: row;
 }
-
-
 
 .dragAndDrop{
     position: relative;
@@ -102,45 +92,6 @@ pre:hover{
 .dragAndDrop > p{
     margin-top: 35%;margin-left: 8%;
 }
-
-/* .errorDialog{
-    min-width: 250px;
-    min-height: 130px;
-    background-color: rgb(230, 20, 20);
-    color: rgb(255, 200, 200);
-    position: absolute;
-    top: 40px;
-    left: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-left: 5px;
-    padding-right: 5px;
-    z-index: 99;
-} */
-
-/* .errorDialog .b{
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end;
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.errorDialog .b button{
-    width: 126px;
-    min-height: 30px;
-    background-color: transparent;
-    color: rgb(255, 170, 170);
-    outline: none;
-    border: none;
-}
-
-.errorDialog .b button:hover{
-    background-color: rgb(255, 140, 140);
-    color:rgb(230, 20, 20);
-    cursor: pointer;
-} */
 
 .dialogStart{
     display: flex;
@@ -293,7 +244,7 @@ input, .nextButton{
     font-size: 1.1em;
 }
 
-.Font, .FontSizeButtons{
+.Font{
     width: 100px;
     height: 29px;
     text-align: center;
@@ -301,54 +252,6 @@ input, .nextButton{
     margin-top: 4px;
     margin-left: 4px;
 }
-/*
-.FontSizeButtons{
-    width: 103px;
-    display: flex;
-    flex-direction: row;
-    border: 1px solid rgba(250, 250, 250, .9);
-}
-
- .fontSizeField{
-    width: 46px;
-    height: 23px;
-    outline: none;
-    border: none;
-    margin-top:2px;
-    text-align: center;
-    background-color: transparent;
-    border-left: 1px solid rgba(250, 250, 250, .9);
-    border-right: 1px solid rgba(250, 250, 250, .9);
-    font-size: 1.1em;
-}
-
-.FontSizeButtons button{
-    width:25px;
-    height:25px;
-    background-color: transparent;
-    margin-top: 2px;
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    outline: none;
-    border:none;
-}
-
-.FontSizeButtons button:hover{
-    background-color: rgba(230, 230, 230, .8);
-} */
-
-/* font-size-buttons{
-    width: 103px;
-    height: 29px;
-    text-align: center;
-    line-height: 30px;
-    margin-top: 4px;
-    margin-left: 4px;
-    display: flex;
-    flex-direction: row;
-} */
 
 .boldBTN{
     width: 29px;
@@ -366,7 +269,6 @@ input, .nextButton{
 }
 
 .boldBTN:hover{
-    /* background-color: rgba(230, 230, 230, .8); */
     background-color: transparent;
     border-bottom: 2px solid var(--primary-colour);
 }

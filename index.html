@@ -11,7 +11,7 @@
         <div class="menuBar">
             <do-logo></do-logo>
         </div>
-        <div class="work_nav">
+        <work-nav>
             <div class="Font">Czcionka</div>
             <font-size-buttons></font-size-buttons>
             <button class="boldBTN">
@@ -23,11 +23,10 @@
             <button class="boldBTN">
                 <img src="./img/underline.svg" alt="underline">
             </button>
-        </div>
-        <div id="dragAndDrop" class="dragAndDrop">
+        </work-nav>
+        <!-- <div id="dragAndDrop" class="dragAndDrop">
             <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
-        </div>
-        <!-- <error-dialog></error-dialog> -->
+        </div> -->
     </main>
 
     <template id="dialogBodyControl">
@@ -58,9 +57,7 @@
             </div>
         </div>
     </template>
-    <!-- <script src="Screen/ErrorDialog.js" async></script> -->
-    <script src="Screen/Logo.js" async></script>
-    <script src="Screen/FontSizeButtons.js" async></script>
+    <script src="Screen/DOComponents.js" async></script>
     <script src="nic2.js"></script>
     <script>
         let ff = null;
@@ -125,29 +122,29 @@
             
         }
 
-        document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
-        });
-        document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-        });
-        document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            if(e.dataTransfer.files.length > 0){
-                let files = e.dataTransfer.files;
-                runningSuperEditor(files, document.querySelector("main"));
-            }
-        });
+        /* document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
+             e.preventDefault();
+             e.stopPropagation();
+             e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
+         });
+         document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
+             e.preventDefault();
+             e.stopPropagation();
+             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+         });
+         document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
+             e.preventDefault();
+             e.stopPropagation();
+         });
+         document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
+             e.preventDefault();
+             e.stopPropagation();
+             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+             if(e.dataTransfer.files.length > 0){
+                 // let files = e.dataTransfer.files;
+                 // runningSuperEditor(files, document.querySelector("main"));
+             }
+         });*/
     </script>
 </body>
 </html>
