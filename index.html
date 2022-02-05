@@ -8,35 +8,11 @@
 </head>
 <body>
     <main>
-        <template id="errorDialogTemp">
-            <div id="errorDialog" class="errorDialog">
-                <h2>Coś nie poszło</h2>
-                <span id="errContent"></span>
-                <div class="b">
-                    <button id="errDClose">Zamknij komunikat</button>
-                </div>
-            </div>
-        </template>
         <div class="menuBar">
-            <div class="whiteSquareRounded">
-                <div style="width:26px;height:5px;background-color:var(--primary-colour);margin:1px;"></div>
-                <div style="width:26px;height:5px;background-color:var(--primary-colour);margin:1px;"></div>
-                <div style="width:26px;height:5px;background-color:var(--primary-colour);margin:1px;"></div>
-            </div>
-            <div class="Logo">Document <span>Office</span></div>
-            <div style="width:2px;height:40px;background-color:rgba(250, 250, 250, .9);margin-top:6px;"></div>
+            <do-logo></do-logo>
         </div>
         <div class="work_nav">
             <div class="Font">Czcionka</div>
-            <!-- <div class="FontSizeButtons">
-                <button>
-                    <img src="./img/minus.svg" alt="minus">
-                </button>
-                <input type="text" id="" value="0" class="fontSizeField">
-                <button>
-                    <img src="./img/plus.svg" alt="minus">
-                </button>
-            </div> -->
             <font-size-buttons></font-size-buttons>
             <button class="boldBTN">
                 <img src="./img/bold32x32.svg" alt="bold">
@@ -47,17 +23,12 @@
             <button class="boldBTN">
                 <img src="./img/underline.svg" alt="underline">
             </button>
-
-            <!--  -->
         </div>
         <div id="dragAndDrop" class="dragAndDrop">
             <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
         </div>
+        <!-- <error-dialog></error-dialog> -->
     </main>
-
-    <template id="editorTemp">
-        
-    </template>
 
     <template id="dialogBodyControl">
         <div class="bv">
@@ -87,6 +58,8 @@
             </div>
         </div>
     </template>
+    <!-- <script src="Screen/ErrorDialog.js" async></script> -->
+    <script src="Screen/Logo.js" async></script>
     <script src="Screen/FontSizeButtons.js" async></script>
     <script src="nic2.js"></script>
     <script>
