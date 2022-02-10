@@ -194,7 +194,6 @@ function start(path, data) {
             }
             Documentt.body.push(tablee);
         }
-
     });
     // console.log(body);
 
@@ -202,7 +201,6 @@ function start(path, data) {
 
     mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
         if (err) console.error(err);
-
     });
 
     return Documentt;
