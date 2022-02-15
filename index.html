@@ -12,27 +12,15 @@
         <div class="menuBar">
             <do-logo></do-logo>
         </div>
-        <work-nav>
-            <div class="Font">Czcionka</div>
-            <font-size-buttons></font-size-buttons>
-            <button class="boldBTN">
-                <img src="./img/bold32x32.svg" alt="bold">
-            </button>
-            <button class="boldBTN">
-                <img src="./img/italic.svg" alt="italic">
-            </button>
-            <button class="boldBTN">
-                <img src="./img/underline.svg" alt="underline">
-            </button>
-        </work-nav>
+        <!-- 
         <div class="EditorContainer">
             <div class="Editor">
-                <div class="EditorParagraph"></div>
+                <div class="EditorParagraph" id="editorParag"></div>
             </div>
-        </div>
-        <!-- <div id="dragAndDrop" class="dragAndDrop">
-            <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
         </div> -->
+        <div id="dragAndDrop" class="dragAndDrop">
+            <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
+        </div>
     </main>
 
     <template id="dialogBodyControl">
@@ -68,6 +56,53 @@
     <script>
         let ff = null;
 
+        function createWorkNavBar(root){
+            const workNav = document.createElement('work-nav');
+            const fontContainer = document.createElement('div');
+            fontContainer.classList.add('Font');
+            fontContainer.textContent = "Czcionka"
+            const fontSizeButtons = document.createElement('font-size-buttons');
+
+            const buttonBold = document.createElement('button');
+            buttonBold.classList.add('boldBTN');
+            const btnImg = document.createElement('img');
+            btnImg.src = './img/bold32x32.svg';
+            btnImg.alt = 'bold';
+            buttonBold.append(btnImg)
+
+            const buttonItalic = document.createElement('button');
+            buttonItalic.classList.add('boldBTN');
+            const btnImgItalic = document.createElement('img');
+            btnImgItalic.src = './img/italic.svg';
+            btnImgItalic.alt = 'bold';
+            buttonItalic.append(btnImgItalic)
+
+            const buttonUnderline = document.createElement('button');
+            buttonUnderline.classList.add('boldBTN');
+            const btnImgUnderline = document.createElement('img');
+            btnImgUnderline.src = './img/underline.svg';
+            btnImgUnderline.alt = 'bold';
+            buttonUnderline.append(btnImgUnderline)
+
+            workNav.append(fontContainer, fontSizeButtons, buttonBold, buttonItalic, buttonUnderline);
+            root.append(workNav);
+        }
+
+        function createEdytor(root2){
+            const edytorContainer = document.createElement('div');
+            edytorContainer.classList.add('EditorContainer');
+            const edytor = document.createElement('div');
+            edytor.classList.add('Editor');
+            const edytorParagraph = document.createElement('div');
+            edytorParagraph.classList.add('EditorParagraph');
+            
+            edytor.append(edytorParagraph);
+            edytorContainer.append(edytor)
+
+            root2.append(edytorContainer);
+        }
+
+
         function runningSuperEditor(files, htmElement){
             let editorTempp = document.querySelector('#dialogStartTemplate').content.cloneNode(true);
             let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
@@ -76,18 +111,19 @@
                     if(mFile.fileSystem.existsSync(`docxs/${files[0].name}`)){
                         editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
                             e.path[3].remove();
-                            // console.log(e);
                         })
                         editorTempp.querySelector('#countFile').setAttribute("activee", "");
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
                             mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
-                                if (err) {
-                                    return console.log(err);
-                                }
+                                if (err) { return console.log(err);}
                                 ff = start(files[0], buff);
                                 document.querySelector('#dialogStart').remove();
                                 document.querySelector('#dragAndDrop').remove();
+
+                                createWorkNavBar(document.querySelector('main'));
+                                createEdytor(document.querySelector('main'))
+                                
                             });
                         })
                         editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
@@ -128,29 +164,33 @@
             
         }
 
-        /* document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
-             e.preventDefault();
-             e.stopPropagation();
-             e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
-         });
-         document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
-             e.preventDefault();
-             e.stopPropagation();
-             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-         });
-         document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
-             e.preventDefault();
-             e.stopPropagation();
-         });
-         document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
-             e.preventDefault();
-             e.stopPropagation();
-             e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-             if(e.dataTransfer.files.length > 0){
-                 // let files = e.dataTransfer.files;
-                 // runningSuperEditor(files, document.querySelector("main"));
-             }
-         });*/
+
+        /**/
+
+        document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
+        });
+        document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        });
+        document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+        });
+        document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
+            e.preventDefault();
+            e.stopPropagation();
+            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+            if(e.dataTransfer.files.length > 0){
+                let files = e.dataTransfer.files;
+                runningSuperEditor(files, document.querySelector("main"));
+            }
+        });
+
     </script>
 </body>
 </html>
