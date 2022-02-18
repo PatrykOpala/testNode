@@ -96,13 +96,32 @@
             edytor.classList.add('Editor');
 
             if(ff !== null){
+                // console.log(ff);
 
+                let ffLength = ff.body.length;
+                for(let fm = 0; fm < ffLength; fm++){
+                    if(ff.body[fm].type === 'Paragraph'){
+                        // console.log(ff.body[fm]);
+                        let edytorParagraph = document.createElement('div');
+                        edytorParagraph.classList.add('EditorParagraph');
+                        edytorParagraph.style.alignItems = "center";
+
+                        let runss = ff.body[fm].runs;
+                        for(let d = 0; d < runss.length; d++){
+                            let pRun = document.createElement('pre');
+                            pRun.contentEditable = true;
+                            pRun.style.display = 'inline-block';
+                            pRun.style.margin = "0";
+                            if(runss[d].oldValues !== undefined){
+                                pRun.textContent = runss[d].oldValues;
+                                edytorParagraph.append(pRun);
+                            }
+                        }
+
+                        edytor.append(edytorParagraph);
+                    }                    
+                }
             }
-
-            const edytorParagraph = document.createElement('div');
-            edytorParagraph.classList.add('EditorParagraph');
-            
-            edytor.append(edytorParagraph);
             edytorContainer.append(edytor)
 
             root2.append(edytorContainer);
@@ -315,15 +334,14 @@
                     Documentt.body.push(T(mldomElements[cN]));
                 }    
             }
-            console.log(Documentt.body)
 
-            // let documenttJSON = JSON.stringify(Documentt);
+            let documenttJSON = JSON.stringify(Documentt);
 
-            // mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
-            //     if (err) console.error(err);
-            // });
+            mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
+                if (err) console.error(err);
+            });
 
-            // return Documentt;
+            return Documentt;
         }
 
         function runningSuperEditor(files, htmElement){
@@ -340,8 +358,7 @@
                         editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
                             mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                                 if (err) { return console.log(err);}
-                                // ff = start(files[0], buff);
-                                start(files[0], buff);
+                                ff = start(files[0], buff);
                                 document.querySelector('#dialogStart').remove();
                                 document.querySelector('#dragAndDrop').remove();
 
