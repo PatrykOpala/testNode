@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
     <link rel="stylesheet" href="njas.css">
-    <script src="Screen/DOComponents.js" async></script>
 </head>
 <body>
     <main>
@@ -18,9 +17,11 @@
                 <div class="EditorParagraph" id="editorParag"></div>
             </div>
         </div> -->
-        <div id="dragAndDrop" class="dragAndDrop">
+        <!-- <div id="dragAndDrop" class="dragAndDrop">
             <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
-        </div>
+        </div> -->
+
+        <drag-and-drop></drag-and-drop>
     </main>
 
     <template id="dialogBodyControl">
@@ -51,11 +52,12 @@
             </div>
         </div>
     </template>
-    <!-- <script src="Screen/DOComponents.js" async></script> -->
+    <script src="Screen/DOComponents.js" async></script>
     <script src="nic2.js"></script>
     <script>
         let pars = new DOMParser();
         let ff = null;
+        let dragg = document.querySelector('drag-and-drop');
 
         function createWorkNavBar(root){
             const workNav = document.createElement('work-nav');
@@ -114,6 +116,10 @@
                             pRun.style.margin = "0";
                             if(runss[d].oldValues !== undefined){
                                 pRun.textContent = runss[d].oldValues;
+                                if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
+                                    pRun.style.color = runss[d].rPr.color
+                                }
+                                
                                 edytorParagraph.append(pRun);
                             }
                         }
@@ -154,9 +160,9 @@
                 }
 
                 if (mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
-                    runn.color = mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
+                    runn.rPr.color = mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
                 } else {
-                    runn.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                    runn.rPr.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
                 }
                 if (mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t").length > 1) {
                     mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
@@ -290,11 +296,11 @@
                                 }
 
                                 if (tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
-                                    runn.color = tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
+                                    runn.rPr.color = tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
                                 } else if (tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === undefined || tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === null) {
-                                    runn.color = "null";
+                                    runn.rPr.color = "null";
                                 } else {
-                                    runn.color = `#${tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                                    runn.rPr.color = `#${tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
                                 }
                                 if (tcpr[tcprr]?.querySelectorAll("t").length > 1) {
                                     tcpr[tcprr]?.querySelectorAll("t")?.forEach(t => {
@@ -316,7 +322,7 @@
             return tablee  
         }
 
-        function start(path, data) {
+        function start(path, data, err) {
             let Documentt = {
                 fileName: path.name,
                 body: []
@@ -326,7 +332,6 @@
             let mlDomBody = mlDom.querySelector("body");
             let mldomElements = mlDomBody.childNodes;
 
-
             for(let cN = 0; cN < mldomElements.length; cN++){
                 if(mldomElements[cN].localName === 'p'){
                     Documentt.body.push(PAndR(mldomElements[cN]));
@@ -334,103 +339,56 @@
                     Documentt.body.push(T(mldomElements[cN]));
                 }    
             }
-
             let documenttJSON = JSON.stringify(Documentt);
 
             mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
                 if (err) console.error(err);
             });
 
-            return Documentt;
+            ff = Documentt;
         }
 
-        function runningSuperEditor(files, htmElement){
+        function runningSuperEditor(filess, htmElement){
             let editorTempp = document.querySelector('#dialogStartTemplate').content.cloneNode(true);
             let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
             try{
-                if(files.length == 1){
-                    if(mFile.fileSystem.existsSync(`docxs/${files[0].name}`)){
+                if(filess.length == 1){
+                    if(mFile.fileSystem.existsSync(`docxs/${filess[0].name}`)){
                         editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
                             e.path[3].remove();
                         })
                         editorTempp.querySelector('#countFile').setAttribute("activee", "");
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
-                            mFile.fileSystem.readFile(`docxs/${files[0].name}/word/document.xml`, 'utf8', (err, buff) => {
+                            mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                                 if (err) { return console.log(err);}
-                                ff = start(files[0], buff);
+                                start(filess[0], buff, err);
                                 document.querySelector('#dialogStart').remove();
-                                document.querySelector('#dragAndDrop').remove();
-
+                                dragg.remove();
                                 createWorkNavBar(document.querySelector('main'));
                                 createEdytor(document.querySelector('main'))
-                                
                             });
                         })
-                        editorTempp.querySelector('#nameFile').value = `${files[0].name}`;
+                        editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
                         document.querySelector('main').append(editorTempp);
                     }else{
-                        // decompress(`${file[0].path}`, `docxs/${file[0].name}`).then(fl => {
-                        //     fl.forEach(l => {
-                        //         if (l.path == "word/document.xml") {
-                        //             file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
-                        //         }
-                        //     })
-                        // })
+                        mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
+                            fl.forEach(l => {
+                                if (l.path == "word/document.xml") {
+                                    mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`, start);
+                                }
+                            })
+                        })
                     }
-                }else{
-                    // files.forEach(f =>{
-                    //     if(existsFileOrPath(`docxs/${f.path}`)){
-                    //         htmElement.appendChild(editorTemp);
-                    //         start(`docxs/${f.path}`, htmElement.querySelector("#z"));
-                    //     }else{
-                    //         decompress(`${f.path}`, `docxs/${f.name}`).then(fl => {
-                    //             fl.forEach(l => {
-                    //                 if (l.path == "word/document.xml") {
-                    //                     file_system.readFile(`docxs/${l.name}/${l.path}`, paraf);
-                    //                     start(`docxs/${l.name}/${l.path}`, htmElement.querySelector("#z"));
-                    //                 }
-                    //             })
-                    //         })
-                    //     }
-                    // })
                 }
             }catch(r){
-                // let errorDialogTemp = document.querySelector('#errorDialogTemp').content.cloneNode(true);
-                // errorDialogTemp.querySelector('#errContent').textContent = r;
-                // errorDialogTemp.querySelector('#errDClose').addEventListener('click', e=>{e.target.offsetParent.remove()});
-                // document.body.querySelector('main').append(errorDialogTemp);
                 console.log(r)
             }
-            
         }
 
-
-        /**/
-
-        document.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
-        });
-        document.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-        });
-        document.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-        });
-        document.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
-            e.preventDefault();
-            e.stopPropagation();
-            e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
-            if(e.dataTransfer.files.length > 0){
-                let files = e.dataTransfer.files;
-                runningSuperEditor(files, document.querySelector("main"));
-            }
-        });
+        dragg.addEventListener('dd', (e)=>{
+            runningSuperEditor(e.detail.f, document.querySelector("main"));
+        })
 
     </script>
 </body>

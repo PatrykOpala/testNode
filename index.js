@@ -6,8 +6,8 @@ function createWindow() {
   const win = new BrowserWindow({
     autoHideMenuBar: true,
     title: "Document Office",
-    width: 850,
-    height: 630,
+    width: 1300,
+    height: 700,
     icon: './img/logo.ico',
     backgroundColor: '#ffffff',
     webPreferences: {

@@ -196,3 +196,73 @@ class WorkNav extends HTMLElement {
 }
 
 customElements.define('work-nav', WorkNav);
+
+class DragAndDrop extends HTMLElement{
+  constructor() {
+    super();
+    this.attachShadow({ mode: 'open', delegatesFocus: true });
+  }
+
+  connectedCallback() {
+    this.shadowRoot.innerHTML = `
+    <style>
+      :host{
+        width: 100%;
+        height: 99.7%;
+        position: relative;
+      }
+      .dragAndDrop{
+        position: absolute;
+        width:100%;
+        height:100%;
+        text-align:center;
+        font-size:1.3rem;
+        color:rgba(2, 2, 2, .6);
+        cursor:default;
+      }
+      .dragAndDrop > p{
+        margin-top: 35vh;margin-left: 4vw;
+      }
+    </style>
+    <div id="dragAndDrop" class="dragAndDrop">
+      <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
+    </div>
+    `;
+
+    this.attachEvent();
+  }
+
+  attachEvent(){
+    this.shadowRoot.querySelector('#dragAndDrop').addEventListener("dragenter", (e)=>{
+      e.preventDefault();
+      e.stopPropagation();
+      e.target.style.backgroundColor = "rgba(205, 205, 205, 1)";
+    });
+    this.shadowRoot.querySelector('#dragAndDrop').addEventListener("dragleave", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+    });
+    this.shadowRoot.querySelector('#dragAndDrop').addEventListener("dragover", (e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+    });
+    this.shadowRoot.querySelector('#dragAndDrop').addEventListener("drop",(e)=>{
+        e.preventDefault();
+        e.stopPropagation();
+        e.target.style.backgroundColor = "rgba(255, 255, 255, 1)";
+        if(e.dataTransfer.files.length > 0){
+            let files = e.dataTransfer.files;
+            let dEvent = new CustomEvent('dd', {
+              detail: {
+                f: files
+              },
+              composed: true
+            });
+            this.shadowRoot.dispatchEvent(dEvent);
+        }
+    });
+  }
+}
+
+customElements.define('drag-and-drop', DragAndDrop);

@@ -77,7 +77,7 @@ pre:hover{
     flex-direction: row;
 }
 
-.dragAndDrop{
+/* .dragAndDrop{
     position: relative;
     top:0;
     left:0;
@@ -91,7 +91,7 @@ pre:hover{
 
 .dragAndDrop > p{
     margin-top: 27%;margin-left: 4%;
-}
+} */
 
 .dialogStart{
     display: flex;
