@@ -322,7 +322,7 @@
             return tablee  
         }
 
-        function start(path, data, err) {
+        function start(path, data) {
             let Documentt = {
                 fileName: path.name,
                 body: []
@@ -361,8 +361,8 @@
                         editorTempp.querySelector('#dBody').append(dbControl);
                         editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
                             mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
-                                if (err) { return console.log(err);}
-                                start(filess[0], buff, err);
+                                if (err) { return console.log(err)}
+                                start(filess[0], buff);
                                 document.querySelector('#dialogStart').remove();
                                 dragg.remove();
                                 createWorkNavBar(document.querySelector('main'));
@@ -375,7 +375,7 @@
                         mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
                             fl.forEach(l => {
                                 if (l.path == "word/document.xml") {
-                                    mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`, start);
+                                    mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`);
                                 }
                             })
                         })
