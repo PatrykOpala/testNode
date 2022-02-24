@@ -11,16 +11,6 @@
         <div class="menuBar">
             <do-logo></do-logo>
         </div>
-        <!-- 
-        <div class="EditorContainer">
-            <div class="Editor">
-                <div class="EditorParagraph" id="editorParag"></div>
-            </div>
-        </div> -->
-        <!-- <div id="dragAndDrop" class="dragAndDrop">
-            <p style="pointer-events: none;">Przeciągnij i upuść tutaj plik Worda, aby rozpocząć.</p>
-        </div> -->
-
         <drag-and-drop></drag-and-drop>
     </main>
 
@@ -125,7 +115,15 @@
                         }
 
                         edytor.append(edytorParagraph);
-                    }                    
+                    }else if(ff.body[fm].type === 'Table'){
+                        let tableElement = document.createElement('table');
+                        tableElement.style.border = "1px solid red";
+
+                        if(ff.body[fm].tblPr.tblW.width !== ""){
+                        }
+
+                        edytor.append(tableElement);
+                    }
                 }
             }
             edytorContainer.append(edytor)
@@ -177,12 +175,13 @@
         }
 
         function T(tElement){
+            // 6,944444444444444e-4
             let tablee = {
                 type: 'Table',
                 tblPr: {
                     tblW: {
                         width: tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
-                        type: tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        type: ""
                     },
                     jc: tElement?.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
                     tblInd: {
@@ -216,6 +215,15 @@
                 },
                 tbr: [],
             }
+
+            if(tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa'){
+                tablee.tblPr.tblW.type = tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type')
+            }else if(tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'pct'){
+                tablee.tblPr.tblW.type = tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type')
+            }else{
+                tablee.tblPr.tblW.type = ""
+            }
+            
 
             let tblGridColumns =  tElement?.querySelector('tblGrid').childNodes;
             for(let tblGC = 0; tblGC < tblGridColumns.length; tblGC++){
@@ -336,6 +344,7 @@
                 if(mldomElements[cN].localName === 'p'){
                     Documentt.body.push(PAndR(mldomElements[cN]));
                 } else if(mldomElements[cN].localName === 'tbl'){
+                    console.log(mldomElements[cN]);
                     Documentt.body.push(T(mldomElements[cN]));
                 }    
             }
@@ -366,7 +375,7 @@
                                 document.querySelector('#dialogStart').remove();
                                 dragg.remove();
                                 createWorkNavBar(document.querySelector('main'));
-                                createEdytor(document.querySelector('main'))
+                                createEdytor(document.querySelector('main'));
                             });
                         })
                         editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
