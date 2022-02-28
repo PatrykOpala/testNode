@@ -116,12 +116,50 @@
 
                         edytor.append(edytorParagraph);
                     }else if(ff.body[fm].type === 'Table'){
+                        continue;
                         let tableElement = document.createElement('table');
-                        tableElement.style.border = "1px solid red";
+                        // tableElement.style.border = "1px solid red";
 
-                        if(ff.body[fm].tblPr.tblW.width !== ""){
+                        for(let cvb = 0; cvb < ff.body[fm].tbr.length; cvb++){
+                            for(let tr = 0; tr < ff.body[fm].tbr[cvb].tcols.length; tr++){
+                                let tableRowElement = document.createElement('tr');
+                                tableRowElement.style.padding = "5px";
+                                tableRowElement.style.border = "2px solid yellow";
+                                console.log(`${ff.body[fm].tbr[cvb].tcols[tr]}`);
+
+
+                                // for(let td = 0; td < ff.body[fm].tbr[cvb].tcols[tr].length; td++){
+                                //     console.log("tableTDElement");
+                                //     tableTDElement = document.createElement('td');
+                                //     for(let tdP = 0; tdP < ff.body[fm].tbr[cvb].tcols[tr].p[td]; tdP++){
+                                //         console.log("tableParagraph");
+                                //         let tableParagraph = document.createElement('div');
+                                //         tableParagraph.classList.add('EditorParagraph');
+                                //         tableParagraph.style.alignItems = "center";
+
+                                //             let runss = ff.body[fm].tbr[cvb].tcols[tr].p[td].runs[tdP].length;
+                                //             for(let d = 0; d < runss.length; d++){
+                                //                 let pRun = document.createElement('pre');
+                                //                 pRun.contentEditable = true;
+                                //                 pRun.style.display = 'inline-block';
+                                //                 pRun.style.margin = "0";
+                                //                 if(runss[d].oldValues !== undefined){
+                                //                     pRun.textContent = runss[d].oldValues;
+                                //                     if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
+                                //                         pRun.style.color = runss[d].rPr.color
+                                //                     }
+                                //                     tableParagraph.append(pRun);
+                                //                 }
+                                //             }
+
+                                //         tableTDElement.append(edytorParagraph);
+                                //     }
+                                //     console.log(tableTDElement);
+                                //     tableRowElement.append(tableTDElement);
+                                // }
+                                tableElement.append(tableRowElement);
+                            }
                         }
-
                         edytor.append(tableElement);
                     }
                 }
@@ -344,7 +382,6 @@
                 if(mldomElements[cN].localName === 'p'){
                     Documentt.body.push(PAndR(mldomElements[cN]));
                 } else if(mldomElements[cN].localName === 'tbl'){
-                    console.log(mldomElements[cN]);
                     Documentt.body.push(T(mldomElements[cN]));
                 }    
             }
