@@ -139,7 +139,7 @@ pre:hover{
 }
 
 .dialogBody{
-    width: 500px;
+    width: 100%;
     height: 300px;
     display: flex;
     flex-direction: column;

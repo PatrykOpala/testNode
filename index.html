@@ -48,6 +48,7 @@
         let pars = new DOMParser();
         let ff = null;
         let dragg = document.querySelector('drag-and-drop');
+        let vbcx = document.querySelector('main');
 
         function createWorkNavBar(root){
             const workNav = document.createElement('work-nav');
@@ -82,134 +83,103 @@
         }
 
         function createEdytor(root2){
-            const edytorContainer = document.createElement('div');
-            edytorContainer.classList.add('EditorContainer');
-            const edytor = document.createElement('div');
-            edytor.classList.add('Editor');
+            if(ff.body[fm].type === 'Table'){
+                continue;
+                let tableElement = document.createElement('table');
+                // tableElement.style.border = "1px solid red";
 
-            if(ff !== null){
-                // console.log(ff);
-
-                let ffLength = ff.body.length;
-                for(let fm = 0; fm < ffLength; fm++){
-                    if(ff.body[fm].type === 'Paragraph'){
-                        // console.log(ff.body[fm]);
-                        let edytorParagraph = document.createElement('div');
-                        edytorParagraph.classList.add('EditorParagraph');
-                        edytorParagraph.style.alignItems = "center";
-
-                        let runss = ff.body[fm].runs;
-                        for(let d = 0; d < runss.length; d++){
-                            let pRun = document.createElement('pre');
-                            pRun.contentEditable = true;
-                            pRun.style.display = 'inline-block';
-                            pRun.style.margin = "0";
-                            if(runss[d].oldValues !== undefined){
-                                pRun.textContent = runss[d].oldValues;
-                                if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
-                                    pRun.style.color = runss[d].rPr.color
-                                }
-                                
-                                edytorParagraph.append(pRun);
-                            }
-                        }
-
-                        edytor.append(edytorParagraph);
-                    }else if(ff.body[fm].type === 'Table'){
-                        continue;
-                        let tableElement = document.createElement('table');
-                        // tableElement.style.border = "1px solid red";
-
-                        for(let cvb = 0; cvb < ff.body[fm].tbr.length; cvb++){
-                            for(let tr = 0; tr < ff.body[fm].tbr[cvb].tcols.length; tr++){
-                                let tableRowElement = document.createElement('tr');
-                                tableRowElement.style.padding = "5px";
-                                tableRowElement.style.border = "2px solid yellow";
-                                console.log(`${ff.body[fm].tbr[cvb].tcols[tr]}`);
+                for(let cvb = 0; cvb < ff.body[fm].tbr.length; cvb++){
+                    for(let tr = 0; tr < ff.body[fm].tbr[cvb].tcols.length; tr++){
+                        let tableRowElement = document.createElement('tr');
+                        tableRowElement.style.padding = "5px";
+                        tableRowElement.style.border = "2px solid yellow";
+                        console.log(`${ff.body[fm].tbr[cvb].tcols[tr]}`);
 
 
-                                // for(let td = 0; td < ff.body[fm].tbr[cvb].tcols[tr].length; td++){
-                                //     console.log("tableTDElement");
-                                //     tableTDElement = document.createElement('td');
-                                //     for(let tdP = 0; tdP < ff.body[fm].tbr[cvb].tcols[tr].p[td]; tdP++){
-                                //         console.log("tableParagraph");
-                                //         let tableParagraph = document.createElement('div');
-                                //         tableParagraph.classList.add('EditorParagraph');
-                                //         tableParagraph.style.alignItems = "center";
+                        // for(let td = 0; td < ff.body[fm].tbr[cvb].tcols[tr].length; td++){
+                        //     console.log("tableTDElement");
+                        //     tableTDElement = document.createElement('td');
+                        //     for(let tdP = 0; tdP < ff.body[fm].tbr[cvb].tcols[tr].p[td]; tdP++){
+                        //         console.log("tableParagraph");
+                        //         let tableParagraph = document.createElement('div');
+                        //         tableParagraph.classList.add('EditorParagraph');
+                        //         tableParagraph.style.alignItems = "center";
 
-                                //             let runss = ff.body[fm].tbr[cvb].tcols[tr].p[td].runs[tdP].length;
-                                //             for(let d = 0; d < runss.length; d++){
-                                //                 let pRun = document.createElement('pre');
-                                //                 pRun.contentEditable = true;
-                                //                 pRun.style.display = 'inline-block';
-                                //                 pRun.style.margin = "0";
-                                //                 if(runss[d].oldValues !== undefined){
-                                //                     pRun.textContent = runss[d].oldValues;
-                                //                     if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
-                                //                         pRun.style.color = runss[d].rPr.color
-                                //                     }
-                                //                     tableParagraph.append(pRun);
-                                //                 }
-                                //             }
+                        //             let runss = ff.body[fm].tbr[cvb].tcols[tr].p[td].runs[tdP].length;
+                        //             for(let d = 0; d < runss.length; d++){
+                        //                 let pRun = document.createElement('pre');
+                        //                 pRun.contentEditable = true;
+                        //                 pRun.style.display = 'inline-block';
+                        //                 pRun.style.margin = "0";
+                        //                 if(runss[d].oldValues !== undefined){
+                        //                     pRun.textContent = runss[d].oldValues;
+                        //                     if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
+                        //                         pRun.style.color = runss[d].rPr.color
+                        //                     }
+                        //                     tableParagraph.append(pRun);
+                        //                 }
+                        //             }
 
-                                //         tableTDElement.append(edytorParagraph);
-                                //     }
-                                //     console.log(tableTDElement);
-                                //     tableRowElement.append(tableTDElement);
-                                // }
-                                tableElement.append(tableRowElement);
-                            }
-                        }
-                        edytor.append(tableElement);
+                        //         tableTDElement.append(edytorParagraph);
+                        //     }
+                        //     console.log(tableTDElement);
+                        //     tableRowElement.append(tableTDElement);
+                        // }
+                        tableElement.append(tableRowElement);
                     }
                 }
+                edytor.append(tableElement);
             }
-            edytorContainer.append(edytor)
-
-            root2.append(edytorContainer);
         }
 
-        function PAndR(mlElement){
-            let parag = {
-                type: "Paragraph",
-                pPr: {
-                    pStyle: mlElement.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val"),
-                    rPr: {
-                        sz: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null,
-                        szCs: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
-                    }
-                },
-                runs: []
-            }
+        function PAndR(mlElement, rt){
+            //  pPr: {
+            //    pStyle: mlElement.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val"),
+            //    sz: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null,
+            //    szCs: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
+            
+
+            let edytorParagraph = document.createElement('div');
+                edytorParagraph.classList.add('EditorParagraph');
+                edytorParagraph.style.alignItems = "center";
+
             for(rb = 0; rb < mlElement.querySelectorAll('r').length; rb++){
-                const runn = {
-                    type: "Run",
-                    rPr: {
-                        fontSize: Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val")),
-                        bold: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("b") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("bCs") ? true : false,
-                        italic: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("i") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("iCs") ? true : false,
-                        strike: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike") ? true : false,
-                        underline: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("u") ? true : false,
-                        color: ""
-                    },
-                    oldValues: [] | ''
+                
+             //  strike: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike") ? true : false
+
+                let pRun = document.createElement('pre');
+                pRun.contentEditable = true;
+                pRun.style.display = 'inline-block';
+                pRun.style.margin = '0';
+                pRun.style.fontSize = `${Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
+                || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}px`;
+                
+                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("b") 
+                || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("bCs")){
+                    pRun.style.fontWeight = 'bold';
                 }
 
+                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("i") 
+                || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("iCs")){
+                    pRun.style.fontStyle = 'italic';
+                }
+
+                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("u")){
+                    pRun.style.fontStyle = 'underline';
+                }
+
+                mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
+                    pRun.setAttribute('oldValues', t.textContent);
+                    pRun.textContent = t.textContent;
+                });
                 if (mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
-                    runn.rPr.color = mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
+                    pRun.style.color = `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
                 } else {
-                    runn.rPr.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
+                    pRun.style.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
                 }
-                if (mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t").length > 1) {
-                    mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
-                        runn.oldValues.push(t.textContent);
-                    });
-                } else {
-                    runn.oldValues = mlElement.querySelectorAll('r')[rb]?.querySelector('t')?.textContent;
-                }
-                parag.runs.push(runn);
+                edytorParagraph.append(pRun);
             }
-            return parag;
+            rt.append(edytorParagraph);
         }
 
         function T(tElement){
@@ -261,7 +231,6 @@
             }else{
                 tablee.tblPr.tblW.type = ""
             }
-            
 
             let tblGridColumns =  tElement?.querySelector('tblGrid').childNodes;
             for(let tblGC = 0; tblGC < tblGridColumns.length; tblGC++){
@@ -325,7 +294,7 @@
                                 },
                                 runs: []
                             }
-
+                            console.log(tcp[tccp].querySelectorAll('r'))
                             let tcpr = tcp[tccp].querySelectorAll('r');
                             for(let tcprr = 0; tcprr < tcpr.length; tcprr++){
                                 const runn = {
@@ -348,17 +317,21 @@
                                 } else {
                                     runn.rPr.color = `#${tcpr[tcprr]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
                                 }
+                                console.log(tcpr[tcprr]?.querySelectorAll("t"));
                                 if (tcpr[tcprr]?.querySelectorAll("t").length > 1) {
-                                    tcpr[tcprr]?.querySelectorAll("t")?.forEach(t => {
-                                        runn.oldValues.push(t.textContent);
-                                    });
+                                    
+                                    // for(let tp = 0; tp < tcpr[tcprr]?.querySelectorAll("t").length; tp++){
+                                    //     runn.oldValues.push(tcpr[tcprr]?.querySelectorAll("t")[tp].textContent);
+                                    // }
                                 } else {
-                                    runn.oldValues = tcpr[tcprr]?.querySelector('t')?.textContent;
+                                    console.log(tcpr[tcprr]?.querySelector("t"));
+                                    // runn.oldValues = tcpr[tcprr]?.querySelector('t').textContent;
                                 }
 
                                 TableColumnParagraph.runs.push(runn);
                             }
                             tc.p.push(TableColumnParagraph);
+                            console.log(tc.p);
                         }
                     }
                     tableRow.tcols.push(tc);
@@ -377,21 +350,27 @@
 
             let mlDomBody = mlDom.querySelector("body");
             let mldomElements = mlDomBody.childNodes;
+            const edytorContainer = document.createElement('div');
+            edytorContainer.classList.add('EditorContainer');
+            const edytor = document.createElement('div');
+            edytor.classList.add('Editor');
 
             for(let cN = 0; cN < mldomElements.length; cN++){
                 if(mldomElements[cN].localName === 'p'){
-                    Documentt.body.push(PAndR(mldomElements[cN]));
+                    PAndR(mldomElements[cN], edytor);
                 } else if(mldomElements[cN].localName === 'tbl'){
                     Documentt.body.push(T(mldomElements[cN]));
-                }    
+                }
+                edytorContainer.append(edytor);
+                vbcx.append(edytorContainer);  
             }
-            let documenttJSON = JSON.stringify(Documentt);
+            // let documenttJSON = JSON.stringify(Documentt);
 
-            mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
-                if (err) console.error(err);
-            });
+            // mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
+            //     if (err) console.error(err);
+            // });
 
-            ff = Documentt;
+            // ff = Documentt;
         }
 
         function runningSuperEditor(filess, htmElement){
@@ -408,11 +387,10 @@
                         editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
                             mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
                                 if (err) { return console.log(err)}
-                                start(filess[0], buff);
                                 document.querySelector('#dialogStart').remove();
                                 dragg.remove();
                                 createWorkNavBar(document.querySelector('main'));
-                                createEdytor(document.querySelector('main'));
+                                start(filess[0], buff);
                             });
                         })
                         editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
