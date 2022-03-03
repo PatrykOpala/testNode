@@ -84,7 +84,6 @@
 
         function createEdytor(root2){
             if(ff.body[fm].type === 'Table'){
-                continue;
                 let tableElement = document.createElement('table');
                 // tableElement.style.border = "1px solid red";
 
@@ -133,20 +132,11 @@
         }
 
         function PAndR(mlElement, rt){
-            //  pPr: {
-            //    pStyle: mlElement.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val"),
-            //    sz: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null,
-            //    szCs: Number.parseInt(mlElement.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
-            
-
             let edytorParagraph = document.createElement('div');
                 edytorParagraph.classList.add('EditorParagraph');
                 edytorParagraph.style.alignItems = "center";
 
             for(rb = 0; rb < mlElement.querySelectorAll('r').length; rb++){
-                
-             //  strike: mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike") ? true : false
-
                 let pRun = document.createElement('pre');
                 pRun.contentEditable = true;
                 pRun.style.display = 'inline-block';
@@ -165,9 +155,12 @@
                 }
 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("u")){
-                    pRun.style.fontStyle = 'underline';
+                    pRun.style.textDecoration = 'underline';
                 }
 
+                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike")){
+                    pRun.style.textDecoration = "underline line-through";
+                }
                 mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
                     pRun.setAttribute('oldValues', t.textContent);
                     pRun.textContent = t.textContent;
@@ -182,7 +175,7 @@
             rt.append(edytorParagraph);
         }
 
-        function T(tElement){
+        function T(tElement, rt2){
             // 6,944444444444444e-4
             let tablee = {
                 type: 'Table',
@@ -231,6 +224,9 @@
             }else{
                 tablee.tblPr.tblW.type = ""
             }
+            
+            let table = document.createElement('table');
+            table.style.border = "1px solid red";
 
             let tblGridColumns =  tElement?.querySelector('tblGrid').childNodes;
             for(let tblGC = 0; tblGC < tblGridColumns.length; tblGC++){
@@ -341,6 +337,82 @@
             return tablee  
         }
 
+        function createTable(pCC, el) {
+            const table = document.createElement("table");
+            const tableBody = document.createElement("tbody");
+            el?.childNodes.forEach(tr => {
+                if (tr.localName === 'tr') {
+                    let tableRow = document.createElement("tr");
+                    tr.childNodes.forEach(tc => {
+                        if (tc.localName === 'tc') {
+                            let tabEdit = document.createElement("td");
+                            tabEdit.style.border = "1px solid #222222";
+                            tabEdit.style.minHeight = "20px";
+                            tc.childNodes.forEach(p => {
+                                if (p.localName === 'p') {
+                                    const paragraph = document.createElement("div");
+                                    paragraph.style.display = "flex";
+                                    paragraph.style.flexDirection = "row";
+                                    paragraph.style.minHeight = "10px";
+                                    p.childNodes.forEach(pr => {
+                                        if (pr.localName === "r") {
+                                            const run = document.createElement("pre");
+                                            run.contentEditable = true;
+                                            run.style.display = "inline";
+                                            if (pr?.querySelector("rPr")?.querySelector("rFonts")) {
+                                                run.style.fontFamily = pr?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:ascii") || 
+                                                pr?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:hAnsi");
+                                            }
+                                            run.style.color = `#${pr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                                            if (pr?.querySelector("rPr")?.querySelector("b") || pr?.querySelector("rPr")?.querySelector("bCs") ) {
+                                                run.style.fontWeight = "600";
+                                            }
+                                            if (pr?.querySelector("rPr")?.querySelector("i") || pr?.querySelector("rPr")?.querySelector("iCs")) {
+                                                run.style.fontStyle = "italic";
+                                            }
+                                            if (pr?.querySelector("rPr")?.querySelector("strike") || pr?.querySelector("rPr")?.querySelector("dstrike")
+                                                && pr?.querySelector("rPr")?.querySelector("u")?.getAttribute("w:val")) {
+                                                run.style.textDecoration = "underline line-through";
+
+                                            }else if (pr?.querySelector("rPr")?.querySelector("u")?.getAttribute("w:val")) {
+                                                run.style.textDecoration = "underline";
+                                            } else if (pr?.querySelector("rPr")?.querySelector("strike") || pr?.querySelector("rPr")?.querySelector("dstrike")) {
+                                                run.style.textDecoration = "line-through";
+                                            }
+                                            if (pr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") == 22 || pr?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val") == 22) {
+                                                run.style.fontSize = "14px";
+                                            } else if (pr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") == 48) {
+                                                run.style.fontSize = "33px";
+                                            }
+                                            run.textContent = pr?.querySelector("t")?.textContent;
+                                            run.addEventListener("click", (e) => {
+                                                e.target.classList.toggle("kpaction");
+                                            })
+                                            run.addEventListener("focusout", (e) => {
+                                                if (e.target.classList.value == "kpaction") {
+                                                    e.target.classList.toggle("kpaction")
+                                                }
+                                            })
+                                            run.addEventListener("input", (e) => {
+                                                e.target.style.border = "1px solid #333333";
+                                            })
+                                            paragraph.appendChild(run);
+                                        }
+                                        tabEdit.appendChild(paragraph);
+                                        }
+                                    )
+                                    tableRow.appendChild(tabEdit);
+                                }
+                            })
+                        }
+                    })
+                    tableBody.appendChild(tableRow);
+                }
+            })
+            table.appendChild(tableBody);
+            pCC.appendChild(table);
+        }
+
         function start(path, data) {
             let Documentt = {
                 fileName: path.name,
@@ -359,18 +431,12 @@
                 if(mldomElements[cN].localName === 'p'){
                     PAndR(mldomElements[cN], edytor);
                 } else if(mldomElements[cN].localName === 'tbl'){
-                    Documentt.body.push(T(mldomElements[cN]));
+                    // T(mldomElements[cN], edytor);
+                    createTable(edytor, mldomElements[cN]);
                 }
                 edytorContainer.append(edytor);
                 vbcx.append(edytorContainer);  
             }
-            // let documenttJSON = JSON.stringify(Documentt);
-
-            // mFile.fileSystem.writeFile(`${path.name}.json`, documenttJSON, (err) => {
-            //     if (err) console.error(err);
-            // });
-
-            // ff = Documentt;
         }
 
         function runningSuperEditor(filess, htmElement){
