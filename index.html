@@ -162,7 +162,7 @@
                     pRun.style.textDecoration = "underline line-through";
                 }
                 mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
-                    pRun.setAttribute('oldValues', t.textContent);
+                    pRun.setAttribute('oldValue', t.textContent);
                     pRun.textContent = t.textContent;
                 });
                 if (mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
@@ -384,6 +384,7 @@
                                             } else if (pr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") == 48) {
                                                 run.style.fontSize = "33px";
                                             }
+                                            run.setAttribute("oldValue", pr?.querySelector("t")?.textContent);
                                             run.textContent = pr?.querySelector("t")?.textContent;
                                             run.addEventListener("click", (e) => {
                                                 e.target.classList.toggle("kpaction");

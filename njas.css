@@ -62,7 +62,7 @@ pre:hover{
 .menuBar{
     display: flex;
     flex-direction: row;
-    width: 97.6%;
+    /* width: 97.6%; */
     height: 49px;
     padding: 10px;
     background-color: rgba(250, 250, 250, .9);
