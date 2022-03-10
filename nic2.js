@@ -64,5 +64,96 @@ function createRow(l) {
     return run;
 }
 
+class DialogStart{
+    constructor(main, file){
+        let dialogStart = document.createElement("div");
+        dialogStart.id = "dialogStart";
+        dialogStart.classList.add("dialogStart");
+
+        dialogStart.append(this.#createDialogHeader(), this.#createDialogSelectHeader(), 
+            this.#createDialogBody(file));
+
+        main.append(dialogStart);
+
+    }
+
+    #createDialogHeader(){
+        const dialogHeader = document.createElement("div");
+        dialogHeader.classList.add("dialogHeader");
+        
+        const close = document.createElement("div");
+        close.classList.add("closeDlg");
+        const closeImg = document.createElement("img");
+        closeImg.src = "./img/close.svg";
+        closeImg.alt = "close";
+
+        close.addEventListener("click", ()=>{
+            dialogStart.remove();
+        })
+
+        close.append(closeImg);
+        dialogHeader.append(close);
+        return dialogHeader;
+    }
+
+    #createDialogSelectHeader(){
+        const dialogSelectHeader = document.createElement("div");
+        dialogSelectHeader.classList.add("dialogSelectHeader");
+        const dialogSelectHeaderItemSettings = document.createElement("div");
+        dialogSelectHeaderItemSettings.classList.add("dialogSelectHeaderItem");
+        dialogSelectHeaderItemSettings.id = "settings";
+        dialogSelectHeaderItemSettings.textContent = "Ustawienia";
+
+        const dialogSelectHeaderItemCountFile = document.createElement("div");
+        dialogSelectHeaderItemCountFile.classList.add("dialogSelectHeaderItem");
+        dialogSelectHeaderItemCountFile.id = "countFile";
+        dialogSelectHeaderItemCountFile.textContent = "Ile plików";
+        dialogSelectHeader.append(dialogSelectHeaderItemSettings, 
+            dialogSelectHeaderItemCountFile);
+
+        return dialogSelectHeader;
+    }
+
+    #createDialogBody(fileName){
+        const dialogBody = document.createElement("div");
+        dialogBody.classList.add("dialogBody");
+        dialogBody.setAttribute("id", "dBody");
+
+        const bv = document.createElement("div");
+        bv.classList.add("bv");
+        const span = document.createElement("span");
+        span.textContent = "Nazwa Pliku";
+        const nameFile = document.createElement("input");
+        nameFile.setAttribute("type", "text");
+        nameFile.setAttribute("id", "nameFile");
+        nameFile.classList.add("filePath");
+        nameFile.value = fileName;
+        bv.append(span, nameFile);
+
+        const bc = document.createElement("div");
+        bc.classList.add("bv");
+        const spann = document.createElement("span");
+        spann.textContent = "Ilość Pliku";
+        const countC = document.createElement("div");
+        countC.classList.add("countC");
+        const countCPre = document.createElement("pre");
+        countCPre.setAttribute("contenteditable", "true");
+        countCPre.textContent = "0";
+        const p = document.createElement("p");
+        p.textContent = "/500";
+        countC.append(countCPre, p);
+        bc.append(spann, countC);
+        
+        const nextButton = document.createElement("button");
+        nextButton.setAttribute("id", "nextButton");
+        nextButton.classList.add("nextButton");
+        nextButton.textContent = "Dalej";
+
+        dialogBody.append(bv, bc, nextButton);
+
+        return dialogBody;
+    }
+}
+
 
 

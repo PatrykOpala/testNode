@@ -13,35 +13,6 @@
         </div>
         <drag-and-drop></drag-and-drop>
     </main>
-
-    <template id="dialogBodyControl">
-        <div class="bv">
-            <span>Nazwa Pliku</span>
-            <input type="text" id="nameFile" class="filePath">
-        </div>
-        <div class="bc">
-            <span>Ilość Plików</span>
-            <div class="countC">
-                <pre contenteditable="true">0</pre><p>/500</p>
-            </div>
-        </div>
-        <button id="nextButtonn" class="nextButton">Dalej</button>
-    </template>
-
-    <template id="dialogStartTemplate">
-        <div id="dialogStart" class="dialogStart">
-            <div class="dialogHeader">
-                <div class="closeDlg" id="bClose"><img src="./img/close.svg" alt="close"></div>
-            </div>
-            <div class="dialogSelectHeader">
-                <div class="dialogSelectHeaderItem" id="settings">Ustawienia</div>
-                <div class="dialogSelectHeaderItem" id="countFile">Ile plików</div>
-            </div>
-            <div class="dialogBody" id="dBody">
-
-            </div>
-        </div>
-    </template>
     <script src="Screen/DOComponents.js" async></script>
     <script src="nic2.js"></script>
     <script>
@@ -441,44 +412,40 @@
         }
 
         function runningSuperEditor(filess, htmElement){
-            let editorTempp = document.querySelector('#dialogStartTemplate').content.cloneNode(true);
-            let dbControl = document.querySelector('#dialogBodyControl').content.cloneNode(true);
-            try{
-                if(filess.length == 1){
-                    if(mFile.fileSystem.existsSync(`docxs/${filess[0].name}`)){
-                        editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
-                            e.path[3].remove();
-                        })
-                        editorTempp.querySelector('#countFile').setAttribute("activee", "");
-                        editorTempp.querySelector('#dBody').append(dbControl);
-                        editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
-                            mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
-                                if (err) { return console.log(err)}
-                                document.querySelector('#dialogStart').remove();
-                                dragg.remove();
-                                createWorkNavBar(document.querySelector('main'));
-                                start(filess[0], buff);
-                            });
-                        })
-                        editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
-                        document.querySelector('main').append(editorTempp);
-                    }else{
-                        mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
-                            fl.forEach(l => {
-                                if (l.path == "word/document.xml") {
-                                    mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`);
-                                }
-                            })
-                        })
-                    }
-                }
-            }catch(r){
-                console.log(r)
+            // let editorTempp = document.querySelector('#dialogStart');
+            if(mFile.fileSystem.existsSync(`docxs/${filess[0].name}`)){
+            //     editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
+            //         e.view.document.querySelector("#dialogStart").remove();
+            //     })
+            //     editorTempp.querySelector('#countFile').setAttribute("activee", "");
+            //     editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
+            //         mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
+            //             if (err) { return console.log(err)}
+            //             console.log( err);
+            //             document.querySelector('#dialogStart').remove();
+            //             dragg.remove();
+            //             createWorkNavBar(document.querySelector('main'));
+            //             start(filess[0], buff);
+            //         });
+            //     })
+            //     editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
+            //     editorTempp.classList.remove("off");
+
+            let dialogS = new DialogStart(vbcx, `${filess[0].name}`);
+
+            }else{
+                mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
+                    fl.forEach(l => {
+                        if (l.path == "word/document.xml") {
+                            mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`);
+                        }
+                    })
+                })
             }
         }
 
         dragg.addEventListener('dd', (e)=>{
-            runningSuperEditor(e.detail.f, document.querySelector("main"));
+            runningSuperEditor(e.detail.f, vbcx);
         })
 
     </script>
