@@ -25,7 +25,7 @@
             const workNav = document.createElement('work-nav');
             const fontContainer = document.createElement('div');
             fontContainer.classList.add('Font');
-            fontContainer.textContent = "Czcionka"
+            fontContainer.textContent = "Czcionka";
             const fontSizeButtons = document.createElement('font-size-buttons');
 
             const buttonBold = document.createElement('button');
@@ -114,23 +114,30 @@
                 pRun.style.margin = '0';
                 pRun.style.fontSize = `${Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
                 || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}px`;
+                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
+                    pRun.setAttribute("do-font-size", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}px`);
+                }
                 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("b") 
                 || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("bCs")){
                     pRun.style.fontWeight = 'bold';
+                    pRun.setAttribute("do-font-weight", "bold");
                 }
 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("i") 
                 || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("iCs")){
                     pRun.style.fontStyle = 'italic';
+                    pRun.setAttribute("do-font-style", "italic");
                 }
 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("u")){
                     pRun.style.textDecoration = 'underline';
+                    pRun.setAttribute("do-text-decoration", "underline");
                 }
 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike")){
                     pRun.style.textDecoration = "underline line-through";
+                    pRun.setAttribute("do-text-decoration", "underline line-through");
                 }
                 mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
                     pRun.setAttribute('oldValue', t.textContent);
@@ -138,11 +145,16 @@
                 });
                 if (mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
                     pRun.style.color = `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                    pRun.setAttribute("do-color", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`);
                 } else {
                     pRun.style.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
+                    pRun.setAttribute("do-color", `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null');
                 }
                 edytorParagraph.append(pRun);
             }
+            edytorParagraph.addEventListener("click", (event)=>{
+                new Edytor(vbcx);
+            });
             rt.append(edytorParagraph);
         }
 
@@ -412,27 +424,8 @@
         }
 
         function runningSuperEditor(filess, htmElement){
-            // let editorTempp = document.querySelector('#dialogStart');
             if(mFile.fileSystem.existsSync(`docxs/${filess[0].name}`)){
-            //     editorTempp.querySelector('#bClose').addEventListener('click', (e)=>{
-            //         e.view.document.querySelector("#dialogStart").remove();
-            //     })
-            //     editorTempp.querySelector('#countFile').setAttribute("activee", "");
-            //     editorTempp.querySelector('#dBody').querySelector('#nextButtonn').addEventListener('click', ()=>{
-            //         mFile.fileSystem.readFile(`docxs/${filess[0].name}/word/document.xml`, 'utf8', (err, buff) => {
-            //             if (err) { return console.log(err)}
-            //             console.log( err);
-            //             document.querySelector('#dialogStart').remove();
-            //             dragg.remove();
-            //             createWorkNavBar(document.querySelector('main'));
-            //             start(filess[0], buff);
-            //         });
-            //     })
-            //     editorTempp.querySelector('#nameFile').value = `${filess[0].name}`;
-            //     editorTempp.classList.remove("off");
-
-            let dialogS = new DialogStart(vbcx, `${filess[0].name}`);
-
+                new DialogStart(vbcx, `${filess[0].name}`, filess);
             }else{
                 mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
                     fl.forEach(l => {
@@ -443,11 +436,9 @@
                 })
             }
         }
-
         dragg.addEventListener('dd', (e)=>{
             runningSuperEditor(e.detail.f, vbcx);
         })
-
     </script>
 </body>
 </html>

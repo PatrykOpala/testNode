@@ -13,7 +13,8 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, 'DocumentOfficePreload.js'),
       imageAnimationPolicy: 'noAnimation',
-      v8CacheOptions: 'none'
+      v8CacheOptions: 'none',
+      webgl: false
     },
     show: false
     // frame: false

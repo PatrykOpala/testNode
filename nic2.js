@@ -64,20 +64,14 @@ function createRow(l) {
     return run;
 }
 
-class DialogStart{
-    constructor(main, file){
-        let dialogStart = document.createElement("div");
-        dialogStart.id = "dialogStart";
-        dialogStart.classList.add("dialogStart");
+class BaseDialog{
+    constructor(root){
+        this.rootElement = root;
 
-        dialogStart.append(this.#createDialogHeader(), this.#createDialogSelectHeader(), 
-            this.#createDialogBody(file));
+        this.RootBox = document.createElement("div");
+        this.RootBox.setAttribute("id", "dialogStart");
+        this.RootBox.classList.add("dialogStart");
 
-        main.append(dialogStart);
-
-    }
-
-    #createDialogHeader(){
         const dialogHeader = document.createElement("div");
         dialogHeader.classList.add("dialogHeader");
         
@@ -88,23 +82,41 @@ class DialogStart{
         closeImg.alt = "close";
 
         close.addEventListener("click", ()=>{
-            dialogStart.remove();
+            this.RootBox.remove();
         })
 
         close.append(closeImg);
         dialogHeader.append(close);
-        return dialogHeader;
+        this.addElementToRoot(dialogHeader);
+
+        this.rootElement.append(this.RootBox);
+    }
+    
+    addElementToRoot(element){
+        this.RootBox.append(element);
+    }
+}
+
+class DialogStart extends BaseDialog{
+    constructor(main, file, fileObject){
+        super(main);
+        this.mainn = main;
+
+        this.addElementToRoot(this.#createDialogSelectHeader());
+        this.addElementToRoot(this.#createDialogBody(file, fileObject));
+
+        this.PointerDialogStart = this.RootBox;
     }
 
     #createDialogSelectHeader(){
         const dialogSelectHeader = document.createElement("div");
         dialogSelectHeader.classList.add("dialogSelectHeader");
-        const dialogSelectHeaderItemSettings = document.createElement("div");
+        const dialogSelectHeaderItemSettings = document.createElement("button");
         dialogSelectHeaderItemSettings.classList.add("dialogSelectHeaderItem");
         dialogSelectHeaderItemSettings.id = "settings";
         dialogSelectHeaderItemSettings.textContent = "Ustawienia";
 
-        const dialogSelectHeaderItemCountFile = document.createElement("div");
+        const dialogSelectHeaderItemCountFile = document.createElement("button");
         dialogSelectHeaderItemCountFile.classList.add("dialogSelectHeaderItem");
         dialogSelectHeaderItemCountFile.id = "countFile";
         dialogSelectHeaderItemCountFile.textContent = "Ile plików";
@@ -114,7 +126,7 @@ class DialogStart{
         return dialogSelectHeader;
     }
 
-    #createDialogBody(fileName){
+    #createDialogBody(fileName, fc){
         const dialogBody = document.createElement("div");
         dialogBody.classList.add("dialogBody");
         dialogBody.setAttribute("id", "dBody");
@@ -149,11 +161,28 @@ class DialogStart{
         nextButton.classList.add("nextButton");
         nextButton.textContent = "Dalej";
 
+        nextButton.addEventListener("click", ()=>{
+            mFile.fileSystem.readFile(`docxs/${fileName}/word/document.xml`, 'utf8', (err, buff) => {
+                if (err) { return console.log(err)}
+                //document.querySelector('#dialogStart').remove();
+                this.PointerDialogStart.remove();
+                dragg.remove();
+                createWorkNavBar(this.mainn);
+                start(fc[0], buff);
+            });
+        });
+
         dialogBody.append(bv, bc, nextButton);
 
         return dialogBody;
     }
 }
 
+
+class Edytor extends BaseDialog{
+    constructor(m){
+        super(m);
+    }
+}
 
 
