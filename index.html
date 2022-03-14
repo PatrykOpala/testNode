@@ -115,7 +115,7 @@
                 pRun.style.fontSize = `${Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
                 || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}px`;
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
-                    pRun.setAttribute("do-font-size", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}px`);
+                    pRun.setAttribute("do-font-size", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}`);
                 }
                 
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("b") 
@@ -153,7 +153,10 @@
                 edytorParagraph.append(pRun);
             }
             edytorParagraph.addEventListener("click", (event)=>{
-                new Edytor(vbcx);
+                if(event.target.localName === "pre"){
+                    console.log(event.target);
+                    new EdytorDialog(vbcx, event.target);
+                }
             });
             rt.append(edytorParagraph);
         }

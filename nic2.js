@@ -179,9 +179,35 @@ class DialogStart extends BaseDialog{
 }
 
 
-class Edytor extends BaseDialog{
-    constructor(m){
+class EdytorDialog extends BaseDialog{
+    constructor(m, preElem){
         super(m);
+
+        const dialogBodyEdytor = document.createElement("div");
+        dialogBodyEdytor.classList.add("dialogBody");
+        dialogBodyEdytor.classList.add("dialogEdytorBody");
+        dialogBodyEdytor.setAttribute("id", "dBody");
+
+        this.PreviewTextFromRun(dialogBodyEdytor, preElem);
+
+        this.addElementToRoot(dialogBodyEdytor);
+    }
+
+    PreviewTextFromRun(bodyEdytor, p){
+        const PreviewText = document.createElement("div");
+        PreviewText.style.minWidth = "12vw";
+        PreviewText.style.height = "8vh";
+        PreviewText.style.border = "1px solid rgb(72, 89, 21)";
+        PreviewText.style.textAlign = "center";
+        PreviewText.style.padding = "6px";
+        PreviewText.textContent = p.getAttribute("oldvalue");
+        PreviewText.style.color = p.getAttribute("do-color");
+        PreviewText.style.textDecoration = p.getAttribute("do-text-decoration");
+        PreviewText.style.fontStyle = p.getAttribute("do-font-style");
+        PreviewText.style.fontWeight = p.getAttribute("do-font-weight");
+        PreviewText.style.lineHeight = "50px";
+
+        bodyEdytor.append(PreviewText);
     }
 }
 
