@@ -20,6 +20,7 @@
         let ff = null;
         let dragg = document.querySelector('drag-and-drop');
         let vbcx = document.querySelector('main');
+        const inst = new InstanceMain();
 
         function createWorkNavBar(root){
             const workNav = document.createElement('work-nav');
@@ -406,41 +407,28 @@
                 body: []
             }
             let mlDom = pars.parseFromString(data, 'application/xml');
-
             let mlDomBody = mlDom.querySelector("body");
             let mldomElements = mlDomBody.childNodes;
             const edytorContainer = document.createElement('div');
             edytorContainer.classList.add('EditorContainer');
             const edytor = document.createElement('div');
             edytor.classList.add('Editor');
-
             for(let cN = 0; cN < mldomElements.length; cN++){
                 if(mldomElements[cN].localName === 'p'){
                     PAndR(mldomElements[cN], edytor);
                 } else if(mldomElements[cN].localName === 'tbl'){
-                    // T(mldomElements[cN], edytor);
                     createTable(edytor, mldomElements[cN]);
                 }
                 edytorContainer.append(edytor);
-                vbcx.append(edytorContainer);  
-            }
-        }
-
-        function runningSuperEditor(filess, htmElement){
-            if(mFile.fileSystem.existsSync(`docxs/${filess[0].name}`)){
-                new DialogStart(vbcx, `${filess[0].name}`, filess);
-            }else{
-                mFile.de(`${filess[0].path}`, `docxs/${filess[0].name}`).then(fl => {
-                    fl.forEach(l => {
-                        if (l.path == "word/document.xml") {
-                            mFile.fileSystem.readFile(`docxs/${l.name}/${l.path}`);
-                        }
-                    })
-                })
+                vbcx.append(edytorContainer);
             }
         }
         dragg.addEventListener('dd', (e)=>{
-            runningSuperEditor(e.detail.f, vbcx);
+            for(let fil = 0; fil < e.detail.f.length; fil++){
+                if(mFile.fileSystem.existsSync(`docxs/${e.detail.f[fil].name}`)){
+                    new DialogStart(vbcx, `${e.detail.f[fil].name}`, e.detail.f);
+                }
+            }
         })
     </script>
 </body>

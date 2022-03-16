@@ -1,13 +1,4 @@
 
-// let body = [];
-/*
-const paragraph = document.createElement("div");
-paragraph.style.display = "flex";
-paragraph.style.flexDirection = "row";
-paragraph.style.maxWidth = `${pCC.offsetWidth}px`;
-paragraph.style.alignItems = "center";
-*/
-
 function createRow(l) {
     const run = document.createElement("pre");
     run.contentEditable = true;
@@ -62,6 +53,29 @@ function createRow(l) {
     })
 
     return run;
+}
+
+class InstanceMain{
+    constructor(){
+       this.instanceTable = [];
+    }
+
+    addInstance(idInstance){
+        this.instanceTable.push(idInstance);
+    }
+    getAllInstance(){
+        return this.instanceTable;
+    }
+    getCurrentInstance(idd){
+        console.log(this.instanceTable[0].df);
+    }
+}
+
+class Instance{
+    constructor(instt, id){
+        this.idds = id;
+        this.df = instt;
+    }
 }
 
 class BaseDialog{
@@ -163,8 +177,9 @@ class DialogStart extends BaseDialog{
 
         nextButton.addEventListener("click", ()=>{
             mFile.fileSystem.readFile(`docxs/${fileName}/word/document.xml`, 'utf8', (err, buff) => {
-                if (err) { return console.log(err)}
-                //document.querySelector('#dialogStart').remove();
+                if (err) { console.log(err)}
+
+                inst.addInstance(new Instance(countCPre.textContent, "CountC"));
                 this.PointerDialogStart.remove();
                 dragg.remove();
                 createWorkNavBar(this.mainn);
@@ -194,8 +209,12 @@ class EdytorDialog extends BaseDialog{
     }
 
     PreviewTextFromRun(bodyEdytor, p){
-        const PreviewText = document.createElement("div");
-        PreviewText.style.minWidth = "12vw";
+        const PreviewTextContainer = document.createElement("div");
+        PreviewTextContainer.style.width = "50%";
+        PreviewTextContainer.style.padding = "10px";
+        
+        const PreviewText = document.createElement("p");
+        PreviewText.style.minWidth = "6%";
         PreviewText.style.height = "8vh";
         PreviewText.style.border = "1px solid rgb(72, 89, 21)";
         PreviewText.style.textAlign = "center";
@@ -206,8 +225,17 @@ class EdytorDialog extends BaseDialog{
         PreviewText.style.fontStyle = p.getAttribute("do-font-style");
         PreviewText.style.fontWeight = p.getAttribute("do-font-weight");
         PreviewText.style.lineHeight = "50px";
+        PreviewTextContainer.append(PreviewText);
 
-        bodyEdytor.append(PreviewText);
+        const OtherFilesContainer = document.createElement("div");
+        OtherFilesContainer.style.border = "1px solid red";
+        OtherFilesContainer.style.width = "290px";
+        OtherFilesContainer.style.height = "70%";
+        OtherFilesContainer.style.marginLeft = "54%";
+        OtherFilesContainer.style.marginTop = "-97px";
+
+
+        bodyEdytor.append(PreviewTextContainer, OtherFilesContainer);
     }
 }
 

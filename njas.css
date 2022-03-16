@@ -142,7 +142,8 @@ pre:hover{ background-color: rgb(207, 202, 202);}
 }
 
 .dialogEdytorBody{
-    align-items: flex-start;
+    display: block;
+    height: 460px;
 }
 
 input, .nextButton{border:none; outline:none;}
