@@ -67,7 +67,7 @@ class InstanceMain{
         return this.instanceTable;
     }
     getCurrentInstance(idd){
-        console.log(this.instanceTable[0].df);
+        return this.instanceTable[idd]
     }
 }
 
@@ -112,17 +112,18 @@ class BaseDialog{
 }
 
 class DialogStart extends BaseDialog{
-    constructor(main, file, fileObject){
+    constructor(main, file, fileObject, state){
         super(main);
         this.mainn = main;
 
-        this.addElementToRoot(this.#createDialogSelectHeader());
+        this.addElementToRoot(this.#createDialogSelectHeader(state));
         this.addElementToRoot(this.#createDialogBody(file, fileObject));
 
         this.PointerDialogStart = this.RootBox;
     }
 
-    #createDialogSelectHeader(){
+    #createDialogSelectHeader(s){
+
         const dialogSelectHeader = document.createElement("div");
         dialogSelectHeader.classList.add("dialogSelectHeader");
         const dialogSelectHeaderItemSettings = document.createElement("button");
@@ -134,6 +135,14 @@ class DialogStart extends BaseDialog{
         dialogSelectHeaderItemCountFile.classList.add("dialogSelectHeaderItem");
         dialogSelectHeaderItemCountFile.id = "countFile";
         dialogSelectHeaderItemCountFile.textContent = "Ile plików";
+        
+
+        if(s === "Ustawienia"){
+            dialogSelectHeaderItemSettings.setAttribute("activee", "");
+        }else if(s === "Ile plików"){
+            dialogSelectHeaderItemCountFile.setAttribute("activee", "");
+        }
+
         dialogSelectHeader.append(dialogSelectHeaderItemSettings, 
             dialogSelectHeaderItemCountFile);
 
@@ -224,6 +233,7 @@ class EdytorDialog extends BaseDialog{
         PreviewText.style.textDecoration = p.getAttribute("do-text-decoration");
         PreviewText.style.fontStyle = p.getAttribute("do-font-style");
         PreviewText.style.fontWeight = p.getAttribute("do-font-weight");
+        PreviewText.style.fontSize = `${p.getAttribute("do-font-size")}pt`;
         PreviewText.style.lineHeight = "50px";
         PreviewTextContainer.append(PreviewText);
 
@@ -233,7 +243,19 @@ class EdytorDialog extends BaseDialog{
         OtherFilesContainer.style.height = "70%";
         OtherFilesContainer.style.marginLeft = "54%";
         OtherFilesContainer.style.marginTop = "-97px";
+        OtherFilesContainer.style.overflowY = "scroll";
 
+        for(let hd = 0; hd < Number(inst.instanceTable[0].df); hd++){
+            let OtherFilesItem = document.createElement("div");
+            OtherFilesItem.style.width = "100%";
+            OtherFilesItem.style.height = "47px";
+            // OtherFilesItem.style.backgroundColor = "#871638";
+            OtherFilesItem.style.marginTop = "10px";
+            OtherFilesItem.style.fontFamily = "sans-serif";
+            OtherFilesItem.style.textAlign = "center";
+            OtherFilesItem.textContent = `erggsdg${hd + 1}`;
+            OtherFilesContainer.append(OtherFilesItem);
+        }
 
         bodyEdytor.append(PreviewTextContainer, OtherFilesContainer);
     }

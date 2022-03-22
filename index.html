@@ -114,7 +114,8 @@
                 pRun.style.display = 'inline-block';
                 pRun.style.margin = '0';
                 pRun.style.fontSize = `${Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
-                || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}px`;
+                || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}pt`;
+
                 if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
                     pRun.setAttribute("do-font-size", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}`);
                 }
@@ -426,7 +427,7 @@
         dragg.addEventListener('dd', (e)=>{
             for(let fil = 0; fil < e.detail.f.length; fil++){
                 if(mFile.fileSystem.existsSync(`docxs/${e.detail.f[fil].name}`)){
-                    new DialogStart(vbcx, `${e.detail.f[fil].name}`, e.detail.f);
+                    new DialogStart(vbcx, `${e.detail.f[fil].name}`, e.detail.f, "Ile plików");
                 }
             }
         })
