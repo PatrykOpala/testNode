@@ -22,6 +22,11 @@
         let vbcx = document.querySelector('main');
         const inst = new InstanceMain();
 
+        async function vcccccccc(te){
+            let t = await AsyncTableTemplate(te);
+            return t;
+        }
+
         function createWorkNavBar(root){
             const workNav = document.createElement('work-nav');
             const fontContainer = document.createElement('div');
@@ -32,22 +37,22 @@
             const buttonBold = document.createElement('button');
             buttonBold.classList.add('boldBTN');
             const btnImg = document.createElement('img');
-            btnImg.src = './img/bold32x32.svg';
-            btnImg.alt = 'bold';
+            btnImg.setAttribute("src", "./img/bold32x32.svg");
+            btnImg.setAttribute("alt", "bold");
             buttonBold.append(btnImg)
 
             const buttonItalic = document.createElement('button');
             buttonItalic.classList.add('boldBTN');
             const btnImgItalic = document.createElement('img');
-            btnImgItalic.src = './img/italic.svg';
-            btnImgItalic.alt = 'bold';
+            btnImgItalic.setAttribute("src", "./img/italic.svg");
+            btnImgItalic.setAttribute("alt", "bold");
             buttonItalic.append(btnImgItalic)
 
             const buttonUnderline = document.createElement('button');
             buttonUnderline.classList.add('boldBTN');
             const btnImgUnderline = document.createElement('img');
-            btnImgUnderline.src = './img/underline.svg';
-            btnImgUnderline.alt = 'bold';
+            btnImgItalic.setAttribute("src", "./img/underline.svg");
+            btnImgItalic.setAttribute("alt", "bold");
             buttonUnderline.append(btnImgUnderline)
 
             workNav.append(fontContainer, fontSizeButtons, buttonBold, buttonItalic, buttonUnderline);
@@ -64,8 +69,6 @@
                         let tableRowElement = document.createElement('tr');
                         tableRowElement.style.padding = "5px";
                         tableRowElement.style.border = "2px solid yellow";
-                        console.log(`${ff.body[fm].tbr[cvb].tcols[tr]}`);
-
 
                         // for(let td = 0; td < ff.body[fm].tbr[cvb].tcols[tr].length; td++){
                         //     console.log("tableTDElement");
@@ -156,7 +159,6 @@
             }
             edytorParagraph.addEventListener("click", (event)=>{
                 if(event.target.localName === "pre"){
-                    console.log(event.target);
                     new EdytorDialog(vbcx, event.target);
                 }
             });
@@ -322,7 +324,7 @@
                 }
                 tablee.tbr.push(tableRow);
             }        
-            return tablee  
+            return tablee
         }
 
         function createTable(pCC, el) {
@@ -409,25 +411,29 @@
             }
             let mlDom = pars.parseFromString(data, 'application/xml');
             let mlDomBody = mlDom.querySelector("body");
-            let mldomElements = mlDomBody.childNodes;
             const edytorContainer = document.createElement('div');
             edytorContainer.classList.add('EditorContainer');
             const edytor = document.createElement('div');
             edytor.classList.add('Editor');
-            for(let cN = 0; cN < mldomElements.length; cN++){
-                if(mldomElements[cN].localName === 'p'){
-                    PAndR(mldomElements[cN], edytor);
-                } else if(mldomElements[cN].localName === 'tbl'){
-                    createTable(edytor, mldomElements[cN]);
+            for(const cN of mlDomBody.childNodes){
+                if(cN.localName === 'p'){
+                    PAndR(cN, edytor);
+                } else if(cN.localName === 'tbl'){
+                    createTable(edytor, cN);
+                    vcccccccc(cN).then((result)=>{
+                        Documentt.body.push(result);
+                    })
                 }
                 edytorContainer.append(edytor);
                 vbcx.append(edytorContainer);
             }
+            console.log(Documentt.body);
         }
+        
         dragg.addEventListener('dd', (e)=>{
-            for(let fil = 0; fil < e.detail.f.length; fil++){
-                if(mFile.fileSystem.existsSync(`docxs/${e.detail.f[fil].name}`)){
-                    new DialogStart(vbcx, `${e.detail.f[fil].name}`, e.detail.f, "Ile plików");
+            for(const files in e.detail.f){
+                if(mFile.fileSystem.existsSync(`docxs/${e.detail.f[files].name}`)){
+                    new DialogStart(vbcx, `${e.detail.f[files].name}`, e.detail.f, "Ile plików");
                 }
             }
         })
