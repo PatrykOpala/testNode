@@ -203,7 +203,7 @@ class DialogStart extends BaseDialog{
 }
 
 class EdytorDialog extends BaseDialog{
-    constructor(m, preElem){
+    constructor(m, preElem, fN){
         super(m);
 
         const dialogBodyEdytor = document.createElement("div");
@@ -211,7 +211,7 @@ class EdytorDialog extends BaseDialog{
         dialogBodyEdytor.classList.add("dialogEdytorBody");
         dialogBodyEdytor.setAttribute("id", "dBody");
 
-        this.PreviewTextFromRun(dialogBodyEdytor, preElem);
+        this.PreviewTextFromRun(dialogBodyEdytor, preElem, fN);
 
         this.addElementToRoot(dialogBodyEdytor);
 
@@ -219,7 +219,7 @@ class EdytorDialog extends BaseDialog{
         
     }
 
-    PreviewTextFromRun(bodyEdytor, p){
+    PreviewTextFromRun(bodyEdytor, p, f){
 
         const dBodyLeft = document.createElement("div");
         dBodyLeft.classList.add("dBodyLeft");
@@ -235,7 +235,7 @@ class EdytorDialog extends BaseDialog{
         PreviewText.style.fontSize = `${p.getAttribute("do-font-size")}pt`;
         PreviewTextContainer.append(PreviewText);
         const ApplyChangeText = document.createElement("input");
-        ApplyChangeText.setAttribute("contentEditable", "true");
+        ApplyChangeText.placeholder = "Wprowadź nowe wartości";
         ApplyChangeText.classList.add("ApplyChangeText");
         ApplyChangeText.addEventListener("keydown", (e)=>{
             if(e.key === "Enter"){
@@ -253,7 +253,17 @@ class EdytorDialog extends BaseDialog{
         for(let hd = 0; hd < Number(inst.instanceTable[0].df); hd++){
             let OtherFilesItem = document.createElement("div");
             OtherFilesItem.classList.add("OtherFilesItem");
-            OtherFilesItem.textContent = `erggsdg${hd + 1}`;
+            let ffmnmn = f.split(".") ;
+            ffmnmn[0] += hd;
+            OtherFilesItem.textContent = `${ffmnmn[0].concat(".", ffmnmn[1])}`;
+            OtherFilesItem.addEventListener("click", (e)=>{
+                if(e.target.hasAttribute("do-select")){
+                    e.target.removeAttribute("do-select");
+                }  
+                else{
+                    e.target.setAttribute("do-select", "");
+                } 
+            });
             OtherFilesContainer.append(OtherFilesItem);
         }
         dBodyRight.append(OtherFilesContainer);
@@ -284,7 +294,6 @@ class EdytorDialog extends BaseDialog{
 }
 
 function AsyncTableTemplate(tElement){
-    console.log(tElement);
     return new Promise((resolve, reject)=>{
         // 6,944444444444444e-4
         let tablee = {

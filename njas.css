@@ -1,7 +1,6 @@
 :root{
     --text-color: rgba(255, 255, 255, 0.904);
     --primary-colour: rgb( 30, 30, 180);
-    --primary-colourr: rgb( 30, 180, 30);
     --blue-colour: rgb(39, 39, 236);
     --border-colour:rgba(250, 250, 250, .9);
 }
@@ -282,7 +281,6 @@ input, .nextButton{border:none; outline:none;}
 .dBodyLeft, .dBodyRight{
     width: 24vw;
     height: 63vh;
-    background-color: red;
 }
 
 .PreviewTextContainer{
@@ -294,7 +292,6 @@ input, .nextButton{border:none; outline:none;}
     width: 20vw;
     height: 8vh;
     border: 1px solid rgb(72, 89, 21);
-    text-align: center;
     padding: 6px;
     line-height: 50px;
     display: inline-flex;
@@ -308,15 +305,10 @@ input, .nextButton{border:none; outline:none;}
     font-size: 1.8rem;
 }
 
-.dBodyRight{
-    background-color: green;
-}
-
 .OtherFilesContainer{
-    border: 1px solid red;
     width: 290px;
     height: 70%;
-    margin-left: 10%;
+    margin: 10% 10%;
     overflow-y: scroll;
 }
 
@@ -326,4 +318,11 @@ input, .nextButton{border:none; outline:none;}
     margin-top: 10px;
     font-family: sans-serif;
     text-align: center;
+    line-height: 40px;
 }
+
+.OtherFilesItem:hover{
+    cursor: pointer;
+}
+
+[do-select]{ border-bottom: 2px solid var(--primary-colour);}

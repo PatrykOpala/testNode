@@ -22,6 +22,11 @@
         let vbcx = document.querySelector('main');
         const inst = new InstanceMain();
 
+        let Documentt = {
+            fileName: "",
+            body: []
+        }
+
         async function vcccccccc(te){
             let t = await AsyncTableTemplate(te);
             return t;
@@ -106,60 +111,90 @@
             }
         }
 
-        function PAndR(mlElement, rt){
+        function PAndR(mlElement, rt, fName){
+            // console.log(mlElement);
+            
             let edytorParagraph = document.createElement('div');
                 edytorParagraph.classList.add('EditorParagraph');
                 edytorParagraph.style.alignItems = "center";
 
-            for(rb = 0; rb < mlElement.querySelectorAll('r').length; rb++){
+            let paragraph = {
+                type: "Paragraph",
+                pPr: {
+                    pStyle: {val: mlElement.querySelector('pPr').querySelector('pStyle').getAttribute('w:val')} || null,
+                    bidi:  { val: mlElement.querySelector('pPr').querySelector('bidi').getAttribute('w:val') } || null,
+                    jc: { val: mlElement.querySelector('pPr').querySelector('jc').getAttribute('w:val')} || null,
+                    rPr: {
+                        color:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null,
+                        sz:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('sz')?.getAttribute('w:val')} || null,
+                        szCs:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('szCs')?.getAttribute('w:val')} || null
+                    }
+                },
+                r: []
+            }
+
+            for(const rb of mlElement.querySelectorAll('r')){
+                let r = {
+                    rPr: {
+                        color: {val: rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null
+                    },
+                    t: {
+                        attribute: rb?.querySelector('t')?.getAttribute('xml:space') || null,
+                        text: rb?.querySelector('t')?.textContent
+                    }
+                }
+
+                paragraph.r.push(r);
+                
                 let pRun = document.createElement('pre');
                 pRun.contentEditable = true;
                 pRun.style.display = 'inline-block';
                 pRun.style.margin = '0';
-                pRun.style.fontSize = `${Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
-                || Number.parseInt(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}pt`;
+                pRun.style.fontSize = `${Number.parseInt(rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
+                || Number.parseInt(rb?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}pt`;
 
-                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
-                    pRun.setAttribute("do-font-size", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}`);
+                if(rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
+                    pRun.setAttribute("do-font-size", `${rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}`);
                 }
                 
-                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("b") 
-                || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("bCs")){
+                if(rb?.querySelector("rPr")?.querySelector("b") 
+                || rb?.querySelector("rPr")?.querySelector("bCs")){
                     pRun.style.fontWeight = 'bold';
                     pRun.setAttribute("do-font-weight", "bold");
                 }
 
-                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("i") 
-                || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("iCs")){
+                if(rb?.querySelector("rPr")?.querySelector("i") 
+                || rb?.querySelector("rPr")?.querySelector("iCs")){
                     pRun.style.fontStyle = 'italic';
                     pRun.setAttribute("do-font-style", "italic");
                 }
 
-                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("u")){
+                if(rb?.querySelector("rPr")?.querySelector("u")){
                     pRun.style.textDecoration = 'underline';
                     pRun.setAttribute("do-text-decoration", "underline");
                 }
 
-                if(mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("strike") || mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("dstrike")){
+                if(rb?.querySelector("rPr")?.querySelector("strike") || rb?.querySelector("rPr")?.querySelector("dstrike")){
                     pRun.style.textDecoration = "underline line-through";
                     pRun.setAttribute("do-text-decoration", "underline line-through");
                 }
-                mlElement.querySelectorAll('r')[rb]?.querySelectorAll("t")?.forEach(t => {
+                for(const t of rb?.querySelectorAll("t")){
                     pRun.setAttribute('oldValue', t.textContent);
                     pRun.textContent = t.textContent;
-                });
-                if (mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
-                    pRun.style.color = `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
-                    pRun.setAttribute("do-color", `${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`);
+                }
+                if (rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
+                    pRun.style.color = `${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                    pRun.setAttribute("do-color", `${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`);
                 } else {
-                    pRun.style.color = `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
-                    pRun.setAttribute("do-color", `#${mlElement.querySelectorAll('r')[rb]?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null');
+                    pRun.style.color = `#${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
+                    pRun.setAttribute("do-color", `#${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null');
                 }
                 edytorParagraph.append(pRun);
             }
+            Documentt.body.push(paragraph);
             edytorParagraph.addEventListener("click", (event)=>{
                 if(event.target.localName === "pre"){
-                    new EdytorDialog(vbcx, event.target);
+                    new EdytorDialog(vbcx, event.target, fName);
                 }
             });
             rt.append(edytorParagraph);
@@ -317,7 +352,6 @@
                                 TableColumnParagraph.runs.push(runn);
                             }
                             tc.p.push(TableColumnParagraph);
-                            console.log(tc.p);
                         }
                     }
                     tableRow.tcols.push(tc);
@@ -405,10 +439,7 @@
         }
 
         function start(path, data) {
-            let Documentt = {
-                fileName: path.name,
-                body: []
-            }
+            Documentt.fileName = path.name;
             let mlDom = pars.parseFromString(data, 'application/xml');
             let mlDomBody = mlDom.querySelector("body");
             const edytorContainer = document.createElement('div');
@@ -417,7 +448,7 @@
             edytor.classList.add('Editor');
             for(const cN of mlDomBody.childNodes){
                 if(cN.localName === 'p'){
-                    PAndR(cN, edytor);
+                    PAndR(cN, edytor, Documentt.fileName);
                 } else if(cN.localName === 'tbl'){
                     createTable(edytor, cN);
                     vcccccccc(cN).then((result)=>{
