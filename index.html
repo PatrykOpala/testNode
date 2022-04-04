@@ -361,79 +361,71 @@
             return tablee
         }
 
-        function createTable(pCC, el) {
-            const table = document.createElement("table");
-            const tableBody = document.createElement("tbody");
-            el?.childNodes.forEach(tr => {
-                if (tr.localName === 'tr') {
-                    let tableRow = document.createElement("tr");
-                    tr.childNodes.forEach(tc => {
-                        if (tc.localName === 'tc') {
-                            let tabEdit = document.createElement("td");
-                            tabEdit.style.border = "1px solid #222222";
-                            tabEdit.style.minHeight = "20px";
-                            tc.childNodes.forEach(p => {
-                                if (p.localName === 'p') {
-                                    const paragraph = document.createElement("div");
-                                    paragraph.style.display = "flex";
-                                    paragraph.style.flexDirection = "row";
-                                    paragraph.style.minHeight = "10px";
-                                    p.childNodes.forEach(pr => {
-                                        if (pr.localName === "r") {
-                                            const run = document.createElement("pre");
-                                            run.contentEditable = true;
-                                            run.style.display = "inline";
-                                            if (pr?.querySelector("rPr")?.querySelector("rFonts")) {
-                                                run.style.fontFamily = pr?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:ascii") || 
-                                                pr?.querySelector("rPr")?.querySelector("rFonts").getAttribute("w:hAnsi");
-                                            }
-                                            run.style.color = `#${pr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
-                                            if (pr?.querySelector("rPr")?.querySelector("b") || pr?.querySelector("rPr")?.querySelector("bCs") ) {
-                                                run.style.fontWeight = "600";
-                                            }
-                                            if (pr?.querySelector("rPr")?.querySelector("i") || pr?.querySelector("rPr")?.querySelector("iCs")) {
-                                                run.style.fontStyle = "italic";
-                                            }
-                                            if (pr?.querySelector("rPr")?.querySelector("strike") || pr?.querySelector("rPr")?.querySelector("dstrike")
-                                                && pr?.querySelector("rPr")?.querySelector("u")?.getAttribute("w:val")) {
-                                                run.style.textDecoration = "underline line-through";
+        function createTable(pCC, el, r) {
+            let table = document.createElement("table");
+            let tableBody = document.createElement("tbody");
 
-                                            }else if (pr?.querySelector("rPr")?.querySelector("u")?.getAttribute("w:val")) {
-                                                run.style.textDecoration = "underline";
-                                            } else if (pr?.querySelector("rPr")?.querySelector("strike") || pr?.querySelector("rPr")?.querySelector("dstrike")) {
-                                                run.style.textDecoration = "line-through";
-                                            }
-                                            if (pr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") == 22 || pr?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val") == 22) {
-                                                run.style.fontSize = "14px";
-                                            } else if (pr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") == 48) {
-                                                run.style.fontSize = "33px";
-                                            }
-                                            run.setAttribute("oldValue", pr?.querySelector("t")?.textContent);
-                                            run.textContent = pr?.querySelector("t")?.textContent;
-                                            run.addEventListener("click", (e) => {
-                                                e.target.classList.toggle("kpaction");
-                                            })
-                                            run.addEventListener("focusout", (e) => {
-                                                if (e.target.classList.value == "kpaction") {
-                                                    e.target.classList.toggle("kpaction")
-                                                }
-                                            })
-                                            run.addEventListener("input", (e) => {
-                                                e.target.style.border = "1px solid #333333";
-                                            })
-                                            paragraph.appendChild(run);
-                                        }
-                                        tabEdit.appendChild(paragraph);
-                                        }
-                                    )
-                                    tableRow.appendChild(tabEdit);
+            for(tr of r.tbr){
+                let tableRow = document.createElement("tr");
+                for(tc of tr.tcols){
+                    let tabD = document.createElement("td");
+                    tabD.style.border = "1px solid #222222";
+                    tabD.style.minHeight = "20px";
+                    for(p of tc.p){
+                        let paragraph = document.createElement("div");
+                        paragraph.style.display = "flex";
+                        paragraph.style.flexDirection = "row";
+                        paragraph.style.minHeight = "10px";
+                        for(pr of p.runs){
+                            const run = document.createElement("pre");
+                            run.contentEditable = true;
+                            run.style.display = "inline";
+                            if (pr.rPr.fontFamily) {
+                                run.style.fontFamily = pr.rPr.fontFamily;
+                            }
+                            if(pr.rPr.color !== "null"){
+                                run.style.color = pr.rPr.color;
+                            }
+                            if (pr.rPr.bold) {
+                                run.style.fontWeight = "600";
+                            }
+                            if (pr.rPr.italic) {
+                                run.style.fontStyle = "italic";
+                            }
+                            if (pr.rPr.strike && pr.rPr.underline) {
+                                run.style.textDecoration = "underline line-through";
+
+                            }else if (pr.rPr.underline) {
+                                run.style.textDecoration = "underline";
+                            } else if (pr.rPr.strike) {
+                                run.style.textDecoration = "line-through";
+                            }
+                            if (pr.rPr.fontSize == 22) {
+                                run.style.fontSize = "14px";
+                            } else if (pr.rPr.fontSize == 48) {
+                                run.style.fontSize = "33px";
+                            }
+                            run.setAttribute("oldValue", pr.oldValues);
+                            run.textContent = pr.oldValues;
+                            run.addEventListener("click", (e) => {
+                                e.target.classList.toggle("kpaction");
+                            })
+                            run.addEventListener("focusout", (e) => {
+                                if (e.target.classList.value == "kpaction") {
+                                    e.target.classList.toggle("kpaction")
                                 }
                             })
+                            run.addEventListener("input", (e) => {
+                                e.target.style.border = "1px solid #333333";
+                            })
+                            paragraph.appendChild(run);
                         }
-                    })
-                    tableBody.appendChild(tableRow);
+                        tabD.appendChild(paragraph);
+                    }
+                    tableRow.appendChild(tabD);
                 }
-            })
+                tableBody.appendChild(tableRow);
+            }
             table.appendChild(tableBody);
             pCC.appendChild(table);
         }
@@ -441,18 +433,17 @@
         function start(path, data) {
             Documentt.fileName = path.name;
             let mlDom = pars.parseFromString(data, 'application/xml');
-            let mlDomBody = mlDom.querySelector("body");
             const edytorContainer = document.createElement('div');
             edytorContainer.classList.add('EditorContainer');
             const edytor = document.createElement('div');
             edytor.classList.add('Editor');
-            for(const cN of mlDomBody.childNodes){
+            for(const cN of mlDom.querySelector("body").childNodes){
                 if(cN.localName === 'p'){
                     PAndR(cN, edytor, Documentt.fileName);
                 } else if(cN.localName === 'tbl'){
-                    createTable(edytor, cN);
                     vcccccccc(cN).then((result)=>{
                         Documentt.body.push(result);
+                        createTable(edytor, cN, result);
                     })
                 }
                 edytorContainer.append(edytor);
@@ -460,11 +451,104 @@
             }
             console.log(Documentt.body);
         }
+
+        function DialogStart2(main, file, state){
+            let RootBox = document.createElement("div");
+            RootBox.setAttribute("id", "dialogStart");
+            RootBox.classList.add("dialogStart");
+
+            let dialogHeader = document.createElement("div");
+            dialogHeader.classList.add("dialogHeader");
+
+            let close = document.createElement("div");
+            close.classList.add("closeDlg");
+            let closeImg = document.createElement("img");
+            closeImg.src = "./img/close.svg";
+            closeImg.alt = "close";
+
+            close.addEventListener("click", ()=>{RootBox.remove();})
+
+            close.append(closeImg);
+            dialogHeader.append(close);
+            
+
+            let dialogSelectHeader = document.createElement("div");
+                dialogSelectHeader.classList.add("dialogSelectHeader");
+
+            let dialogSelectHeaderItemSettings = document.createElement("button");
+                dialogSelectHeaderItemSettings.classList.add("dialogSelectHeaderItem");
+                dialogSelectHeaderItemSettings.id = "settings";
+                dialogSelectHeaderItemSettings.textContent = "Ustawienia";
+
+            let dialogSelectHeaderItemCountFile = document.createElement("button");
+                dialogSelectHeaderItemCountFile.classList.add("dialogSelectHeaderItem");
+                dialogSelectHeaderItemCountFile.id = "countFile";
+                dialogSelectHeaderItemCountFile.textContent = "Ile plików";
+
+                if(state === "Ustawienia"){
+                    dialogSelectHeaderItemSettings.setAttribute("activee", "");
+                }else if(state === "Ile plików"){
+                    dialogSelectHeaderItemCountFile.setAttribute("activee", "");
+                }
+
+                dialogSelectHeader.append(dialogSelectHeaderItemSettings, dialogSelectHeaderItemCountFile);
+
+                let dialogBody = document.createElement("div");
+                dialogBody.classList.add("dialogBody");
+                dialogBody.setAttribute("id", "dBody");
+
+                let bv = document.createElement("div");
+                bv.classList.add("bv");
+                let span = document.createElement("span");
+                span.textContent = "Nazwa Pliku";
+                let nameFile = document.createElement("input");
+                nameFile.setAttribute("type", "text");
+                nameFile.setAttribute("id", "nameFile");
+                nameFile.classList.add("filePath");
+                nameFile.value = file.name;
+                bv.append(span, nameFile);
+
+                let bc = document.createElement("div");
+                bc.classList.add("bv");
+                let spann = document.createElement("span");
+                spann.textContent = "Ilość Pliku";
+                let countC = document.createElement("div");
+                countC.classList.add("countC");
+                let countCPre = document.createElement("pre");
+                countCPre.setAttribute("contenteditable", "true");
+                countCPre.textContent = "0";
+                let p = document.createElement("p");
+                p.textContent = "/500";
+                countC.append(countCPre, p);
+                bc.append(spann, countC);
+                
+                let nextButton = document.createElement("button");
+                nextButton.setAttribute("id", "nextButton");
+                nextButton.classList.add("nextButton");
+                nextButton.textContent = "Dalej";
+
+                nextButton.addEventListener("click", ()=>{
+                    mFile.fileSystem.readFile(`docxs/${file.name}/word/document.xml`, 'utf8', (err, buff) => {
+                        if (err) { console.log(err)}
+                        inst.addInstance(new Instance(countCPre.textContent, "CountC"));
+                        dragg.remove();
+                        document.querySelector("#dialogStart").remove();
+                        createWorkNavBar(main);
+                        start(file, buff);
+                    });
+                });
+
+                dialogBody.append(bv, bc, nextButton);
+
+                RootBox.append(dialogHeader, dialogSelectHeader, dialogBody);
+
+            main.append(RootBox);
+        }
         
         dragg.addEventListener('dd', (e)=>{
-            for(const files in e.detail.f){
-                if(mFile.fileSystem.existsSync(`docxs/${e.detail.f[files].name}`)){
-                    new DialogStart(vbcx, `${e.detail.f[files].name}`, e.detail.f, "Ile plików");
+            for(const files of e.detail.f){
+                if(mFile.fileSystem.existsSync(`docxs/${files.name}`)){
+                    DialogStart2(vbcx, files, "Ile plików");
                 }
             }
         })

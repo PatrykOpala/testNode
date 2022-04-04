@@ -78,6 +78,7 @@ class Instance{
     }
 }
 
+
 class BaseDialog{
     constructor(root){
         this.rootElement = root;
@@ -192,6 +193,7 @@ class DialogStart extends BaseDialog{
                 this.PointerDialogStart.remove();
                 dragg.remove();
                 createWorkNavBar(this.mainn);
+                console.log(fc);
                 start(fc[0], buff);
             });
         });
@@ -296,6 +298,7 @@ class EdytorDialog extends BaseDialog{
 function AsyncTableTemplate(tElement){
     return new Promise((resolve, reject)=>{
         // 6,944444444444444e-4
+        console.log(tElement);
         let tablee = {
             type: 'Table',
             tblPr: {
@@ -344,8 +347,6 @@ function AsyncTableTemplate(tElement){
             tablee.tblPr.tblW.type = ""
         }
         
-        let table = document.createElement('table');
-        table.style.border = "1px solid red";
         for(const tblGC of tElement?.querySelector('tblGrid').childNodes){
             let gridCol = {width: Number.parseInt(tblGC.getAttribute('w:w'))};
             tablee.tblGrid.gridCols.push(gridCol);
@@ -356,37 +357,37 @@ function AsyncTableTemplate(tElement){
                 tcols: [],
             }
 
-            if(tRows.querySelector('tc') !== null){
-                let tc = {
-                    tcPr: {
-                        tcW: {
-                            width: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:w')),
-                            type: tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:type')
-                        },
-                        tcBorders: {
-                            top: {
-                                val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:val'),
-                                sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:sz')),
-                                space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:space')),
-                                color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:color')
-                            },
-                            left: {
-                                val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:val'),
-                                sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:sz')),
-                                space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:space')),
-                                color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:color')
-                            },
-                            bottom: {
-                                val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:val'),
-                                sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:sz')),
-                                space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:space')),
-                                color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:color')
-                            },
-                        }
-                    },
-                    p: []
-                }
+            if(tRows.querySelectorAll('tc')){
                 for(const tcc of tRows.querySelectorAll('tc')){
+                    let tc = {
+                        tcPr: {
+                            tcW: {
+                                width: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:w')),
+                                type: tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:type')
+                            },
+                            tcBorders: {
+                                top: {
+                                    val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:val'),
+                                    sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:sz')),
+                                    space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:space')),
+                                    color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:color')
+                                },
+                                left: {
+                                    val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:val'),
+                                    sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:sz')),
+                                    space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:space')),
+                                    color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:color')
+                                },
+                                bottom: {
+                                    val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:val'),
+                                    sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:sz')),
+                                    space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:space')),
+                                    color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:color')
+                                },
+                            }
+                        },
+                        p: []
+                    }
                     for(const tccp of tcc.querySelectorAll('p')){
                         let TableColumnParagraph = {
                             type: "Paragraph",
@@ -404,6 +405,7 @@ function AsyncTableTemplate(tElement){
                                 type: "Run",
                                 rPr: {
                                     fontSize: Number.parseInt(tcprr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(tcprr?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val")),
+                                    fontFamily: tcprr?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:ascii") || tcprr?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:hAnsi") || null,
                                     bold: tcprr?.querySelector("rPr")?.querySelector("b") || tcprr?.querySelector("rPr")?.querySelector("bCs") ? true : false,
                                     italic: tcprr?.querySelector("rPr")?.querySelector("i") || tcprr?.querySelector("rPr")?.querySelector("iCs") ? true : false,
                                     strike: tcprr?.querySelector("rPr")?.querySelector("strike") || tcprr?.querySelector("rPr")?.querySelector("dstrike") ? true : false,
@@ -430,8 +432,9 @@ function AsyncTableTemplate(tElement){
                         }
                         tc.p.push(TableColumnParagraph);
                     }
+                    tableRow.tcols.push(tc);
                 }
-                tableRow.tcols.push(tc);
+                
             }
             tablee.tbr.push(tableRow);
         }        
