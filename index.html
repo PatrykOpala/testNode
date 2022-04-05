@@ -545,7 +545,7 @@
         }
         
         function EdytorDialog(m, preElem, fN){
-            let newStrings = ["ywevbhyefvhef", "anfonfubujbf", "dhgquwdghvbf", "wqljdfhgqufqubv"];
+            let newStrings = [];
             let RootBox = document.createElement("div");
             RootBox.setAttribute("id", "dialogStart");
             RootBox.classList.add("dialogStart");
@@ -615,14 +615,23 @@
                 let OtherFilesItem = document.createElement("div");
                 OtherFilesItem.classList.add("OtherFilesItem");
                 let ffmnmn = fN.split(".") ;
-                ffmnmn[0] += hd;
+                ffmnmn[0] += hd+1;
                 OtherFilesItem.textContent = `${ffmnmn[0].concat(".", ffmnmn[1])}`;
                 OtherFilesItem.addEventListener("click", (e)=>{
                     e.target.hasAttribute("do-select") ? e.target.removeAttribute("do-select") : e.target.setAttribute("do-select", "")
                 });
                 OtherFilesContainer.append(OtherFilesItem);
             }
-            dBodyRight.append(OtherFilesContainer);
+
+            let continueButton = document.createElement("button");
+            continueButton.classList.add("continueButton");
+            continueButton.textContent = "Zatwierdź";
+
+            continueButton.addEventListener("click", ()=>{
+                
+            })
+
+            dBodyRight.append(OtherFilesContainer, continueButton);
             dialogBodyEdytor.append(dBodyLeft, dBodyRight);
 
             RootBox.append(dialogHeader, dialogBodyEdytor);

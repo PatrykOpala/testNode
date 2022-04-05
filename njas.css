@@ -1,6 +1,6 @@
 :root{
     --text-color: rgba(255, 255, 255, 0.904);
-    --primary-colour: rgb( 30, 30, 180);
+    --primary-colour: rgb(30, 30, 180);
     --primary-colour-light: rgb(49, 49, 247);
     --blue-colour: rgb(39, 39, 236);
     --border-colour:rgba(250, 250, 250, .9);
@@ -271,6 +271,7 @@ input, .nextButton{border:none; outline:none;}
     min-height: 90%;
     display: flex;
     flex-direction: column;
+    /* transform: scale(1); */
 }
 
 .EditorParagraph{
@@ -350,3 +351,16 @@ input, .nextButton{border:none; outline:none;}
 }
 
 [do-select]{ border-bottom: 2px solid var(--primary-colour);}
+
+
+.continueButton{
+    margin-top: 20px;
+    margin-left: 70%;
+    color:var(--primary-colour);
+    background-color: transparent;
+    font-weight: bold;
+    outline-width: thin;
+    outline-color: #fff;
+    border: none;
+    font-size: 1.1rem;
+}
