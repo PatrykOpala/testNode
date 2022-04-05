@@ -112,193 +112,100 @@ class BaseDialog{
     }
 }
 
-class DialogStart extends BaseDialog{
-    constructor(main, file, fileObject, state){
-        super(main);
-        this.mainn = main;
+// class EdytorDialog extends BaseDialog{
+//     constructor(m, preElem, fN){
+//         super(m);
 
-        this.addElementToRoot(this.#createDialogSelectHeader(state));
-        this.addElementToRoot(this.#createDialogBody(file, fileObject));
+//         const dialogBodyEdytor = document.createElement("div");
+//         dialogBodyEdytor.classList.add("dialogBody");
+//         dialogBodyEdytor.classList.add("dialogEdytorBody");
+//         dialogBodyEdytor.setAttribute("id", "dBody");
 
-        this.PointerDialogStart = this.RootBox;
-    }
+//         this.PreviewTextFromRun(dialogBodyEdytor, preElem, fN);
 
-    #createDialogSelectHeader(s){
+//         this.addElementToRoot(dialogBodyEdytor);
 
-        const dialogSelectHeader = document.createElement("div");
-        dialogSelectHeader.classList.add("dialogSelectHeader");
-        const dialogSelectHeaderItemSettings = document.createElement("button");
-        dialogSelectHeaderItemSettings.classList.add("dialogSelectHeaderItem");
-        dialogSelectHeaderItemSettings.id = "settings";
-        dialogSelectHeaderItemSettings.textContent = "Ustawienia";
-
-        const dialogSelectHeaderItemCountFile = document.createElement("button");
-        dialogSelectHeaderItemCountFile.classList.add("dialogSelectHeaderItem");
-        dialogSelectHeaderItemCountFile.id = "countFile";
-        dialogSelectHeaderItemCountFile.textContent = "Ile plików";
+//         this.newStrings = [];
         
+//     }
 
-        if(s === "Ustawienia"){
-            dialogSelectHeaderItemSettings.setAttribute("activee", "");
-        }else if(s === "Ile plików"){
-            dialogSelectHeaderItemCountFile.setAttribute("activee", "");
-        }
+//     PreviewTextFromRun(bodyEdytor, p, f){
 
-        dialogSelectHeader.append(dialogSelectHeaderItemSettings, 
-            dialogSelectHeaderItemCountFile);
+//         const dBodyLeft = document.createElement("div");
+//         dBodyLeft.classList.add("dBodyLeft");
+//         const PreviewTextContainer = document.createElement("div");
+//         PreviewTextContainer.classList.add("PreviewTextContainer");
+//         const PreviewText = document.createElement("p");
+//         PreviewText.id = "PreviewText";
+//         PreviewText.classList.add("PreviewText");
+//         PreviewText.style.color = p.getAttribute("do-color");
+//         PreviewText.style.textDecoration = p.getAttribute("do-text-decoration");
+//         PreviewText.style.fontStyle = p.getAttribute("do-font-style");
+//         PreviewText.style.fontWeight = p.getAttribute("do-font-weight");
+//         PreviewText.style.fontSize = `${p.getAttribute("do-font-size")}pt`;
+//         PreviewTextContainer.append(PreviewText);
+//         const ApplyChangeText = document.createElement("input");
+//         ApplyChangeText.placeholder = "Wprowadź nowe wartości";
+//         ApplyChangeText.classList.add("ApplyChangeText");
+//         ApplyChangeText.addEventListener("keydown", (e)=>{
+//             if(e.key === "Enter"){
+//                 this.addString(ApplyChangeText.value);
+//                 ApplyChangeText.value = "";
+//             }
+//         })
 
-        return dialogSelectHeader;
-    }
+//         dBodyLeft.append(PreviewTextContainer, ApplyChangeText);
 
-    #createDialogBody(fileName, fc){
-        const dialogBody = document.createElement("div");
-        dialogBody.classList.add("dialogBody");
-        dialogBody.setAttribute("id", "dBody");
+//         const dBodyRight = document.createElement("div");
+//         dBodyRight.classList.add("dBodyRight");
+//         const OtherFilesContainer = document.createElement("div");
+//         OtherFilesContainer.classList.add("OtherFilesContainer");
+//         for(let hd = 0; hd < Number(inst.instanceTable[0].df); hd++){
+//             let OtherFilesItem = document.createElement("div");
+//             OtherFilesItem.classList.add("OtherFilesItem");
+//             let ffmnmn = f.split(".") ;
+//             ffmnmn[0] += hd;
+//             OtherFilesItem.textContent = `${ffmnmn[0].concat(".", ffmnmn[1])}`;
+//             OtherFilesItem.addEventListener("click", (e)=>{
+//                 if(e.target.hasAttribute("do-select")){
+//                     e.target.removeAttribute("do-select");
+//                 }  
+//                 else{
+//                     e.target.setAttribute("do-select", "");
+//                 } 
+//             });
+//             OtherFilesContainer.append(OtherFilesItem);
+//         }
+//         dBodyRight.append(OtherFilesContainer);
+//         bodyEdytor.append(dBodyLeft, dBodyRight);
+//     }
 
-        const bv = document.createElement("div");
-        bv.classList.add("bv");
-        const span = document.createElement("span");
-        span.textContent = "Nazwa Pliku";
-        const nameFile = document.createElement("input");
-        nameFile.setAttribute("type", "text");
-        nameFile.setAttribute("id", "nameFile");
-        nameFile.classList.add("filePath");
-        nameFile.value = fileName;
-        bv.append(span, nameFile);
+//     addString(value){
+//         this.newStrings.push(value);
+//         this.render();
+//     }
 
-        const bc = document.createElement("div");
-        bc.classList.add("bv");
-        const spann = document.createElement("span");
-        spann.textContent = "Ilość Pliku";
-        const countC = document.createElement("div");
-        countC.classList.add("countC");
-        const countCPre = document.createElement("pre");
-        countCPre.setAttribute("contenteditable", "true");
-        countCPre.textContent = "0";
-        const p = document.createElement("p");
-        p.textContent = "/500";
-        countC.append(countCPre, p);
-        bc.append(spann, countC);
-        
-        const nextButton = document.createElement("button");
-        nextButton.setAttribute("id", "nextButton");
-        nextButton.classList.add("nextButton");
-        nextButton.textContent = "Dalej";
+//     render(){
+//         const rPreviewText = document.querySelector("#PreviewText");
+//         const rPreviewParagraph = rPreviewText.querySelectorAll("p");
+//         if(rPreviewParagraph.length > 0){
+//             for(const paraf of rPreviewParagraph){
+//                 paraf.remove();
+//             }
+//         }
+//         for(const indexx in this.newStrings){
+//             let p = document.createElement("p");
+//             p.style.marginLeft = "4px";
+//             p.textContent = this.newStrings[indexx];
+//             rPreviewText.append(p);
+//         }
+//     }
 
-        nextButton.addEventListener("click", ()=>{
-            mFile.fileSystem.readFile(`docxs/${fileName}/word/document.xml`, 'utf8', (err, buff) => {
-                if (err) { console.log(err)}
-
-                inst.addInstance(new Instance(countCPre.textContent, "CountC"));
-                this.PointerDialogStart.remove();
-                dragg.remove();
-                createWorkNavBar(this.mainn);
-                console.log(fc);
-                start(fc[0], buff);
-            });
-        });
-
-        dialogBody.append(bv, bc, nextButton);
-
-        return dialogBody;
-    }
-}
-
-class EdytorDialog extends BaseDialog{
-    constructor(m, preElem, fN){
-        super(m);
-
-        const dialogBodyEdytor = document.createElement("div");
-        dialogBodyEdytor.classList.add("dialogBody");
-        dialogBodyEdytor.classList.add("dialogEdytorBody");
-        dialogBodyEdytor.setAttribute("id", "dBody");
-
-        this.PreviewTextFromRun(dialogBodyEdytor, preElem, fN);
-
-        this.addElementToRoot(dialogBodyEdytor);
-
-        this.newStrings = [];
-        
-    }
-
-    PreviewTextFromRun(bodyEdytor, p, f){
-
-        const dBodyLeft = document.createElement("div");
-        dBodyLeft.classList.add("dBodyLeft");
-        const PreviewTextContainer = document.createElement("div");
-        PreviewTextContainer.classList.add("PreviewTextContainer");
-        const PreviewText = document.createElement("p");
-        PreviewText.id = "PreviewText";
-        PreviewText.classList.add("PreviewText");
-        PreviewText.style.color = p.getAttribute("do-color");
-        PreviewText.style.textDecoration = p.getAttribute("do-text-decoration");
-        PreviewText.style.fontStyle = p.getAttribute("do-font-style");
-        PreviewText.style.fontWeight = p.getAttribute("do-font-weight");
-        PreviewText.style.fontSize = `${p.getAttribute("do-font-size")}pt`;
-        PreviewTextContainer.append(PreviewText);
-        const ApplyChangeText = document.createElement("input");
-        ApplyChangeText.placeholder = "Wprowadź nowe wartości";
-        ApplyChangeText.classList.add("ApplyChangeText");
-        ApplyChangeText.addEventListener("keydown", (e)=>{
-            if(e.key === "Enter"){
-                this.addString(ApplyChangeText.value);
-                ApplyChangeText.value = "";
-            }
-        })
-
-        dBodyLeft.append(PreviewTextContainer, ApplyChangeText);
-
-        const dBodyRight = document.createElement("div");
-        dBodyRight.classList.add("dBodyRight");
-        const OtherFilesContainer = document.createElement("div");
-        OtherFilesContainer.classList.add("OtherFilesContainer");
-        for(let hd = 0; hd < Number(inst.instanceTable[0].df); hd++){
-            let OtherFilesItem = document.createElement("div");
-            OtherFilesItem.classList.add("OtherFilesItem");
-            let ffmnmn = f.split(".") ;
-            ffmnmn[0] += hd;
-            OtherFilesItem.textContent = `${ffmnmn[0].concat(".", ffmnmn[1])}`;
-            OtherFilesItem.addEventListener("click", (e)=>{
-                if(e.target.hasAttribute("do-select")){
-                    e.target.removeAttribute("do-select");
-                }  
-                else{
-                    e.target.setAttribute("do-select", "");
-                } 
-            });
-            OtherFilesContainer.append(OtherFilesItem);
-        }
-        dBodyRight.append(OtherFilesContainer);
-        bodyEdytor.append(dBodyLeft, dBodyRight);
-    }
-
-    addString(value){
-        this.newStrings.push(value);
-        this.render();
-    }
-
-    render(){
-        const rPreviewText = document.querySelector("#PreviewText");
-        const rPreviewParagraph = rPreviewText.querySelectorAll("p");
-        if(rPreviewParagraph.length > 0){
-            for(const paraf of rPreviewParagraph){
-                paraf.remove();
-            }
-        }
-        for(const indexx in this.newStrings){
-            let p = document.createElement("p");
-            p.style.marginLeft = "4px";
-            p.textContent = this.newStrings[indexx];
-            rPreviewText.append(p);
-        }
-    }
-
-}
+// }
 
 function AsyncTableTemplate(tElement){
     return new Promise((resolve, reject)=>{
         // 6,944444444444444e-4
-        console.log(tElement);
         let tablee = {
             type: 'Table',
             tblPr: {

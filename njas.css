@@ -1,6 +1,7 @@
 :root{
     --text-color: rgba(255, 255, 255, 0.904);
     --primary-colour: rgb( 30, 30, 180);
+    --primary-colour-light: rgb(49, 49, 247);
     --blue-colour: rgb(39, 39, 236);
     --border-colour:rgba(250, 250, 250, .9);
 }
@@ -290,11 +291,32 @@ input, .nextButton{border:none; outline:none;}
 
 .PreviewText, .ApplyChangeText{
     width: 20vw;
-    height: 8vh;
     border: 1px solid rgb(72, 89, 21);
-    padding: 6px;
-    line-height: 50px;
-    display: inline-flex;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.PreviewText{
+    width: 20.8vw;
+    min-height: 30vh;
+    max-height: 30vh;
+    overflow-y: scroll;
+}
+
+.PreviewText::-webkit-scrollbar{
+    width: 5px;
+    height: 5px;
+    background-color: transparent;
+}
+
+.PreviewText::-webkit-scrollbar-thumb{
+    background-color: var(--primary-colour);
+}
+
+.PreviewText::-webkit-scrollbar-thumb:hover{
+    background-color: var(--primary-colour-light);
 }
 
 .ApplyChangeText{
@@ -302,7 +324,7 @@ input, .nextButton{border:none; outline:none;}
     padding: 6px;
     border: 1px solid black;
     margin-left: 10px;
-    font-size: 1.8rem;
+    font-size: 1.5rem;
 }
 
 .OtherFilesContainer{
@@ -318,11 +340,13 @@ input, .nextButton{border:none; outline:none;}
     margin-top: 10px;
     font-family: sans-serif;
     text-align: center;
-    line-height: 40px;
+    line-height: 50px;
 }
 
 .OtherFilesItem:hover{
     cursor: pointer;
+    background-color: var(--primary-colour);
+    color: #fff;
 }
 
 [do-select]{ border-bottom: 2px solid var(--primary-colour);}
