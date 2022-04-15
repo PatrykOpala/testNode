@@ -1,6 +1,6 @@
 {
   "name": "testnode",
-  "version": "0.0.59",
+  "version": "0.0.60",
   "private": true,
   "main": "index.js",
   "scripts": {
@@ -9,7 +9,8 @@
   },
   "dependencies": {
     "decompress": "^4.2.1",
-    "docx": "^7.3.0"
+    "docx": "^7.3.0",
+    "parcel": "^2.4.1"
   },
   "devDependencies": {
     "electron": "^17.1.2"

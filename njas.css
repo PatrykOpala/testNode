@@ -1,118 +1,98 @@
 :root{
-    --text-color: rgba(255, 255, 255, 0.904);
+    --rgb-white: rgba(207, 202, 202);
     --primary-colour: rgb(30, 30, 180);
     --primary-colour-light: rgb(49, 49, 247);
     --blue-colour: rgb(39, 39, 236);
     --border-colour:rgba(250, 250, 250, .9);
+    --border-colour-black: rgba(10, 10, 10, 0.3);
+    --white: #fff;
+    --onePx-solid--black-border: 1px solid var(--border-colour-black);
+    --twoPX-solid-black-border: 2px solid var(--border-colour-black);
+    --twoPX-solid-border: 2px solid;
 }
+*{ font-family: Alef;}
+body{margin:0; padding:0;}
+main, .countFileContainer, .buttonsContainer, .menuBar, .work_nav, .dialogStart, .closeDlg, .dialogSelectHeader, .dialogBody, .countC, .boldBTN, .EditorContainer,
+.Editor, .EditorParagraph ,.ApplyChangeText{display: flex;}
 
-body{font-family: Alef; margin:0; padding:0;}
+main, .dialogStart, .dialogBody, .boldBTN, .EditorContainer, .ApplyChangeText, .Editor{flex-direction: column;}
+
 main{
     width: 100%;
     height: 100vh;
-    display: flex;
-    flex-direction: column;
 }
 .paragraphContainer{
     width: 582px;
     height: 300px;
-    margin-left: 5px;
+    margin: 0 5px;
     overflow: hidden;
     overflow-y: scroll;
     position: relative;
 }
 pre{outline: none;}
-pre:hover{ background-color: rgb(207, 202, 202);}
+pre:hover{ background-color: var(--rgb-white);}
 .countFileContainer{
-    display:flex;
-    flex-direction:row;
-    margin-top:20px;
+    margin: 20px 0;
 }
-
 .buttonsContainer{
     width:100%;
-    display:flex;
-    flex-direction:row;
     justify-content:flex-end;
-    margin-top:10px;
+    margin:10px 0;
 }
-
 .countFileContainerElementsLabel{
-    margin-right:10px;
-    margin-top:9px;
+    margin: 9px 10px;
     font-size:20px;
     text-align:center;
-    font-family:Alef;
 }
-
 .countFileContainerElementsInput{
     width:100px;
     height:40px;
-    border:1px solid rgba(10, 10, 10, 0.3);
+    border:var(--onePx-solid--black-border);
     outline:none;
     text-align:center;
     font-size:29px;
     margin-left:6px;
 }
-
 .menuBar{
-    display: flex;
-    flex-direction: row;
     height: 49px;
     padding: 10px;
-    background-color: rgba(250, 250, 250, .9);
-    border-bottom:1px solid var(--primary-colour);
+    background-color: var(--border-colour);
+    border-bottom:var(--onePx-solid-border, 1 solid) var(--primary-colour);
 }
-
 .work_nav{
     width:100%;
     height:38px;
-    background-color: rgba(250, 250, 250, .9);
-    display: flex;
-    flex-direction: row;
+    background-color: var(--border-colour);
 }
-
 .dialogStart{
-    display: flex;
-    flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--white);
     border-radius: 4px;
-    border: 1px solid #333;
+    border: var(--onePx-solid--black-border);
     padding: 10px;
     position: absolute;
     top: 20vh;
     left: 20vw;
+    height: 67vh;
 }
-
 .dialogHeader{
-    width: 700px;
+    width: 48vw;
     height: 27px;
-    display: flex;
-    flex-direction: row;
 }
-
 .closeDlg{
     width: 20px;
     height: 20px;
     margin-left: 96%;
-    display: flex;
     justify-content: center;
     align-items: center;
     padding: 3px;
     border-radius: 4px;
 }
-
-.closeDlg:hover{ background-color: rgba(10, 10, 10, 0.3);}
-
+.closeDlg:hover{ background-color: var(--border-colour-black);}
 .dialogSelectHeader{
     width: 500px;
     height: 35px;
-    display: flex;
-    flex-direction: row;
 }
-
 [activee]{color: var(--primary-colour);font-weight: 600;}
-
 .dialogSelectHeaderItem{
     font-size: 16px;
     text-align: center;
@@ -123,218 +103,141 @@ pre:hover{ background-color: rgb(207, 202, 202);}
     border-top: none;
     border-left: none;
     border-right: none;
-    outline: none;
     background-color: transparent;
 }
-
 .dialogSelectHeaderItem:hover{
     cursor: pointer;
     color: var(--primary-colour);
-    border-bottom: 2px solid var(--primary-colour);
+    border-bottom: var(--twoPX-solid-border) var(--primary-colour);
 }
-
 .dialogBody{
     width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
     align-items: center;
 }
-
 .dialogEdytorBody{
-    height: 460px;
     display: inline-grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, 1fr);
     gap: 4px;
 }
-
 input, .nextButton{border:none; outline:none;}
-
 .bv{
     width: 160px;
     height: 50px;
     position: relative;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin: 4vh 0;
 }
-
-.bv > span{
+.bv > span, .bc > span{
     position: absolute;
     top: -10px;
     left: 10px;
     z-index: 70;
-    background-color: #fff;
+    background-color: var(--white);
     font-size: 0.9em;
 }
-
 .filePath{
     width:150px;
     height:40px;
-    margin-top: 0px;
     border-radius: 4px;
-    border:2px solid rgba(10, 10, 10, 0.3);
+    border:var(--twoPX-solid-black-border);
     font-size: 1em;
 }
-
 .bc{
     width: 140px;
     height: 50px;
     position: relative;
     margin-top: 10px;
 }
-
-.bc > span{
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    z-index: 70;
-    background-color: #fff;
-    font-size: 0.9em;
-}
-
 .countC{
     width:100%;
     height:40px;
-    margin-top: 0px;
     border-radius: 4px;
-    border:2px solid rgba(10, 10, 10, 0.3);
+    border: var(--twoPX-solid-black-border);
     font-size: 1em;
     text-align: center;
-    display:flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
 }
-
-.countC > pre{font-size: 1.5em;font-family: Alef;}
-
+.countC > pre{font-size: 1.5em;}
 .countC > p{
     cursor: default;
     font-size: 1.5em;
-    font-family: Alef;
 }
-
 .nextButton{
     width:90px;
     height:35px;
     background-color: var(--primary-colour);
     margin-top: 30px;
-    color: #fff;
+    color: var(--white);
     border-radius: 4px;
     font-size: 1.1em;
 }
-
+.Font, .boldBTN{ margin: 4px 4px;}
 .Font{
     width: 100px;
     height: 29px;
     text-align: center;
     line-height: 30px;
-    margin-top: 4px;
-    margin-left: 4px;
 }
-
 .boldBTN{
     width: 29px;
     height: 29px;
-    margin-top: 4px;
     background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin-left: 4px;
     border: none;
-    outline: none;
     border-bottom: 2px solid transparent;
 }
+.boldBTN:hover{background-color: transparent;border-bottom: var(--twoPX-solid-border) var(--primary-colour);}
 
-.boldBTN:hover{
-    background-color: transparent;
-    border-bottom: 2px solid var(--primary-colour);
-}
+.boldBTN, .EditorContainer, .ApplyChangeText{justify-content: center;align-items: center;}
 
 .EditorContainer{
     width: 100%;
     height: 100%;
-    margin-top: 4px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    margin: 4px 0;
     position: relative;
     overflow-y: scroll;
 }
-
 .Editor{
     position: absolute;
-    width: 60%;
+    width: 11in;
     min-height: 90%;
-    display: flex;
-    flex-direction: column;
-    /* transform: scale(1); */
 }
-
-.EditorParagraph{
-    display: flex;
-    flex-direction: row;
-    min-height: 30px;
-}
-
-.dBodyLeft, .dBodyRight{
-    width: 24vw;
-    height: 63vh;
-}
-
+.EditorParagraph{min-height: 30px;}
+.dBodyLeft, .dBodyRight{width: 24vw;height: 63vh;}
 .PreviewTextContainer{
-    width: 50%;
+    width: 22vw;
+    height: 40vh;
     padding: 10px;
-}
-
-.PreviewText, .ApplyChangeText{
-    width: 20vw;
-    border: 1px solid rgb(72, 89, 21);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-
-.PreviewText{
-    width: 20.8vw;
-    min-height: 30vh;
-    max-height: 30vh;
     overflow-y: scroll;
+    margin-bottom: 20px;
 }
-
-.PreviewText::-webkit-scrollbar{
+.PreviewTextContainer::-webkit-scrollbar{
     width: 5px;
     height: 5px;
     background-color: transparent;
 }
-
-.PreviewText::-webkit-scrollbar-thumb{
+.PreviewTextContainer::-webkit-scrollbar-thumb{
     background-color: var(--primary-colour);
 }
-
-.PreviewText::-webkit-scrollbar-thumb:hover{
+.PreviewTextContainer::-webkit-scrollbar-thumb:hover{
     background-color: var(--primary-colour-light);
 }
-
+.ApplyChangeText{
+    width: 20vw;
+    border: var(--onePx-solid-border, 1 solid) rgb(72, 89, 21);
+}
 .ApplyChangeText{
     height: 5vh;
     padding: 6px;
-    border: 1px solid black;
+    border: var(--onePx-solid--black-border);
     margin-left: 10px;
     font-size: 1.5rem;
 }
-
 .OtherFilesContainer{
     width: 290px;
     height: 70%;
     margin: 10% 10%;
     overflow-y: scroll;
 }
-
 .OtherFilesItem{
     width: 100%;
     height: 47px;
@@ -343,24 +246,19 @@ input, .nextButton{border:none; outline:none;}
     text-align: center;
     line-height: 50px;
 }
-
 .OtherFilesItem:hover{
     cursor: pointer;
     background-color: var(--primary-colour);
-    color: #fff;
+    color: var(--white);
 }
-
-[do-select]{ border-bottom: 2px solid var(--primary-colour);}
-
-
+[do-select]{ background-color: var(--primary-colour); color: var(--white);}
 .continueButton{
-    margin-top: 20px;
-    margin-left: 70%;
+    margin: 20px 65%;
     color:var(--primary-colour);
     background-color: transparent;
     font-weight: bold;
     outline-width: thin;
-    outline-color: #fff;
+    outline-color: var(--white);
     border: none;
     font-size: 1.1rem;
 }

@@ -14,22 +14,15 @@
         <drag-and-drop></drag-and-drop>
     </main>
     <script src="Screen/DOComponents.js" async></script>
-    <script src="nic2.js"></script>
     <script>
         let pars = new DOMParser();
-        let ff = null;
         let dragg = document.querySelector('drag-and-drop');
         let vbcx = document.querySelector('main');
-        const inst = new InstanceMain();
+        let inst = null;
 
         let Documentt = {
             fileName: "",
             body: []
-        }
-
-        async function vcccccccc(te){
-            let t = await AsyncTableTemplate(te);
-            return t;
         }
 
         function createWorkNavBar(root){
@@ -64,142 +57,50 @@
             root.append(workNav);
         }
 
-        function createEdytor(root2){
-            if(ff.body[fm].type === 'Table'){
-                let tableElement = document.createElement('table');
-                // tableElement.style.border = "1px solid red";
-
-                for(let cvb = 0; cvb < ff.body[fm].tbr.length; cvb++){
-                    for(let tr = 0; tr < ff.body[fm].tbr[cvb].tcols.length; tr++){
-                        let tableRowElement = document.createElement('tr');
-                        tableRowElement.style.padding = "5px";
-                        tableRowElement.style.border = "2px solid yellow";
-
-                        // for(let td = 0; td < ff.body[fm].tbr[cvb].tcols[tr].length; td++){
-                        //     console.log("tableTDElement");
-                        //     tableTDElement = document.createElement('td');
-                        //     for(let tdP = 0; tdP < ff.body[fm].tbr[cvb].tcols[tr].p[td]; tdP++){
-                        //         console.log("tableParagraph");
-                        //         let tableParagraph = document.createElement('div');
-                        //         tableParagraph.classList.add('EditorParagraph');
-                        //         tableParagraph.style.alignItems = "center";
-
-                        //             let runss = ff.body[fm].tbr[cvb].tcols[tr].p[td].runs[tdP].length;
-                        //             for(let d = 0; d < runss.length; d++){
-                        //                 let pRun = document.createElement('pre');
-                        //                 pRun.contentEditable = true;
-                        //                 pRun.style.display = 'inline-block';
-                        //                 pRun.style.margin = "0";
-                        //                 if(runss[d].oldValues !== undefined){
-                        //                     pRun.textContent = runss[d].oldValues;
-                        //                     if(runss[d].rPr.color !== '#undefined' || runss[d].rPr.color !== 'null'){
-                        //                         pRun.style.color = runss[d].rPr.color
-                        //                     }
-                        //                     tableParagraph.append(pRun);
-                        //                 }
-                        //             }
-
-                        //         tableTDElement.append(edytorParagraph);
-                        //     }
-                        //     console.log(tableTDElement);
-                        //     tableRowElement.append(tableTDElement);
-                        // }
-                        tableElement.append(tableRowElement);
-                    }
-                }
-                edytor.append(tableElement);
-            }
-        }
-
         function PAndR(mlElement, rt, fName){
-            // console.log(mlElement);
-            
             let edytorParagraph = document.createElement('div');
                 edytorParagraph.classList.add('EditorParagraph');
-                edytorParagraph.style.alignItems = "center";
 
-            let paragraph = {
-                type: "Paragraph",
-                pPr: {
-                    pStyle: {val: mlElement.querySelector('pPr').querySelector('pStyle').getAttribute('w:val')} || null,
-                    bidi:  { val: mlElement.querySelector('pPr').querySelector('bidi').getAttribute('w:val') } || null,
-                    jc: { val: mlElement.querySelector('pPr').querySelector('jc').getAttribute('w:val')} || null,
-                    rPr: {
-                        color:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null,
-                        sz:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('sz')?.getAttribute('w:val')} || null,
-                        szCs:{val: mlElement.querySelector('pPr').querySelector('rPr')?.querySelector('szCs')?.getAttribute('w:val')} || null
-                    }
-                },
-                r: []
-            }
-
-            for(const rb of mlElement.querySelectorAll('r')){
-                let r = {
-                    rPr: {
-                        color: {val: rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null
-                    },
-                    t: {
-                        attribute: rb?.querySelector('t')?.getAttribute('xml:space') || null,
-                        text: rb?.querySelector('t')?.textContent
-                    }
-                }
-
-                paragraph.r.push(r);
-                
+            for(let rb of mlElement.r){
                 let pRun = document.createElement('pre');
                 pRun.contentEditable = true;
                 pRun.style.display = 'inline-block';
-                pRun.style.margin = '0';
-                pRun.style.fontSize = `${Number.parseInt(rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) 
-                || Number.parseInt(rb?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val"))}pt`;
-
-                if(rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val") !== undefined){
-                    pRun.setAttribute("do-font-size", `${rb?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")}`);
+                pRun.style.margin = "0 0";
+                if(rb?.rPr?.sz !== undefined){
+                    pRun.style.fontSize = `${rb?.rPr?.sz}pt`;
+                    pRun.setAttribute("do-font-size", `${rb?.rPr?.sz}`);
                 }
-                
-                if(rb?.querySelector("rPr")?.querySelector("b") 
-                || rb?.querySelector("rPr")?.querySelector("bCs")){
+                if(rb?.rPr?.bold?.val){
                     pRun.style.fontWeight = 'bold';
                     pRun.setAttribute("do-font-weight", "bold");
                 }
-
-                if(rb?.querySelector("rPr")?.querySelector("i") 
-                || rb?.querySelector("rPr")?.querySelector("iCs")){
+                if(rb?.rPr?.italic?.val){
                     pRun.style.fontStyle = 'italic';
                     pRun.setAttribute("do-font-style", "italic");
                 }
-
-                if(rb?.querySelector("rPr")?.querySelector("u")){
+                if(rb?.rPr?.underline?.val){
                     pRun.style.textDecoration = 'underline';
                     pRun.setAttribute("do-text-decoration", "underline");
                 }
-
-                if(rb?.querySelector("rPr")?.querySelector("strike") || rb?.querySelector("rPr")?.querySelector("dstrike")){
+                if(rb?.rPr?.strike?.val){
                     pRun.style.textDecoration = "underline line-through";
                     pRun.setAttribute("do-text-decoration", "underline line-through");
                 }
-                for(const t of rb?.querySelectorAll("t")){
-                    pRun.setAttribute('oldValue', t.textContent);
-                    pRun.textContent = t.textContent;
-                }
-                if (rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
-                    pRun.style.color = `${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
-                    pRun.setAttribute("do-color", `${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`);
-                } else {
-                    pRun.style.color = `#${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null';
-                    pRun.setAttribute("do-color", `#${rb?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}` || 'null');
+                pRun.setAttribute('oldValue', rb?.t?.text);
+                pRun.textContent = rb?.t?.text;
+                if (rb?.rPr?.color?.val){
+                    pRun.style.color = `${rb?.rPr?.color?.val}`;
+                    pRun.setAttribute("do-color", `${rb?.rPr?.color?.val}`);
                 }
                 edytorParagraph.append(pRun);
             }
-            Documentt.body.push(paragraph);
             edytorParagraph.addEventListener("click", (event)=>{
                 if(event.target.localName === "pre"){
-                    EdytorDialog(vbcx, event.target, fName);
+                    EdytorDialog(vbcx, event.target, Documentt.fileName);
                 }
             });
             rt.append(edytorParagraph);
         }
-
         function T(tElement, rt2){
             // 6,944444444444444e-4
             let tablee = {
@@ -361,7 +262,7 @@
             return tablee
         }
 
-        function createTable(pCC, el, r) {
+        function createTable(pCC, r) {
             let table = document.createElement("table");
             let tableBody = document.createElement("tbody");
 
@@ -430,25 +331,218 @@
             pCC.appendChild(table);
         }
 
+        function createTableObject(tElement){
+            let tablee = {
+            type: 'Table',
+            tblPr: {
+                tblW: {
+                    width: tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
+                    type: ""
+                },
+                jc: tElement?.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
+                tblInd: {
+                    width: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
+                    type: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                },
+                tblLayout: {
+                    type: tElement?.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null"
+                },
+                tblCellMar: {
+                    top: {
+                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w'),
+                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    },
+                    left: {
+                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w'),
+                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    },
+                    bottom: {
+                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w'),
+                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    },
+                    right: {
+                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w'),
+                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    }
+                }
+            },
+            tblGrid: {
+                gridCols: []
+            },
+            tbr: [],
+        }
+
+            if(tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa'){
+                tablee.tblPr.tblW.type = tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type')
+            }else if(tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'pct'){
+                tablee.tblPr.tblW.type = tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type')
+            }else{
+                tablee.tblPr.tblW.type = ""
+            }
+        
+            for(const tblGC of tElement?.querySelector('tblGrid').childNodes){
+                let gridCol = {width: Number.parseInt(tblGC.getAttribute('w:w'))};
+                tablee.tblGrid.gridCols.push(gridCol);
+            }
+            for(const tRows of tElement?.querySelectorAll('tr')){
+                let tableRow = {
+                    trPr: tRows?.querySelector('trPr') || null,
+                    tcols: [],
+                }
+
+                if(tRows.querySelectorAll('tc')){
+                    for(const tcc of tRows.querySelectorAll('tc')){
+                        let tc = {
+                            tcPr: {
+                                tcW: {
+                                    width: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:w')),
+                                    type: tRows?.querySelector('tcPr')?.querySelector('tcW')?.getAttribute('w:type')
+                                },
+                                tcBorders: {
+                                    top: {
+                                        val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:val'),
+                                        sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:sz')),
+                                        space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:space')),
+                                        color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('top')?.getAttribute('w:color')
+                                    },
+                                    left: {
+                                        val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:val'),
+                                        sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:sz')),
+                                        space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:space')),
+                                        color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('left')?.getAttribute('w:color')
+                                    },
+                                    bottom: {
+                                        val: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:val'),
+                                        sz: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:sz')),
+                                        space: Number.parseInt(tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:space')),
+                                        color: tRows?.querySelector('tcPr')?.querySelector('tcBorders')?.querySelector('bottom')?.getAttribute('w:color')
+                                    },
+                                }
+                            },
+                            p: []
+                        }
+                        for(const tccp of tcc.querySelectorAll('p')){
+                            let TableColumnParagraph = {
+                                type: "Paragraph",
+                                pPr: {
+                                    pStyle: tccp.querySelector('pPr').querySelector('pStyle')?.getAttribute("w:val"),
+                                    rPr: {
+                                        sz: Number.parseInt(tccp.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute("w:val")) || null,
+                                        szCs: Number.parseInt(tccp.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute("w:val")) || null
+                                    }
+                                },
+                                runs: []
+                            }
+                            for(let tcprr of tccp.querySelectorAll('r')){
+                                const runn = {
+                                    type: "Run",
+                                    rPr: {
+                                        fontSize: Number.parseInt(tcprr?.querySelector("rPr")?.querySelector("sz")?.getAttribute("w:val")) || Number.parseInt(tcprr?.querySelector("rPr")?.querySelector("szCs")?.getAttribute("w:val")),
+                                        fontFamily: tcprr?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:ascii") || tcprr?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:hAnsi") || null,
+                                        bold: tcprr?.querySelector("rPr")?.querySelector("b") || tcprr?.querySelector("rPr")?.querySelector("bCs") ? true : false,
+                                        italic: tcprr?.querySelector("rPr")?.querySelector("i") || tcprr?.querySelector("rPr")?.querySelector("iCs") ? true : false,
+                                        strike: tcprr?.querySelector("rPr")?.querySelector("strike") || tcprr?.querySelector("rPr")?.querySelector("dstrike") ? true : false,
+                                        underline: tcprr?.querySelector("rPr")?.querySelector("u") ? true : false,
+                                        color: ""
+                                    },
+                                    oldValues: [] | ''
+                                }
+                                if (tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
+                                    runn.rPr.color = tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
+                                } else if (tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === undefined || tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === null) {
+                                    runn.rPr.color = "null";
+                                } else {
+                                    runn.rPr.color = `#${tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val")}`;
+                                }
+                                if (tcprr?.querySelectorAll("t").length > 1) {
+                                    for(const tp of tcprr?.querySelectorAll("t")){
+                                        runn.oldValues.push(tp.textContent);
+                                    }
+                                } else {
+                                    runn.oldValues = tcprr?.querySelector("t").textContent;
+                                }
+                                TableColumnParagraph.runs.push(runn);
+                            }
+                            tc.p.push(TableColumnParagraph);
+                        }
+                        tableRow.tcols.push(tc);
+                    }
+                }
+                tablee.tbr.push(tableRow);
+            }
+            return tablee
+        }
+
+        function createParagraphObject(mlElement){
+            let paragraph = {
+                type: "Paragraph",
+                pPr: {
+                    pStyle: {val: mlElement.querySelector('pPr').querySelector('pStyle').getAttribute('w:val')} || null,
+                    bidi:  { val: mlElement.querySelector('pPr').querySelector('bidi').getAttribute('w:val') } || null,
+                    jc: { val: mlElement.querySelector('pPr').querySelector('jc').getAttribute('w:val')} || null,
+                    rPr: {
+                        color:{val: mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null,
+                        sz:{val: mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('sz')?.getAttribute('w:val')} || null,
+                        szCs:{val: mlElement?.querySelector('pPr')?.querySelector('rPr')?.querySelector('szCs')?.getAttribute('w:val')} || null,
+                        fontFamily: {val: mlElement?.querySelector('pPr')?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:ascii") || mlElement?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:hAnsi")} || null,
+                        bold: { val: mlElement?.querySelector('pPr')?.querySelector("rPr")?.querySelector("b") ||  mlElement?.querySelector("rPr")?.querySelector("bCs") ? true : false},
+                        italic: { val: mlElement?.querySelector('pPr')?.querySelector("rPr")?.querySelector("i") ||  mlElement?.querySelector("rPr")?.querySelector("iCs") ? true : false},
+                        strike: { val: mlElement?.querySelector('pPr')?.querySelector("rPr")?.querySelector("strike") ||  mlElement?.querySelector("rPr")?.querySelector("dstrike") ? true : false},
+                        underline: { val: mlElement?.querySelector('pPr')?.querySelector("rPr")?.querySelector("u") ? true : false},
+                    }
+                },
+                r: []
+            }
+            for(const rb of mlElement.querySelectorAll('r')){
+                let r = {
+                    type: "Run",
+                    rPr: {
+                        color: {val: rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val').startsWith("#") ? rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val') : `#${rb.querySelector('rPr')?.querySelector('color')?.getAttribute('w:val')}`} || null,
+                        sz: mlElement.querySelector('rPr')?.querySelector('sz')?.getAttribute('w:val') || null,
+                        szCs: mlElement.querySelector('rPr')?.querySelector('szCs')?.getAttribute('w:val') || null,
+                        fontFamily: {val: mlElement?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:ascii") || mlElement?.querySelector("rPr")?.querySelector("rFonts")?.getAttribute("w:hAnsi")} || null,
+                        bold: { val: mlElement?.querySelector("rPr")?.querySelector("b") ||  mlElement?.querySelector("rPr")?.querySelector("bCs") ? true : false},
+                        italic: { val: mlElement?.querySelector("rPr")?.querySelector("i") ||  mlElement?.querySelector("rPr")?.querySelector("iCs") ? true : false},
+                        strike: { val: mlElement?.querySelector("rPr")?.querySelector("strike") ||  mlElement?.querySelector("rPr")?.querySelector("dstrike") ? true : false},
+                        underline: { val: mlElement?.querySelector("rPr")?.querySelector("u") ? true : false},
+                    },
+                    t: {
+                        attribute: rb?.querySelector('t')?.getAttribute('xml:space') || null,
+                        text: rb?.querySelector('t')?.textContent
+                    }
+                }
+                paragraph.r.push(r);
+            }
+            return paragraph
+        }
+
         function start(path, data) {
             Documentt.fileName = path.name;
             let mlDom = pars.parseFromString(data, 'application/xml');
-            const edytorContainer = document.createElement('div');
-            edytorContainer.classList.add('EditorContainer');
-            const edytor = document.createElement('div');
-            edytor.classList.add('Editor');
+            let p = null;
+            document?.querySelector("drag-and-drop")?.remove();
+            let eContainer = document.createElement("div");
+            eContainer.setAttribute("class", "EditorContainer");
+            let e = document.createElement("div");
+            e.setAttribute("class", "Editor");
+            eContainer.append(e);
+            vbcx.append(eContainer);
+
             for(const cN of mlDom.querySelector("body").childNodes){
                 if(cN.localName === 'p'){
-                    PAndR(cN, edytor, Documentt.fileName);
+                    p = createParagraphObject(cN)
+                    Documentt.body.push(p);
+                    PAndR(p, e);
                 } else if(cN.localName === 'tbl'){
-                    vcccccccc(cN).then((result)=>{
-                        Documentt.body.push(result);
-                        createTable(edytor, cN, result);
-                    })
+                    t = createTableObject(cN);
+                    Documentt.body.push(t);
+                    createTable(e, t);
                 }
-                edytorContainer.append(edytor);
-                vbcx.append(edytorContainer);
             }
+            
+            window.mFile.fileSystem.writeFile(`${Documentt.fileName}.json`, JSON.stringify(Documentt), (err)=>{
+                if (err) console.log(err)
+            })
         }
 
         function DialogStart2(main, file, state){
@@ -469,7 +563,6 @@
 
             close.append(closeImg);
             dialogHeader.append(close);
-            
 
             let dialogSelectHeader = document.createElement("div");
                 dialogSelectHeader.classList.add("dialogSelectHeader");
@@ -529,10 +622,8 @@
                 nextButton.addEventListener("click", ()=>{
                     mFile.fileSystem.readFile(`docxs/${file.name}/word/document.xml`, 'utf8', (err, buff) => {
                         if (err) { console.log(err)}
-                        inst.addInstance(new Instance(countCPre.textContent, "CountC"));
-                        dragg.remove();
-                        document.querySelector("#dialogStart").remove();
-                        createWorkNavBar(main);
+                        inst = Number(countCPre.textContent);
+                        RootBox.remove();
                         start(file, buff);
                     });
                 });
@@ -573,15 +664,12 @@
             dBodyLeft.classList.add("dBodyLeft");
             let PreviewTextContainer = document.createElement("div");
             PreviewTextContainer.classList.add("PreviewTextContainer");
-            let PreviewText = document.createElement("div");
-            PreviewText.id = "PreviewText";
-            PreviewText.classList.add("PreviewText");
-            PreviewText.style.color = preElem.getAttribute("do-color");
-            PreviewText.style.textDecoration = preElem.getAttribute("do-text-decoration");
-            PreviewText.style.fontStyle = preElem.getAttribute("do-font-style");
-            PreviewText.style.fontWeight = preElem.getAttribute("do-font-weight");
-            PreviewText.style.fontSize = `${preElem.getAttribute("do-font-size")}pt`;
-            PreviewTextContainer.append(PreviewText);
+            PreviewTextContainer.setAttribute("id", "PreviewText");
+            PreviewTextContainer.style.color = preElem.getAttribute("do-color");
+            PreviewTextContainer.style.textDecoration = preElem.getAttribute("do-text-decoration");
+            PreviewTextContainer.style.fontStyle = preElem.getAttribute("do-font-style");
+            PreviewTextContainer.style.fontWeight = preElem.getAttribute("do-font-weight");
+            PreviewTextContainer.style.fontSize = `${preElem.getAttribute("do-font-size")}pt`;
             let ApplyChangeText = document.createElement("input");
             ApplyChangeText.placeholder = "Wprowadź nowe wartości";
             ApplyChangeText.classList.add("ApplyChangeText");
@@ -598,7 +686,7 @@
                     }
                     for(let indexx in newStrings){
                         let p = document.createElement("div");
-                        p.style.maxWidth = "151px";
+                        p.style.marginTop = "20px";
                         p.textContent = newStrings[indexx];
                         rPreviewText.append(p);
                     }
@@ -611,7 +699,7 @@
             dBodyRight.classList.add("dBodyRight");
             let OtherFilesContainer = document.createElement("div");
             OtherFilesContainer.classList.add("OtherFilesContainer");
-            for(let hd = 0; hd < Number(inst.instanceTable[0].df); hd++){
+            for(let hd = 0; hd < inst; hd++){
                 let OtherFilesItem = document.createElement("div");
                 OtherFilesItem.classList.add("OtherFilesItem");
                 let ffmnmn = fN.split(".") ;
@@ -628,7 +716,19 @@
             continueButton.textContent = "Zatwierdź";
 
             continueButton.addEventListener("click", ()=>{
-                
+                let smo = document.querySelectorAll(".dBodyLeft .PreviewTextContainer div");
+                let smd = document.querySelectorAll(".dBodyRight .OtherFilesContainer .OtherFilesItem[do-select]");
+                if(smo.length > smd.length || smo.length < smd.length){
+                    console.log("Za mało lub za dużo");
+                }else{
+                    for(sm in smo){
+                        if(smd[sm]?.textContent === undefined){}
+                        else {
+                            preElem.setAttribute(smd[sm].textContent.replace(".", "-"), smo[sm].textContent);
+                            RootBox.remove();
+                        }
+                    }
+                }
             })
 
             dBodyRight.append(OtherFilesContainer, continueButton);
