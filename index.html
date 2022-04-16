@@ -338,44 +338,44 @@
 
         function createTableObject(tElement){
             let tablee = {
-            type: 'Table',
-            tblPr: {
-                tblW: {
-                    width: tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
-                    type: ""
-                },
-                jc: tElement?.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
-                tblInd: {
-                    width: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
-                    type: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
-                },
-                tblLayout: {
-                    type: tElement?.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null"
-                },
-                tblCellMar: {
-                    top: {
-                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w'),
-                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                type: 'Table',
+                tblPr: {
+                    tblW: {
+                        width: tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:w'),
+                        type: ""
                     },
-                    left: {
-                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w'),
-                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    jc: tElement?.querySelector('tblPr').querySelector('jc').getAttribute('w:val'),
+                    tblInd: {
+                        width: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:w'),
+                        type: tElement?.querySelector('tblPr').querySelector('tblInd').getAttribute('w:type') === 'dxa' ? "DXA" : "null"
                     },
-                    bottom: {
-                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w'),
-                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    tblLayout: {
+                        type: tElement?.querySelector('tblPr').querySelector('tblLayout').getAttribute('w:type') || "null"
                     },
-                    right: {
-                        width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w'),
-                        type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                    tblCellMar: {
+                        top: {
+                            width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:w'),
+                            type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('top')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        },
+                        left: {
+                            width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:w'),
+                            type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('left')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        },
+                        bottom: {
+                            width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:w'),
+                            type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('bottom')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        },
+                        right: {
+                            width: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:w'),
+                            type: tElement?.querySelector('tblPr')?.querySelector('tbCellMar')?.querySelector('right')?.getAttribute('w:type') === 'dxa' ? "DXA" : "null"
+                        }
                     }
-                }
-            },
-            tblGrid: {
-                gridCols: []
-            },
-            tbr: [],
-        }
+                },
+                tblGrid: {
+                    gridCols: []
+                },
+                tbr: [],
+            }
 
             if(tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type') === 'dxa'){
                 tablee.tblPr.tblW.type = tElement?.querySelector('tblPr').querySelector('tblW').getAttribute('w:type')
