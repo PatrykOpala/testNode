@@ -8,7 +8,7 @@
 </head>
 <body>
     <main>
-        <div class="menuBar">
+        <div class="menuBar" id="mBar">
             <do-logo></do-logo>
         </div>
         <drag-and-drop></drag-and-drop>
@@ -320,6 +320,11 @@
                                 e.target.style.border = "1px solid #333333";
                             })
                             paragraph.appendChild(run);
+                            paragraph.addEventListener("click", (event)=>{
+                                if(event.target.localName === "pre"){
+                                    EdytorDialog(vbcx, event.target, Documentt.fileName);
+                                }
+                            });
                         }
                         tabD.appendChild(paragraph);
                     }
@@ -447,6 +452,7 @@
                                     },
                                     oldValues: [] | ''
                                 }
+                                
                                 if (tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val").startsWith("#")) {
                                     runn.rPr.color = tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val");
                                 } else if (tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === undefined || tcprr?.querySelector("rPr")?.querySelector("color")?.getAttribute("w:val") === null) {
@@ -545,6 +551,22 @@
             })
         }
 
+        function ButtonGenerateWordFile(menu_bar){
+            let buttonGenerate = document.createElement("button");
+            buttonGenerate.style.height = "37px";
+            buttonGenerate.style.color = "#fff";
+            buttonGenerate.style.fontSize = "1.1em";
+            buttonGenerate.style.borderRadius = "6px";
+            buttonGenerate.style.backgroundColor = "var(--primary-colour)";
+            buttonGenerate.textContent = "Wygeneruj Pliki";
+            buttonGenerate.style.border = "none";
+            buttonGenerate.style.marginTop = "20px";
+            buttonGenerate.style.marginRight = "30px";
+
+            menu_bar.append(buttonGenerate);
+
+        }
+
         function DialogStart2(main, file, state){
             let RootBox = document.createElement("div");
             RootBox.setAttribute("id", "dialogStart");
@@ -624,6 +646,8 @@
                         if (err) { console.log(err)}
                         inst = Number(countCPre.textContent);
                         RootBox.remove();
+                        ButtonGenerateWordFile(document.querySelector("#mBar"));
+                        createWorkNavBar(vbcx);
                         start(file, buff);
                     });
                 });
@@ -725,6 +749,7 @@
                         if(smd[sm]?.textContent === undefined){}
                         else {
                             preElem.setAttribute(smd[sm].textContent.replace(".", "-"), smo[sm].textContent);
+                            preElem.style.border = "2px solid #ccc50f";
                             RootBox.remove();
                         }
                     }

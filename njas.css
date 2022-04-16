@@ -58,6 +58,8 @@ pre:hover{ background-color: var(--rgb-white);}
     padding: 10px;
     background-color: var(--border-colour);
     border-bottom:var(--onePx-solid-border, 1 solid) var(--primary-colour);
+    display: flex;
+    justify-content: space-between;
 }
 .work_nav{
     width:100%;
