@@ -96,11 +96,13 @@
             }
             edytorParagraph.addEventListener("click", (event)=>{
                 if(event.target.localName === "pre"){
+                    if(event.target.parentNode.hasAttribute("do-editing")){event.target.parentNode.removeAttribute("do-editing");}else{event.target.parentNode.setAttribute("do-editing", "");}
                     EdytorDialog(vbcx, event.target, Documentt.fileName);
                 }
             });
             rt.append(edytorParagraph);
         }
+
         function T(tElement, rt2){
             // 6,944444444444444e-4
             let tablee = {
@@ -550,6 +552,28 @@
             })
         }
 
+        function generateWordFile(){
+            // let doEditing = document.querySelectorAll(".EditorParagraph pre[do-editing]");
+            let editorChilds = document.querySelector(".Editor").childNodes;
+            console.log(editorChilds);
+
+            // let newBodyArray = Documentt.body.map((currentValue)=>{
+            //     if(currentValue.type === "Paragraph"){
+            //         return currentValue
+            //     }
+            // })
+
+            // console.log(newBodyArray)
+
+            // let doc = new mFile.Document();
+
+            // mFile.Packer.toBuffer(doc).then(buffer =>{
+            //     fs.writeFileSync("test10.docx", buffer);
+            // });
+
+            // console.log(doEditing);
+        }
+
         function ButtonGenerateWordFile(menu_bar){
             let buttonGenerate = document.createElement("button");
             buttonGenerate.style.height = "37px";
@@ -561,6 +585,7 @@
             buttonGenerate.style.border = "none";
             buttonGenerate.style.marginTop = "20px";
             buttonGenerate.style.marginRight = "30px";
+            buttonGenerate.addEventListener("click", generateWordFile);
 
             menu_bar.append(buttonGenerate);
 
@@ -673,7 +698,10 @@
             closeImg.src = "./img/close.svg";
             closeImg.alt = "close";
 
-            close.addEventListener("click", ()=>{RootBox.remove();})
+            close.addEventListener("click", ()=>{
+                preElem.parentNode.removeAttribute("do-editing");
+                RootBox.remove();
+            });
 
             close.append(closeImg);
             dialogHeader.append(close);
@@ -743,16 +771,16 @@
                 let smd = document.querySelectorAll(".dBodyRight .OtherFilesContainer .OtherFilesItem[do-select]");
                 if(smo.length > smd.length || smo.length < smd.length){
                     console.log("Za mało lub za dużo");
-                }else{
-                    for(sm in smo){
-                        if(smd[sm]?.textContent === undefined){}
-                        else {
-                            preElem.setAttribute(smd[sm].textContent.replace(".", "-"), smo[sm].textContent);
-                            preElem.style.border = "2px solid #ccc50f";
-                            RootBox.remove();
-                        }
+                }
+
+                for(sm in smo){
+                    if(smd[sm]?.textContent === undefined){}
+                    else{
+                        preElem.setAttribute(smd[sm].textContent.replace(".", "-"), smo[sm].textContent);
+                        preElem.style.border = "2px solid #ccc50f";
                     }
                 }
+                RootBox.remove();
             })
 
             dBodyRight.append(OtherFilesContainer, continueButton);
