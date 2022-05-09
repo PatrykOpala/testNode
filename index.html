@@ -3,15 +3,313 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline';" />
-    <link rel="stylesheet" href="njas.css">
+    <style>
+        :root{
+            --rgb-white: rgba(207, 202, 202);
+            --primary-colour: rgb(30, 30, 180);
+            --primary-colour-light: rgb(49, 49, 247);
+            --blue-colour: rgb(39, 39, 236);
+            --border-colour:rgba(250, 250, 250, .9);
+            --border-colour-black: rgba(10, 10, 10, 0.3);
+            --white: #fff;
+            --onePx-solid--black-border: 1px solid var(--border-colour-black);
+            --twoPX-solid-black-border: 2px solid var(--border-colour-black);
+            --twoPX-solid-border: 2px solid;
+        }
+        *{ font-family: Alef;}
+        body{margin:0; padding:0;}
+        main, .countFileContainer, .buttonsContainer, .menuBar, .work_nav, .dialogStart, .closeDlg, .dialogSelectHeader, .dialogBody, .countC, .boldBTN, .EditorContainer,
+        .Editor, .EditorParagraph ,.ApplyChangeText, .LogoContainer{display: flex;}
+
+        main, .dialogStart, .dialogBody, .boldBTN, .EditorContainer, .ApplyChangeText, .Editor{flex-direction: column;}
+
+        .LogoContainer{width: 20vw;}
+
+        .whiteSquareRounded{
+            width: 45px;
+            height: 45px;
+            background-color: var(--primary-colour);
+            margin-right: 10px;
+            margin-top: 2px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .Logo{
+            font-size: 1.7rem;
+            font-family: sans-serif;
+            margin-top: 10px;
+            color:var(--primary-colour);
+        }
+
+        .Logo > span{
+            font-weight: 600;
+            letter-spacing: 3px;
+        }
+
+        main{
+            width: 100%;
+            height: 100vh;
+        }
+        .paragraphContainer{
+            width: 582px;
+            height: 300px;
+            margin: 0 5px;
+            overflow: hidden;
+            overflow-y: scroll;
+            position: relative;
+        }
+        pre{outline: none;}
+        pre:hover{ background-color: var(--rgb-white);}
+        .countFileContainer{
+            margin: 20px 0;
+        }
+        .buttonsContainer{
+            width:100%;
+            justify-content:flex-end;
+            margin:10px 0;
+        }
+        .countFileContainerElementsLabel{
+            margin: 9px 10px;
+            font-size:20px;
+            text-align:center;
+        }
+        .countFileContainerElementsInput{
+            width:100px;
+            height:40px;
+            border:var(--onePx-solid--black-border);
+            outline:none;
+            text-align:center;
+            font-size:29px;
+            margin-left:6px;
+        }
+        .menuBar{
+            height: 49px;
+            padding: 10px;
+            background-color: var(--border-colour);
+            border-bottom:var(--onePx-solid-border, 1 solid) var(--primary-colour);
+            display: flex;
+            justify-content: space-between;
+        }
+        .work_nav{
+            width:100%;
+            height:38px;
+            background-color: var(--border-colour);
+        }
+        .dialogStart{
+            background-color: var(--white);
+            border-radius: 4px;
+            border: var(--onePx-solid--black-border);
+            padding: 10px;
+            position: absolute;
+            top: 20vh;
+            left: 20vw;
+            height: 67vh;
+        }
+        .dialogHeader{
+            width: 48vw;
+            height: 27px;
+        }
+        .closeDlg{
+            width: 20px;
+            height: 20px;
+            margin-left: 96%;
+            justify-content: center;
+            align-items: center;
+            padding: 3px;
+            border-radius: 4px;
+        }
+        .closeDlg:hover{ background-color: var(--border-colour-black);}
+        .dialogSelectHeader{
+            width: 500px;
+            height: 35px;
+        }
+        [activee]{color: var(--primary-colour);font-weight: 600;}
+        .dialogSelectHeaderItem{
+            font-size: 16px;
+            text-align: center;
+            line-height: 35px;
+            margin-left: 10px;
+            padding: 0 4px;
+            border-bottom: 2px solid transparent;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            background-color: transparent;
+        }
+        .dialogSelectHeaderItem:hover{
+            cursor: pointer;
+            color: var(--primary-colour);
+            border-bottom: var(--twoPX-solid-border) var(--primary-colour);
+        }
+        .dialogBody{
+            width: 100%;
+            align-items: center;
+        }
+        .dialogEdytorBody{
+            display: inline-grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 4px;
+        }
+        input, .nextButton{border:none; outline:none;}
+        .bv{
+            width: 160px;
+            height: 50px;
+            position: relative;
+            margin: 4vh 0;
+        }
+        .bv > span, .bc > span{
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            z-index: 70;
+            background-color: var(--white);
+            font-size: 0.9em;
+        }
+        .filePath{
+            width:150px;
+            height:40px;
+            border-radius: 4px;
+            border:var(--twoPX-solid-black-border);
+            font-size: 1em;
+        }
+        .bc{
+            width: 140px;
+            height: 50px;
+            position: relative;
+            margin-top: 10px;
+        }
+        .countC{
+            width:100%;
+            height:40px;
+            border-radius: 4px;
+            border: var(--twoPX-solid-black-border);
+            font-size: 1em;
+            text-align: center;
+            justify-content: center;
+            align-items: center;
+        }
+        .countC > pre{font-size: 1.5em;}
+        .countC > p{
+            cursor: default;
+            font-size: 1.5em;
+        }
+        .nextButton{
+            width:90px;
+            height:35px;
+            background-color: var(--primary-colour);
+            margin-top: 30px;
+            color: var(--white);
+            border-radius: 4px;
+            font-size: 1.1em;
+        }
+        .Font, .boldBTN{ margin: 4px 4px;}
+        .Font{
+            width: 100px;
+            height: 29px;
+            text-align: center;
+            line-height: 30px;
+        }
+        .boldBTN{
+            width: 29px;
+            height: 29px;
+            background-color: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+        }
+        .boldBTN:hover{background-color: transparent;border-bottom: var(--twoPX-solid-border) var(--primary-colour);}
+
+        .boldBTN, .EditorContainer, .ApplyChangeText{justify-content: center;align-items: center;}
+
+        .EditorContainer{
+            width: 100%;
+            height: 100%;
+            margin: 4px 0;
+            position: relative;
+            overflow-y: scroll;
+        }
+        .Editor{
+            position: absolute;
+            width: 11in;
+            min-height: 90%;
+        }
+        .EditorParagraph{min-height: 30px;}
+        .dBodyLeft, .dBodyRight{width: 24vw;height: 63vh;}
+        .PreviewTextContainer{
+            width: 22vw;
+            height: 40vh;
+            padding: 10px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+        }
+        .PreviewTextContainer::-webkit-scrollbar{
+            width: 5px;
+            height: 5px;
+            background-color: transparent;
+        }
+        .PreviewTextContainer::-webkit-scrollbar-thumb{
+            background-color: var(--primary-colour);
+        }
+        .PreviewTextContainer::-webkit-scrollbar-thumb:hover{
+            background-color: var(--primary-colour-light);
+        }
+        .ApplyChangeText{
+            width: 20vw;
+            border: var(--onePx-solid-border, 1 solid) rgb(72, 89, 21);
+        }
+        .ApplyChangeText{
+            height: 5vh;
+            padding: 6px;
+            border: var(--onePx-solid--black-border);
+            margin-left: 10px;
+            font-size: 1.5rem;
+        }
+        .OtherFilesContainer{
+            width: 290px;
+            height: 70%;
+            margin: 10% 10%;
+            overflow-y: scroll;
+        }
+        .OtherFilesItem{
+            width: 100%;
+            height: 47px;
+            margin-top: 10px;
+            font-family: sans-serif;
+            text-align: center;
+            line-height: 50px;
+        }
+        .OtherFilesItem:hover{
+            cursor: pointer;
+            background-color: var(--primary-colour);
+            color: var(--white);
+        }
+        [do-select]{ background-color: var(--primary-colour); color: var(--white);}
+        .continueButton{
+            margin: 20px 65%;
+            color:var(--primary-colour);
+            background-color: transparent;
+            font-weight: bold;
+            outline-width: thin;
+            outline-color: var(--white);
+            border: none;
+            font-size: 1.1rem;
+        }
+    </style>
 </head>
 <body>
     <main>
         <div class="menuBar" id="mBar">
-            <do-logo></do-logo>
+            <div class="LogoContainer">
+                <img src="img/logo30x30.svg" alt="">
+                <div class="Logo">Document <span>Office</span></div>
+            </div>
         </div>
         <drag-and-drop></drag-and-drop>
+
+        <template></template>
+
     </main>
     <script src="Screen/DOComponents.js" async></script>
     <script>
@@ -19,6 +317,8 @@
         let dragg = document.querySelector('drag-and-drop');
         let vbcx = document.querySelector('main');
         let inst = null;
+        let bjs = "";
+        const changeFiles = [];
 
         let Documentt = {
             fileName: "",
@@ -527,7 +827,7 @@
             Documentt.fileName = path.name;
             let mlDom = pars.parseFromString(data, 'application/xml');
             let p = null;
-            document?.querySelector("drag-and-drop")?.remove();
+            dragg.remove();
             let eContainer = document.createElement("div");
             eContainer.setAttribute("class", "EditorContainer");
             let e = document.createElement("div");
@@ -553,9 +853,28 @@
         }
 
         function generateWordFile(){
-            // let doEditing = document.querySelectorAll(".EditorParagraph pre[do-editing]");
             let editorChilds = document.querySelector(".Editor").childNodes;
-            console.log(editorChilds);
+            let doEditingElements = [];
+            let jfdkmv = [];
+            for(let eChild of editorChilds){
+                if(eChild.hasAttribute("do-editing")){
+                    doEditingElements.push(eChild);
+                }
+            }
+            
+            // console.log(doEditingElements[0].childNodes);
+
+
+            // for(vbnz of doEditingElements){
+            //     let nbzj = Documentt.body.map((u, index)=>{
+            //         // if(u.r.t === vbnz[index].getAttribute("oldvalue")){
+            //         //     return u = vbnz[index].getAttribute(bjs);
+            //         // }
+            //         console.log(u[index])
+            //     })
+            //     // console.log(nbzj)
+            // }
+
 
             // let newBodyArray = Documentt.body.map((currentValue)=>{
             //     if(currentValue.type === "Paragraph"){
@@ -625,7 +944,9 @@
 
                 if(state === "Ustawienia"){
                     dialogSelectHeaderItemSettings.setAttribute("activee", "");
-                }else if(state === "Ile plików"){
+                }
+                
+                if(state === "Ile plików"){
                     dialogSelectHeaderItemCountFile.setAttribute("activee", "");
                 }
 
@@ -649,7 +970,7 @@
                 let bc = document.createElement("div");
                 bc.classList.add("bv");
                 let spann = document.createElement("span");
-                spann.textContent = "Ilość Pliku";
+                spann.textContent = "Ilość Plików";
                 let countC = document.createElement("div");
                 countC.classList.add("countC");
                 let countCPre = document.createElement("pre");
@@ -659,6 +980,10 @@
                 p.textContent = "/500";
                 countC.append(countCPre, p);
                 bc.append(spann, countC);
+
+                // countCPre.type="text";
+                // countCPre.inputMode = "numeric";
+                // countCPre.setAttribute("pattern", "/[0-9]/g"); //, "^[0-9]+$"
                 
                 let nextButton = document.createElement("button");
                 nextButton.setAttribute("id", "nextButton");
@@ -728,7 +1053,7 @@
                 if(e.key === "Enter"){
                     newStrings.push(ApplyChangeText.value);
                     ApplyChangeText.value = "";
-                    let rPreviewText = document.querySelector("#PreviewText");
+                    let rPreviewText = document.getElementById("PreviewText");
                     let rPreviewParagraph = rPreviewText.querySelectorAll("div");
                     if(rPreviewParagraph.length > 0){
                         for(let paraf of rPreviewParagraph){
@@ -776,8 +1101,15 @@
                 for(sm in smo){
                     if(smd[sm]?.textContent === undefined){}
                     else{
-                        preElem.setAttribute(smd[sm].textContent.replace(".", "-"), smo[sm].textContent);
+                        bjs = smd[sm].textContent.replace(".", "-");
+                        preElem.setAttribute(bjs, smo[sm].textContent);
                         preElem.style.border = "2px solid #ccc50f";
+                        changeFiles[bjs] = {
+                            oldValue: preElem.getAttribute("oldvalue"),
+                            newValue: smo[sm].textContent,
+                            doColor: preElem.getAttribute("do-color")
+                        }
+                        console.log(changeFiles);
                     }
                 }
                 RootBox.remove();
