@@ -318,6 +318,8 @@
         let vbcx = document.querySelector('main');
         let inst = null;
         let bjs = "";
+        const generatedFiles = new Set();
+        const bjsStrings = [];
         const changeFiles = [];
 
         let Documentt = {
@@ -832,6 +834,7 @@
             eContainer.setAttribute("class", "EditorContainer");
             let e = document.createElement("div");
             e.setAttribute("class", "Editor");
+            e.setAttribute("id", "EditorT");
             eContainer.append(e);
             vbcx.append(eContainer);
 
@@ -853,44 +856,35 @@
         }
 
         function generateWordFile(){
-            let editorChilds = document.querySelector(".Editor").childNodes;
-            let doEditingElements = [];
-            let jfdkmv = [];
-            for(let eChild of editorChilds){
-                if(eChild.hasAttribute("do-editing")){
-                    doEditingElements.push(eChild);
+            let editorChilds = document.getElementById("EditorT");
+            let cds = {
+                docxName: '',
+                body: []
+            };
+
+            for(let childs = 0; childs < editorChilds.childNodes.length; childs++){
+                if(editorChilds.childNodes[childs].hasAttribute("do-editing") === false){
+                    if(childs <= bjsStrings.length){
+                        cds.docxName = bjsStrings[childs];
+                    }
+                    cds.body.push(Documentt.body[childs]);
+                    // Bez zmian w pliku
+                }
+
+                if(editorChilds.childNodes[childs].hasAttribute("do-editing")){
+                    for(let r = 0; r < editorChilds.childNodes[childs].childNodes.length; r++){
+                        if(editorChilds.childNodes[childs].childNodes[r].getAttribute("oldvalue") === changeFiles[bjsStrings[r]].oldValue){
+                            let tempArr = Documentt.body[childs];
+                            tempArr.r[r].t.text = changeFiles[bjsStrings[r]].newValue;
+
+                            cds.body.push(tempArr);
+                        }
+                    }
+                    // Ze zmianami w pliku
                 }
             }
-            
-            // console.log(doEditingElements[0].childNodes);
-
-
-            // for(vbnz of doEditingElements){
-            //     let nbzj = Documentt.body.map((u, index)=>{
-            //         // if(u.r.t === vbnz[index].getAttribute("oldvalue")){
-            //         //     return u = vbnz[index].getAttribute(bjs);
-            //         // }
-            //         console.log(u[index])
-            //     })
-            //     // console.log(nbzj)
-            // }
-
-
-            // let newBodyArray = Documentt.body.map((currentValue)=>{
-            //     if(currentValue.type === "Paragraph"){
-            //         return currentValue
-            //     }
-            // })
-
-            // console.log(newBodyArray)
-
-            // let doc = new mFile.Document();
-
-            // mFile.Packer.toBuffer(doc).then(buffer =>{
-            //     fs.writeFileSync("test10.docx", buffer);
-            // });
-
-            // console.log(doEditing);
+            generatedFiles.add(cds);
+            console.log(generatedFiles);
         }
 
         function ButtonGenerateWordFile(menu_bar){
@@ -1096,12 +1090,14 @@
                 let smd = document.querySelectorAll(".dBodyRight .OtherFilesContainer .OtherFilesItem[do-select]");
                 if(smo.length > smd.length || smo.length < smd.length){
                     console.log("Za mało lub za dużo");
+                    return
                 }
 
                 for(sm in smo){
                     if(smd[sm]?.textContent === undefined){}
                     else{
                         bjs = smd[sm].textContent.replace(".", "-");
+                        bjsStrings.push(bjs);
                         preElem.setAttribute(bjs, smo[sm].textContent);
                         preElem.style.border = "2px solid #ccc50f";
                         changeFiles[bjs] = {
@@ -1109,7 +1105,6 @@
                             newValue: smo[sm].textContent,
                             doColor: preElem.getAttribute("do-color")
                         }
-                        console.log(changeFiles);
                     }
                 }
                 RootBox.remove();

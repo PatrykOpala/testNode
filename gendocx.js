@@ -31,6 +31,6 @@ let doc = new Document({
     ]
 });
 
-Packer.toBuffer(doc).then(buffer =>{
-    fs.writeFileSync("test.docx", buffer);
-});
+// Packer.toBuffer(doc).then(buffer =>{
+//     fs.writeFileSync("test.docx", buffer);
+// });
